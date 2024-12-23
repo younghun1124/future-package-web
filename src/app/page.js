@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
     <main className="flex flex-col gap-8 items-center justify-center min-h-[calc(100vh-80px)]">
