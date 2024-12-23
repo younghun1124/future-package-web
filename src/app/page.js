@@ -12,7 +12,7 @@ export default function Home() {
           친구에게 요청하기
         </a>
         <a
-          href="/send/receivername"
+          href="/send/form"
           className="px-6 py-3 border-2 border-accent text-accent rounded-lg hover:bg-accent hover:text-white transition-all text-center"
         >
           택배 보내기
