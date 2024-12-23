@@ -1,17 +1,9 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import ItemCustomModal from '@/app/components/ItemCustomModal';
 
-const FUTURE_ITEMS = [
-  { id: 'movie', name: '미래 영화 티켓' },
-  { id: 'note', name: '미래에서 온 편지' },
-  { id: 'lotto', name: '미래 로또 번호' },
-  { id: 'invention', name: '미래의 발명품' },
-  { id: 'hologram', name: '홀로그램 메시지' },
-];
-
-export default function ItemSelectionPage() {
+function ItemSelectionContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedItems, setSelectedItems] = useState([]);
@@ -20,6 +12,14 @@ export default function ItemSelectionPage() {
 
   const receiver = searchParams.get('receiver');
   const sender = searchParams.get('sender');
+
+  const FUTURE_ITEMS = [
+    { id: 'movie', name: '미래 영화 티켓' },
+    { id: 'note', name: '미래에서 온 편지' },
+    { id: 'lotto', name: '미래 로또 번호' },
+    { id: 'invention', name: '미래의 발명품' },
+    { id: 'hologram', name: '홀로그램 메시지' },
+  ];
 
   const handleItemClick = (item) => {
     setModalItem(item);
@@ -136,5 +136,13 @@ export default function ItemSelectionPage() {
         />
       )}
     </main>
+  );
+}
+
+export default function ItemSelectionPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ItemSelectionContent />
+    </Suspense>
   );
 }
