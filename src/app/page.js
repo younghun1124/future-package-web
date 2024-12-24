@@ -1,5 +1,5 @@
-import ShareButton from './ui/buttons/ShareButton';
-import SendButton from './ui/buttons/SendButton';
+import ShareButton from '../ui/buttons/ShareButton';
+import SendButton from '../ui/buttons/SendButton';
 
 export default function Home() {
   return (

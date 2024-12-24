@@ -25,11 +25,11 @@ export default function RootLayout({ children }) {
       >
         <div className="min-h-screen">
           <header className="w-full max-w-[393px] mx-auto px-5 py-4">
-            <nav>
+            {/* <nav>
               <Link href="/" className="text-accent font-bold">
                 Future Box
               </Link>
-            </nav>
+            </nav> */}
           </header>
           <div className="w-full max-w-[393px] mx-auto px-5">
             {children}

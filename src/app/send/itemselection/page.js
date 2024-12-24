@@ -1,7 +1,7 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, Suspense } from 'react';
-import ItemCustomModal from '@/app/components/ItemCustomModal';
+import ItemCustomModal from '../../../ui/ItemCustomModal'
 
 function ItemSelectionContent() {
   const router = useRouter();
