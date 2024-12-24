@@ -1,9 +1,9 @@
 'use client';
 import { useRouter } from 'next/navigation';
+import ShareButton from '@/ui/buttons/ShareButton';
+import SendButton from '@/ui/buttons/SendButton';
 
 export default function CompletePage() {
-  const router = useRouter();
-
   return (
     <main className="flex flex-col gap-8 items-center justify-between min-h-[calc(100vh-80px)] py-8">
       {/* 배송 완료 이미지 */}
@@ -34,18 +34,8 @@ export default function CompletePage() {
 
       {/* 버튼 영역 */}
       <div className="w-full space-y-4">
-        <button
-          onClick={() => router.push('/request')}
-          className="w-full py-4 bg-accent text-white rounded-lg hover:bg-opacity-90 transition-all"
-        >
-          다른 친구에게 요청하기
-        </button>
-        <button
-          onClick={() => router.push('/send/form')}
-          className="w-full py-4 border-2 border-accent text-accent rounded-lg hover:bg-accent hover:text-white transition-all"
-        >
-          다른 친구에게도 보내기
-        </button>
+        <ShareButton />
+        <SendButton />
       </div>
     </main>
   );
