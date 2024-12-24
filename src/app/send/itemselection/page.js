@@ -1,7 +1,7 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState } from 'react';
-import ItemCustomModal from '@/app/components/ItemCustomModal';
+import { useState, Suspense } from 'react';
+import ItemCustomModal from '../../../ui/ItemCustomModal'
 
 const FUTURE_ITEMS = [
   { id: 'movie', name: '미래 영화 티켓' },
