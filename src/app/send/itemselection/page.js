@@ -2,7 +2,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, Suspense } from 'react';
 import ItemCustomModal from '../../../ui/ItemCustomModal'
-
+//테스트 주석
 const FUTURE_ITEMS = [
   { id: 'movie', name: '미래 영화 티켓' },
   { id: 'note', name: '미래에서 온 편지' },
