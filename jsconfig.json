@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src",  // 기본 경로를 프로젝트 루트로 설정
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*":["*"],
+      "@ui/*": ["ui/*"], // @components는 src/components 폴더를 참조
+      "@utils/*": ["utils/*"], // @utils는 src/utils 폴더를 참조
+      "@lib/*": ["lib/*"], 
     }
   }
 }

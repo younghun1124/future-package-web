@@ -1,7 +1,7 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, Suspense } from 'react';
-import ItemCustomModal from '../../../ui/ItemCustomModal'
+import ItemCustomModal from '@/ui/FullScreenModal'
 //테스트 주석
 const FUTURE_ITEMS = [
   { id: 'movie', name: '미래 영화 티켓' },

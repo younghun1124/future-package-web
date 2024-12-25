@@ -1,7 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import ShareButton from '../../../ui/buttons/ShareButton';
-import SendButton from 'ui/buttons/SendButton';
+import ShareButton from '@/ui/buttons/ShareButton';
+import SendButton from '@/ui/buttons/SendButton';
 
 export default function CompletePage() {
   return (
