@@ -1,8 +1,9 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, Suspense } from 'react';
-import ItemCustomModal from '../../../ui/ItemCustomModal'
-
+import FutureItem from '@ui/FutureItem';
+import ItemCustomModal from '@/ui/FullScreenModal'
+//테스트 주석
 const FUTURE_ITEMS = [
   { id: 'movie', name: '미래 영화 티켓' },
   { id: 'note', name: '미래에서 온 편지' },
@@ -81,8 +82,9 @@ export default function ItemSelectionPage() {
     <main className="flex flex-col gap-8 items-center justify-between min-h-[calc(100vh-80px)] py-8">
       {/* 아이템 선택 박스 */}
       <div className="w-full p-6 bg-white rounded-lg shadow-md">
-        <h2 className="text-lg font-bold mb-4 text-center">미래의 선물 상자</h2>
+        <h2 className="text-lg font-bold mb-4 text-center">선물 리스트</h2>
         <div className="grid grid-cols-2 gap-4">
+          <FutureItem/>
           {FUTURE_ITEMS.map((item) => (
             <button
               key={item.id}
