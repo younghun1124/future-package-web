@@ -1,10 +1,12 @@
 -- 택배
 CREATE TABLE future_box (
   id SERIAL PRIMARY KEY,
+  uuid UUID NOT NULL UNIQUE,
   receiver VARCHAR(100) NOT NULL,
   sender VARCHAR(100) NOT NULL,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 
 -- 미래의 영화 티켓
 CREATE TABLE future_movie_ticket (
