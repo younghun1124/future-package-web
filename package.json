@@ -18,6 +18,7 @@
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
     "react-sketch-canvas": "^6.2.0",
+    "@google-cloud/storage": "^8.15.0",
     "uuid": "^11.0.3"
   },
   "devDependencies": {

@@ -1,0 +1,22 @@
+export const FUTURE_MOVIE_TYPES = {
+  ACTION: 1,
+  ROMANCE: 2,
+  SCIFI: 3,
+  COMEDY: 4,
+  DRAMA: 5
+};
+
+export const FUTURE_GIFTICON_TYPES = {
+  COFFEE: 1,
+  FOOD: 2,
+  SHOPPING: 3,
+  ENTERTAINMENT: 4
+};
+
+export const FUTURE_INVENTION_TYPES = {
+  TELEPORT: 1,
+  FLYING_CAR: 2,
+  TIME_MACHINE: 3,
+  ROBOT: 4,
+  AI_ASSISTANT: 5
+}; 
