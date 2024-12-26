@@ -148,11 +148,3 @@ export default function ItemSelectionPage() {
     </main>
   );
 }
-
-export default function ItemSelectionPage() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <ItemSelectionContent />
-    </Suspense>
-  );
-}
