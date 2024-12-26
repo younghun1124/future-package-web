@@ -22,7 +22,7 @@ export async function GET(request, { params }) {
     // 각 아이템 테이블에서 box_id로 조회. 근데 이럴꺼면 FutureBox 를 괜히 만들었나...
     const [movieTickets, notes, lottos, inventions, holograms] = await Promise.all([
       sql`
-        SELECT * FROM future_movie_ticket 
+        SELECT * FROM future_movie_ticket
         WHERE box_id = ${box.id}
         ORDER BY created_at DESC
       `,
@@ -37,7 +37,7 @@ export async function GET(request, { params }) {
         ORDER BY created_at DESC
       `,
       sql`
-        SELECT * FROM future_invention 
+        SELECT * FROM future_invention
         WHERE box_id = ${box.id}
         ORDER BY created_at DESC
       `,

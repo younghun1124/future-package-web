@@ -1,7 +1,7 @@
-export default function FutureLotto() {
+export default function FutureLotto({ item }) {
     return (
-        <div>
-           행운번호: 11,14,21,34,36,45
+        <div className="text-center">
+            {item.content}
         </div>
     );
 }

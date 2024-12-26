@@ -2,79 +2,53 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, Suspense } from 'react';
 import FutureItem from '@ui/FutureItem';
-import ItemCustomModal from '@/ui/FullScreenModal'
-//테스트 주석
-const FUTURE_ITEMS = [
-  { id: 'movie', name: '미래 영화 티켓' },
-  { id: 'note', name: '미래에서 온 편지' },
-  { id: 'lotto', name: '미래 로또 번호' },
-  { id: 'invention', name: '미래의 발명품' },
-  { id: 'hologram', name: '홀로그램 메시지' },
-];
+import { dummyItems } from '@/mocks/items';
 
 export default function ItemSelectionPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedItems, setSelectedItems] = useState([]);
-  const [modalItem, setModalItem] = useState(null);
-  const [isEdit, setIsEdit] = useState(false);
 
   const receiver = searchParams.get('receiver');
   const sender = searchParams.get('sender');
 
-  const FUTURE_ITEMS = [
-    { id: 'movie', name: '미래 영화 티켓' },
-    { id: 'note', name: '미래에서 온 편지' },
-    { id: 'lotto', name: '미래 로또 번호' },
-    { id: 'invention', name: '미래의 발명품' },
-    { id: 'hologram', name: '홀로그램 메시지' },
-  ];
-
-  const handleItemClick = (item) => {
-    setModalItem(item);
-    setIsEdit(false);
+  const handleInsertClick = (item,contentData) => {
+    const newItem = {
+      ...item,
+      id: `${item.type}`,
+      content: contentData
+    };
+    setSelectedItems([...selectedItems, newItem]);
   };
-
-  const handleEditItem = (item) => {
-    setModalItem(item);
-    setIsEdit(true);
-  };
-
-  const handleSaveItem = (customData) => {
-    if (isEdit) {
-      setSelectedItems(selectedItems.map(item => 
-        item.id === modalItem.id ? { ...item, ...customData } : item
-      ));
-    } else {
-      setSelectedItems([...selectedItems, { ...modalItem, ...customData }]);
-    }
-    setModalItem(null);
+  
+  const handleUpdateClick = (data) => {
+    setSelectedItems([...selectedItems, newItem]);
   };
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch('/api/items', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          receiver,
-          sender,
-          items: selectedItems,
-        }),
-      });
-
-     
-      if (response.ok) {
-        router.push('/send/delivery');
-      } else {
-        alert('아이템 저장에 실패했습니다. 다시 시도해주세요.');
-      }
+        const response = await fetch('/api/items', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                receiver,
+                sender,
+                items: selectedItems.map(item => ({
+                    ...item,
+                    ...(item.svgData && { svgData: item.svgData }),
+                    ...(item.svgImage && { svgImage: item.svgImage })
+                }))
+            }),
+        });        
+        if (response.ok) {
+            router.push('/send/delivery');
+        } else {
+            alert('아이템 저장에 실패했습니다. 다시 시도해주세요.');
+        }
     } catch (error) {
-      router.push('/send/delivery');
-    //   console.error('Error:', error);
-    //   alert('오류가 발생했습니다. 다시 시도해주세요.');
+        router.push('/send/delivery');
     }
   };
 
@@ -84,19 +58,20 @@ export default function ItemSelectionPage() {
       <div className="w-full p-6 bg-white rounded-lg shadow-md">
         <h2 className="text-lg font-bold mb-4 text-center">선물 리스트</h2>
         <div className="grid grid-cols-2 gap-4">
-          <FutureItem/>
-          {FUTURE_ITEMS.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => handleItemClick(item)}
-              className={`p-4 rounded-lg border-2 transition-all ${
-                selectedItems.find(i => i.id === item.id)
-                  ? 'border-accent bg-accent/10'
-                  : 'border-gray-200 hover:border-accent/50'
-              }`}
-            >
-              {item.name}
-            </button>
+          {dummyItems.map((item) => (
+            <FutureItem 
+              key={`template_${item.id}`}
+              item={item} 
+              handleInsertClick={handleInsertClick}
+              // 현재 아이템이 이미 선택되었는지 확인
+              // selectedItems 배열을 순회하면서 
+              // 1. selectedItem의 type이 현재 item의 type과 일치하고
+              // 2. selectedItem의 id가 현재 item의 type을 포함하는지 체크
+              isSelected={selectedItems.some(selectedItem => 
+                selectedItem.type === item.type && selectedItem.id.includes(item.type)
+              )}
+              isEdit={false}
+            />            
           ))}
         </div>
       </div>
@@ -107,19 +82,27 @@ export default function ItemSelectionPage() {
         {selectedItems.length === 0 ? (
           <p className="text-center text-gray-500">선물을 선택해주세요</p>
         ) : (
-          <ul className="space-y-2">
+          <div className="grid grid-cols-2 gap-4">
             {selectedItems.map((item) => (
-              <li key={item.id} className="flex items-center justify-between p-2 hover:bg-gray-50 rounded-lg cursor-pointer">
-                <span onClick={() => handleEditItem(item)}>{item.name}</span>
+              <div key={`selected_${item.id}`} className="relative">
+                <FutureItem 
+                  key={`selected_${item.id}`}
+                  item={item}
+                  handleUpdateClick={handleUpdateClick}    
+                  isSelected={true}
+                  isEdit={true}
+                />
                 <button
+                  // 선택된 아이템 목록에서 현재 아이템을 제거
+                  // selectedItems 배열에서 현재 item.id와 다른 아이템들만 필터링하여 새로운 배열 생성
                   onClick={() => setSelectedItems(selectedItems.filter(i => i.id !== item.id))}
-                  className="text-sm text-red-500"
+                  className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center bg-red-500 text-white rounded-full text-sm hover:bg-red-600"
                 >
-                  삭제
+                  ×
                 </button>
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
         )}
       </div>
 
@@ -135,24 +118,6 @@ export default function ItemSelectionPage() {
       >
         포장하기
       </button>
-
-      {/* 커스텀 모달 */}
-      {modalItem && (
-        <ItemCustomModal
-          item={modalItem}
-          isEdit={isEdit}
-          onSave={handleSaveItem}
-          onClose={() => setModalItem(null)}
-        />
-      )}
     </main>
-  );
-}
-
-export default function ItemSelectionPage() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <ItemSelectionContent />
-    </Suspense>
   );
 }
