@@ -15,14 +15,29 @@ export default function ItemSelectionPage() {
   const handleInsertClick = (item,contentData) => {
     const newItem = {
       ...item,
-      id: `${item.type}`,
+      id: item['type'],
       content: contentData
     };
+    
+    console.log(newItem)
     setSelectedItems([...selectedItems, newItem]);
   };
   
-  const handleUpdateClick = (data) => {
-    setSelectedItems([...selectedItems, newItem]);
+  const handleUpdateClick = (item,data) => {
+    const newItem = {      
+      ...item,
+      id: item['type'],
+      content:data
+    };
+    
+    
+    // selectedItems 배열을 순회하면서 
+    // 업데이트할 아이템의 type과 일치하는 경우 newItem으로 교체하고
+    // 일치하지 않는 경우 기존 item을 유지
+    const updatedItems = selectedItems.map(item => 
+      item.type === newItem.type ? newItem : item
+    );    
+    setSelectedItems(updatedItems);
   };
 
   const handleSubmit = async () => {
@@ -51,7 +66,9 @@ export default function ItemSelectionPage() {
         router.push('/send/delivery');
     }
   };
-
+  console.log("선택된 아이템")
+  console.log(selectedItems)
+  console.log("===========")
   return (
     <main className="flex flex-col gap-8 items-center justify-between min-h-[calc(100vh-80px)] py-8">
       {/* 아이템 선택 박스 */}
@@ -83,10 +100,10 @@ export default function ItemSelectionPage() {
           <p className="text-center text-gray-500">선물을 선택해주세요</p>
         ) : (
           <div className="grid grid-cols-2 gap-4">
-            {selectedItems.map((item) => (
-              <div key={`selected_${item.id}`} className="relative">
+            {selectedItems.map((item) => (              
+              <div key={`selected_${item.type}`} className="relative">
                 <FutureItem 
-                  key={`selected_${item.id}`}
+                  key={`selected_${item.type}`}
                   item={item}
                   handleUpdateClick={handleUpdateClick}    
                   isSelected={true}
@@ -98,7 +115,7 @@ export default function ItemSelectionPage() {
                   onClick={() => setSelectedItems(selectedItems.filter(i => i.id !== item.id))}
                   className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center bg-red-500 text-white rounded-full text-sm hover:bg-red-600"
                 >
-                  ×
+                  x
                 </button>
               </div>
             ))}

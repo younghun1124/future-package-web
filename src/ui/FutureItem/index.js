@@ -47,24 +47,7 @@ export default function FutureItem({ item, handleInsertClick, handleUpdateClick,
     useEffect(() => {
         console.log('Current Item:', item);
         console.log('Current Data:', currentData);
-    }, [item, currentData]);
-
-    const handleSelect = async () => {
-        if (item.type === 'FutureFaceMirror') {            
-                onSelect({
-                    ...item,
-                    ...currentData
-                });            
-        } else {
-            onSelect(item);
-        }
-        closeButtonRef.current.click();
-    };
-    
-    const handleDataChange = (data) => {
-        console.log('Data changed:', data); // 디버깅 로그
-        setCurrentData(data);
-    };
+    }, [item, currentData]);   
 
     return (
         <DialogRoot size="full">
@@ -76,7 +59,7 @@ export default function FutureItem({ item, handleInsertClick, handleUpdateClick,
                         width={100} 
                         height={100}                 
                         className={`cursor-pointer ${isSelected && !isEdit ? 'opacity-50' : ''}`}
-                        style={{ width: 'auto', height: 'auto' }}
+                        
                         priority={true}
                     />
                 </Button>
@@ -91,23 +74,29 @@ export default function FutureItem({ item, handleInsertClick, handleUpdateClick,
                     <Component 
                         item={item}
                         dataRef={currentData} 
-                        isEdit={isEdit}                        
-                        onSave={handleSelect} // 직접 저장 함수 전달
+                        isEdit={isEdit}                       
+                        
                     />
                 </DialogBody>
                 <DialogFooter className="gap-4 p-4 bg-gray-50">
                     <DialogActionTrigger asChild>
                         <Button variant="outline">닫기</Button>
                     </DialogActionTrigger>
-                    {isEdit ? <Button 
-                        onClick={()=>handleInsertClick()}                        
+                    {!isEdit ? <Button 
+                        onClick={()=>{
+                            handleInsertClick(item, currentData.current)
+                            closeButtonRef.current.click();
+                            }}                        
                         className="bg-blue-500 text-white"
                     >
                         담기
                     </Button>
                     :
                     <Button 
-                        onClick={()=>handleUpdateClick()}                        
+                        onClick={() => {
+                            handleUpdateClick(item, currentData.current);
+                            closeButtonRef.current.click();
+                        }}                        
                         className="bg-blue-500 text-white"
                     >
                         수정하기

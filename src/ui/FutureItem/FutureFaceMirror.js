@@ -1,23 +1,21 @@
 import { useEffect, useRef, useState } from 'react';
 import { ReactSketchCanvas } from 'react-sketch-canvas';
 
-export default function FutureFaceMirror({ item, isEdit, dataRef, onDataChange }) {    
+export default function FutureFaceMirror({ item, dataRef, }) {    
     const [strokeWidth, setStrokeWidth] = useState(4);
     const [strokeColor, setStrokeColor] = useState("#000000");
     const [isEraser, setIsEraser] = useState(false);
     const canvasRef = useRef(null);
-    
+
     useEffect(() => {
         const loadSavedPaths = async () => {
-            if (canvasRef.current && item.svgData) {
-                // 캔버스 초기화 후 저장된 경로 로드
-                await canvasRef.current.clearCanvas();
-                await canvasRef.current.loadPaths(item.svgData);
+            if (canvasRef.current && item.content?.svgData) {
+                await canvasRef.current.loadPaths(item.content.svgData);
             }
         };
         
         loadSavedPaths();
-    }, [item.svgData, item]);
+    }, [item]);
     
     const handleCanvasChange = async () => {
         if (!canvasRef.current) return;
@@ -29,11 +27,6 @@ export default function FutureFaceMirror({ item, isEdit, dataRef, onDataChange }
             console.log('Canvas changed:', { paths, svgImage });
             
             dataRef.current={
-                // 상태 업데이트를 위해 새로운 객체 생성
-                // 기존 item의 svgData와 svgImage를 새로운 값으로 덮어씁니다
-                // spread 연산자(...item)로 기존 item의 모든 속성을 복사한 후
-                // svgData와 svgImage를 새로운 값으로 업데이트합니다
-                ...item, // 기존 item의 모든 속성 복사
                 svgData: paths, // 새로운 paths로 svgData 덮어쓰기
                 svgImage: svgImage // 새로운 svgImage로 덮어쓰기
             }

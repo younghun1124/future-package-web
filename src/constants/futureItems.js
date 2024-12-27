@@ -59,4 +59,4 @@ export const FUTURE_INVENTION_TYPES = {
     description: '주머니에 들어가는 작은 시간여행 장치',
     imageUrl: '/images/inventions/time-machine.png'
   }
-}; 
+};
