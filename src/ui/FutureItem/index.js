@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
+import DoodleButton from '@ui/buttons/DoodleButton'
 import {
     DialogActionTrigger,
     DialogBody,
@@ -50,23 +51,27 @@ export default function FutureItem({ item, handleInsertClick, handleUpdateClick,
     }, [item, currentData]);   
 
     return (
-        <DialogRoot size="full">
+        <DialogRoot size="cover">
             <DialogTrigger asChild>         
                 <Button disabled={isSelected && !isEdit}>
                     <Image 
                         src="/file.svg" 
                         alt="File Icon" 
-                        width={100} 
-                        height={100}                 
+                        width={80} 
+                        height={80}                 
                         className={`cursor-pointer ${isSelected && !isEdit ? 'opacity-50' : ''}`}
-                        
                         priority={true}
                     />
                 </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent                 
+                backgroundColor="rgba(88, 88, 88, 0.7)"
+                borderRadius="22.5px"
+                backdropFilter="blur(4px)"
+                className="backdrop-blur-md"
+            >
                 <DialogHeader>
-                    <DialogTitle className="text-2xl font-bold text-center py-4">
+                    <DialogTitle className="text-2xl font-bold text-center py-4 text-white">
                         {isEdit ? '선물 수정하기' : item.type}
                     </DialogTitle>
                 </DialogHeader>
@@ -75,34 +80,32 @@ export default function FutureItem({ item, handleInsertClick, handleUpdateClick,
                         item={item}
                         dataRef={currentData} 
                         isEdit={isEdit}                       
-                        
                     />
                 </DialogBody>
-                <DialogFooter className="gap-4 p-4 bg-gray-50">
-                    <DialogActionTrigger asChild>
-                        <Button variant="outline">닫기</Button>
-                    </DialogActionTrigger>
-                    {!isEdit ? <Button 
-                        onClick={()=>{
-                            handleInsertClick(item, currentData.current)
-                            closeButtonRef.current.click();
+                <DialogFooter className="gap-4 p-4 grid justify-center">                    
+                    {!isEdit ? (
+                        <DoodleButton 
+                            onClick={()=>{
+                                handleInsertClick(item, currentData.current)
+                                closeButtonRef.current.click();
                             }}                        
-                        className="bg-blue-500 text-white"
-                    >
-                        담기
-                    </Button>
-                    :
-                    <Button 
-                        onClick={() => {
-                            handleUpdateClick(item, currentData.current);
-                            closeButtonRef.current.click();
-                        }}                        
-                        className="bg-blue-500 text-white"
-                    >
-                        수정하기
-                    </Button>}
+                        >
+                            담기
+                        </DoodleButton>
+                    ) : (
+                        <DoodleButton 
+                            onClick={() => {
+                                handleUpdateClick(item, currentData.current);
+                                closeButtonRef.current.click();
+                            }}       
+                        >
+                            수정하기
+                        </DoodleButton>
+                    )}
                 </DialogFooter>
-                <DialogCloseTrigger ref={closeButtonRef} />
+                <DialogCloseTrigger ref={closeButtonRef}>
+                    <Image src="/x_icon.svg" alt="X" width={18} height={18} />
+                </DialogCloseTrigger>
             </DialogContent>
         </DialogRoot>
     );

@@ -1,5 +1,6 @@
 'use client';
 import { useRouter } from 'next/navigation';
+import DoodleButton from '@/ui/buttons/DoodleButton';
 
 export default function ReceiverPage() {
   const router = useRouter();
@@ -25,17 +26,17 @@ export default function ReceiverPage() {
             placeholder="보내는 사람의 별명을 입력하세요"
           />
         </div>
-        <button 
-          type="button"
-          onClick={() => {
-            const receiver = document.getElementById('receiver').value;
-            const sender = document.getElementById('sender').value;
-            router.push(`/send/itemselection?receiver=${receiver}&sender=${sender}`);
-          }}
-          className="mt-4 px-6 py-3 bg-accent text-white rounded-lg hover:bg-opacity-90 transition-all"
-        >
-          다음으로
-        </button>
+        <div className="flex justify-center">
+          <DoodleButton 
+            text="다음으로"
+            color="black"                    
+            onClick={() => {
+              const receiver = document.getElementById('receiver').value;
+              const sender = document.getElementById('sender').value;
+              router.push(`/send/itemselection?receiver=${receiver}&sender=${sender}`);
+            }}
+          />
+        </div>
       </form>
     </main>
   );

@@ -5,6 +5,7 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --bg-image-url: var(--bg-image-url, '/bgdark.png');
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,4 +19,27 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  background-image: url('/bgdark.png');
+  background-size: auto 100vh;
+  background-repeat: repeat-x;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+/* 별도의 클래스로 분리 */
+.paper-background {
+  background: var(--background) var(--bg-image-url);
+  background-size: auto 100vh;
+  background-repeat: repeat-x;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in;
 }

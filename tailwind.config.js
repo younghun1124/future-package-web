@@ -6,12 +6,19 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
     './src/ui/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  important: true,
   theme: {
     extend: {
       colors: {
         'primary': '#F1EDE1',    // 메인 백그라운드 컬러
         'base': '#000000',       // 기본 텍스트 컬러
         'accent': '#46D88F',     // 포인트 컬러
+      },
+      fontFamily: {
+        gaegu: ['var(--font-gaegu)'],
+      },
+      backgroundImage: {
+        'paper-dark': "url('/bgdark.png')",
       },
     },
   },

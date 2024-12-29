@@ -1,16 +1,21 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Gaegu } from "next/font/google";
 import "./globals.css";
 import { Provider } from "@/components/ui/provider"
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const gaegu = Gaegu({
+  weight: ['300', '400', '700'],
+  subsets: ['latin'],
+  variable: '--font-gaegu',
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+// 배경 이미지 URL을 가져오는 함수
+const getBackgroundImageUrl = () => {
+  const cdnUrl = process.env.NEXT_PUBLIC_CDN_URL;
+  const bgImage = process.env.NEXT_PUBLIC_BG_IMAGE;
+  
+  // CDN URL이 설정되어 있으면 CDN에서, 아니면 로컬에서 로드
+  return cdnUrl ? `${cdnUrl}${bgImage}` : bgImage;
+};
 
 export const metadata = {
   title: "2047년에서 온 택배",
@@ -18,27 +23,35 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const bgImageUrl = getBackgroundImageUrl();
+
   return (
     <html lang='ko' suppressHydrationWarning>
-    
+      <head>
+        <link
+          rel="preload"
+          href={bgImageUrl}
+          as="image"
+        />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-primary text-base`}
+        className={`${gaegu.variable} font-gaegu antialiased text-base animate-fadeIn`}
+        style={{
+          backgroundImage: "url('/bgdark.png')",
+          backgroundRepeat: 'repeat',
+          backgroundAttachment: 'fixed'
+        }}
       >
         <Provider>
           <div className="min-h-screen">
             <header className="w-full max-w-[393px] mx-auto px-5 py-4">
-              {/* <nav>
-                <Link href="/" className="text-accent font-bold">
-                  Future Box
-                </Link>
-              </nav> */}
             </header>
             <div className="w-full max-w-[393px] mx-auto px-5">
               {children}
             </div>
           </div>
-          </Provider>
-        </body>        
+        </Provider>
+      </body>        
     </html>
   );
 }

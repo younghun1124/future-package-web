@@ -72,9 +72,9 @@ export default function ItemSelectionPage() {
   return (
     <main className="flex flex-col gap-8 items-center justify-between min-h-[calc(100vh-80px)] py-8">
       {/* 아이템 선택 박스 */}
-      <div className="w-full p-6 bg-white rounded-lg shadow-md">
-        <h2 className="text-lg font-bold mb-4 text-center">선물 리스트</h2>
-        <div className="grid grid-cols-2 gap-4">
+      <div className="w-full py-6">
+        <h2 className="text-lg font-bold mb-4 text-white text-center">친구에게 보낼 선물을 담아보세요!</h2>
+        <div className="grid grid-cols-2 grid-rows-4 gap-4">
           {dummyItems.map((item) => (
             <FutureItem 
               key={`template_${item.id}`}
@@ -94,10 +94,10 @@ export default function ItemSelectionPage() {
       </div>
 
       {/* 선택된 아이템 목록 */}
-      <div className="w-full p-6 bg-white rounded-lg shadow-md">
+      <div className="w-full p-6 text-white rounded-lg shadow-md">
         <h2 className="text-lg font-bold mb-4 text-center">담은 선물</h2>
         {selectedItems.length === 0 ? (
-          <p className="text-center text-gray-500">선물을 선택해주세요</p>
+          <p className="text-center" >선물을 선택해주세요</p>
         ) : (
           <div className="grid grid-cols-2 gap-4">
             {selectedItems.map((item) => (              

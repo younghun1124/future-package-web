@@ -24,7 +24,7 @@ export default function FutureFaceMirror({ item, dataRef, }) {
             const paths = await canvasRef.current.exportPaths();
             const svgImage = await canvasRef.current.exportSvg();
             
-            console.log('Canvas changed:', { paths, svgImage });
+           
             
             dataRef.current={
                 svgData: paths, // 새로운 paths로 svgData 덮어쓰기
