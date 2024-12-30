@@ -3,6 +3,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, Suspense } from 'react';
 import FutureItem from '@ui/FutureItem';
 import { dummyItems } from '@/mocks/items';
+import Image from 'next/image';
 
 export default function ItemSelectionPage() {
   const router = useRouter();
@@ -23,6 +24,10 @@ export default function ItemSelectionPage() {
     setSelectedItems([...selectedItems, newItem]);
   };
   
+  const handleDeleteClick= (item)=>{
+    setSelectedItems(selectedItems.filter(i => i.id !== item.id))
+  }
+
   const handleUpdateClick = (item,data) => {
     const newItem = {      
       ...item,
@@ -70,34 +75,43 @@ export default function ItemSelectionPage() {
   console.log(selectedItems)
   console.log("===========")
   return (
-    <main className="flex flex-col gap-8 items-center justify-between min-h-[calc(100vh-80px)] py-8">
-      {/* 아이템 선택 박스 */}
-      <div className="w-full py-6">
-        <h2 className="text-lg font-bold mb-4 text-white text-center">친구에게 보낼 선물을 담아보세요!</h2>
-        <div className="grid grid-cols-2 grid-rows-4 gap-4">
+    <main className="flex flex-col h-full">
+      <h2 className="text-2xl font-normal text-white text-center py-4">친구에게 보낼 선물을 담아보세요!</h2>
+      
+      {/* 아이템 선택 영역 - 고정 높이 */}
+      <div className="h-[280px]">
+        <div className="grid grid-cols-4 grid-rows-2 gap-4 place-items-center h-full">
           {dummyItems.map((item) => (
             <FutureItem 
-              key={`template_${item.id}`}
+              
+              key={item.id}
               item={item} 
               handleInsertClick={handleInsertClick}
-              // 현재 아이템이 이미 선택되었는지 확인
-              // selectedItems 배열을 순회하면서 
-              // 1. selectedItem의 type이 현재 item의 type과 일치하고
-              // 2. selectedItem의 id가 현재 item의 type을 포함하는지 체크
               isSelected={selectedItems.some(selectedItem => 
                 selectedItem.type === item.type && selectedItem.id.includes(item.type)
               )}
               isEdit={false}
-            />            
+            />  
           ))}
+          
+          <div className='flex-col place-items-center'>
+            <Image 
+              src="/questionmark_icon.svg"
+              alt="입고 예정" 
+              width={75} 
+              height={75}   
+              priority={true}
+            />
+            <div className='text-white text-sm mt-1'>입고 예정</div>
+          </div>
         </div>
       </div>
 
-      {/* 선택된 아이템 목록 */}
-      <div className="w-full p-6 text-white rounded-lg shadow-md">
-        <h2 className="text-lg font-bold mb-4 text-center">담은 선물</h2>
+      {/* 선택된 아이템 목록 - 남은 공간 채우기 */}
+      <div className="flex-1 overflow-y-auto min-h-[200px] p-6">
+        <h2 className="text-lg font-bold mb-4 text-center text-white">담은 선물</h2>
         {selectedItems.length === 0 ? (
-          <p className="text-center" >선물을 선택해주세요</p>
+          <p className="text-center text-white">선물을 선택해주세요</p>
         ) : (
           <div className="grid grid-cols-2 gap-4">
             {selectedItems.map((item) => (              
@@ -105,36 +119,31 @@ export default function ItemSelectionPage() {
                 <FutureItem 
                   key={`selected_${item.type}`}
                   item={item}
+                  handleDeleteClick={handleDeleteClick}
                   handleUpdateClick={handleUpdateClick}    
                   isSelected={true}
                   isEdit={true}
                 />
-                <button
-                  // 선택된 아이템 목록에서 현재 아이템을 제거
-                  // selectedItems 배열에서 현재 item.id와 다른 아이템들만 필터링하여 새로운 배열 생성
-                  onClick={() => setSelectedItems(selectedItems.filter(i => i.id !== item.id))}
-                  className="absolute top-2 right-2 w-6 h-6 flex items-center justify-center bg-red-500 text-white rounded-full text-sm hover:bg-red-600"
-                >
-                  x
-                </button>
               </div>
             ))}
           </div>
         )}
       </div>
 
-      {/* 포장하기 버튼 */}
-      <button
-        onClick={handleSubmit}
-        disabled={selectedItems.length === 0}
-        className={`w-full py-4 rounded-lg text-white transition-all ${
-          selectedItems.length === 0
-            ? 'bg-gray-400 cursor-not-allowed'
-            : 'bg-accent hover:bg-opacity-90'
-        }`}
-      >
-        포장하기
-      </button>
+      {/* 포장하기 버튼 - 하단 고정 */}
+      <div className="p-4">
+        <button
+          onClick={handleSubmit}
+          disabled={selectedItems.length === 0}
+          className={`w-full py-4 rounded-lg text-white transition-all ${
+            selectedItems.length === 0
+              ? 'bg-gray-400 cursor-not-allowed'
+              : 'bg-accent hover:bg-opacity-90'
+          }`}
+        >
+          포장하기
+        </button>
+      </div>
     </main>
   );
 }

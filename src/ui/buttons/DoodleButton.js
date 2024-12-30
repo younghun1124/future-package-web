@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 
 export default function DoodleButton({
-  bgImage = "/greenButton.png",
+  variant = "green",
   width = "200px",
   height = "60px",
   fontSize = "lg",
@@ -9,9 +9,19 @@ export default function DoodleButton({
   children,
   ...props
 }) {
+  const getBgImage = () => {
+    switch (variant) {
+      case "white":
+        return "/doodlebox_white.svg";
+      case "green":
+      default:
+        return "/greenButton.png";
+    }
+  };
+
   return (
     <Button
-      bgImage={`url('${bgImage}')`}
+      bgImage={`url('${getBgImage()}')`}
       bgSize="100% 100%"
       bgRepeat="no-repeat"
       bgPosition="center"

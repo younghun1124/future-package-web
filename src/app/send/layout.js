@@ -7,7 +7,7 @@ export default function SendLayout({ children }) {
   return (
     <div>
       {/* 네비게이션 버튼 */}
-      <nav className="mb-8 flex items-center relative">
+      <nav className="mb-8 mt-6 flex items-center relative">
         <button
           onClick={() => router.back()}
           className="flex items-center text-gray-600 hover:text-accent transition-colors absolute left-0"

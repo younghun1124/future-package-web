@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { ReactSketchCanvas } from 'react-sketch-canvas';
-
+import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 export default function FutureFaceMirror({ item, dataRef, }) {    
     const [strokeWidth, setStrokeWidth] = useState(4);
     const [strokeColor, setStrokeColor] = useState("#000000");
@@ -50,6 +50,13 @@ export default function FutureFaceMirror({ item, dataRef, }) {
 
     return (
         <div className="flex flex-col gap-4">
+                <DialogHeader>
+                    <DialogTitle className="text-2xl font-bold text-center py-4 text-white">
+                        미래의 거울
+                    </DialogTitle>
+                    <p className='text-white'>미래의 친구는 어떤 모습일까요?
+                    미래 친구의 모습을 그려 선물해보세요</p>
+                </DialogHeader>
             <div className="flex justify-between items-center">
                 <div className="flex gap-2 items-center">
                     <input 
@@ -110,7 +117,8 @@ export default function FutureFaceMirror({ item, dataRef, }) {
             <ReactSketchCanvas
                 ref={canvasRef}
                 width="100%"
-                height="400px"
+                height="100%"
+                style={{ aspectRatio: '255/170' }}
                 onChange={handleCanvasChange}
                 strokeWidth={strokeWidth}
                 strokeColor={isEraser ? "#ffffff" : strokeColor}                

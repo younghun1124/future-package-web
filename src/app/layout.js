@@ -33,9 +33,10 @@ export default function RootLayout({ children }) {
           href={bgImageUrl}
           as="image"
         />
+        <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js" async></script>
       </head>
       <body
-        className={`${gaegu.variable} font-gaegu antialiased text-base animate-fadeIn`}
+        className={`${gaegu.variable} font-gaegu antialiased text-base animate-fadeIn h-[100dvh] overflow-hidden`}
         style={{
           backgroundImage: "url('/bgdark.png')",
           backgroundRepeat: 'repeat',
@@ -43,10 +44,9 @@ export default function RootLayout({ children }) {
         }}
       >
         <Provider>
-          <div className="min-h-screen">
-            <header className="w-full max-w-[393px] mx-auto px-5 py-4">
-            </header>
-            <div className="w-full max-w-[393px] mx-auto px-5">
+          <div className="h-full">
+           
+            <div className="w-full max-w-[393px] mx-auto px-5 h-[calc(100%-60px)] overflow-y-auto">
               {children}
             </div>
           </div>
