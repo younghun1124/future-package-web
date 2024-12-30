@@ -46,7 +46,7 @@ export default function RootLayout({ children }) {
         <Provider>
           <div className="h-full">
            
-            <div className="w-full max-w-[393px] mx-auto px-5 h-[calc(100%-60px)] overflow-y-auto">
+            <div className="w-full max-w-[393px] mx-auto px-5 h-[100%] overflow-y-auto">
               {children}
             </div>
           </div>

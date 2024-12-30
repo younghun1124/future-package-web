@@ -10,14 +10,14 @@ export default function FutureMovieTicketView({ dataRef }) {
     return (
         <div className="flex flex-col items-center gap-4">
             <DialogHeader>
-                <DialogTitle className="text-2xl font-bold text-center py-4">
+                <DialogTitle className="text-white text-2xl font-bold text-center py-4">
                     미래 영화 티켓
                 </DialogTitle>
             </DialogHeader>
             
             <div className="relative w-full">
                 <img 
-                    src="/futuremovieticket_detail.svg" 
+                    src={selectedMovie.detailImageUrl}
                     alt="영화 티켓"
                     className="w-full h-auto"
                 />

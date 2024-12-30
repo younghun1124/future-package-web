@@ -88,10 +88,20 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
         closeButtonRef.current.click();
     };
 
+    const handleOpenModal = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (!isSelected || isinBox) {
+            setIsOpen(true);
+        }
+    };
+
     return (
-        <DialogRoot size="cover" onOpenChange={setIsOpen}>
+        <DialogRoot size="cover" closeOnInteractOutside={false} scrollBehavior="inside" motionPreset='none' onOpenChange={setIsOpen}>
             <DialogTrigger asChild disabled={isSelected&&!isinBox}>         
-                <Button className={`flex-col w-[83px] h-[105px] ${isSelected && !isinBox ? 'cursor-not-allowed'  : ''}`}>
+                <Button 
+                    className={`flex-col w-[83px] h-[105px] ${isSelected && !isinBox ? 'cursor-not-allowed'  : ''}`}
+                >
                     <Image 
                         src={item.icon}
                         alt="File Icon" 

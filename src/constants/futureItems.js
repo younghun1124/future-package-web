@@ -21,7 +21,7 @@ export const FUTURE_GIFTICON_TYPES = {
     name: '삐체씨 팝핑 아이스크림 치킨',
     description: '달콤한 아이스크림과 바삭한 치킨의 만남! 톡톡튀는 팝핑캔디까지!',
     imageUrl: '/icecreamchicken_dish.svg',
-    detailImageUrl: '/spacecoffee_detail.svg'
+    detailImageUrl: '/icecreamchicken_coupon.svg'
   },
   DoorianCake: {
     id: 2,

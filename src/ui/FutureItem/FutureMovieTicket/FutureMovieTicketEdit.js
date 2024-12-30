@@ -2,7 +2,7 @@ import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 import { FUTURE_MOVIE_TYPES } from '@/constants/futureItems';
 import { useState } from 'react';
 
-export default function FutureMovieTicketEdit({ dataRef }) {    
+export default function FutureMovieTicketEdit({ dataRef }) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const movies = Object.values(FUTURE_MOVIE_TYPES);
 
@@ -37,7 +37,7 @@ export default function FutureMovieTicketEdit({ dataRef }) {
                     미래 영화 티켓
                 </DialogTitle>
                 <p className="text-white">
-                    2047년에 개봉하는 영화를 선택해주세요!
+                    
                 </p>
             </DialogHeader>
 
