@@ -1,62 +1,51 @@
 export const FUTURE_MOVIE_TYPES = {
   ACTION: {
     id: 1,
-    name: '액션 영화',
+    name: '범죄시골39',
     description: '2047년 개봉 예정인 액션 블록버스터',
-    imageUrl: '/images/tickets/action.png'
+    imageUrl: '/crimecountry39_poster.svg',
+    detailImageUrl: '/crimecountry39_ticket.svg',
   },
   ROMANCE: {
     id: 2,
-    name: '로맨스 영화',
-    description: '우주 정거장에서 펼쳐지는 달달한 로맨스',
-    imageUrl: '/images/tickets/romance.png'
+    name: '아웃사이드 인',
+    description: '감정을 완벽하게 지배 하는 나',
+    imageUrl: '/outsidein_poster.svg',
+    detailImageUrl: '/outsidein_ticket.svg',
   },
-  SCIFI: {
-    id: 3,
-    name: 'SF 영화',
-    description: '평행 우주를 넘나드는 SF 대작',
-    imageUrl: '/images/tickets/scifi.png'
-  }
 };
 
 export const FUTURE_GIFTICON_TYPES = {
-  COFFEE: {
+  IcecreamChicken: {
     id: 1,
-    name: '우주 카페 기프티콘',
-    description: '무중력 상태에서 즐기는 특별한 커피',
-    imageUrl: '/images/gifticons/coffee.png'
+    name: '삐체씨 팝핑 아이스크림 치킨',
+    description: '달콤한 아이스크림과 바삭한 치킨의 만남! 톡톡튀는 팝핑캔디까지!',
+    imageUrl: '/icecreamchicken_dish.svg',
+    detailImageUrl: '/spacecoffee_detail.svg'
   },
-  FOOD: {
+  DoorianCake: {
     id: 2,
-    name: '미래 레스토랑 기프티콘',
-    description: '3D 프린터로 출력되는 맞춤형 음식',
-    imageUrl: '/images/gifticons/food.png'
+    name: '숨쉰당 두리안 시루 케이크 ',
+    description: '이 냄새 뭐지...? 매력적이야.. 천상의 맛 두리안이 한가득!',
+    imageUrl: '/dooriancake_dish.svg',
+    detailImageUrl: '/dooriancake_coupon.svg',
   },
-  SHOPPING: {
-    id: 3,
-    name: '홀로그램 쇼핑몰 기프티콘',
-    description: '가상 현실에서 즐기는 쇼핑',
-    imageUrl: '/images/gifticons/shopping.png'
-  }
+  
 };
 
 export const FUTURE_INVENTION_TYPES = {
-  TELEPORT: {
+  DestinyCompass: {
     id: 1,
-    name: '순간이동 장치',
-    description: '어디든 1초 만에 이동할 수 있는 미래의 발명품',
-    imageUrl: '/images/inventions/teleport.png'
+    name: '운명의 상대 나침반',
+    description: '운명의 상대에게로 당신을 인도합니다',
+    imageUrl: '/destiny_compass.svg',
+    detailImageUrl: '/destiny_compass.svg'
   },
-  FLYING_CAR: {
+  BlueToothShower: {
     id: 2,
-    name: '하늘을 나는 자동차',
-    description: '교통체증 걱정 없는 미래의 이동수단',
-    imageUrl: '/images/inventions/flying-car.png'
+    name: '블루투스 샤워기',
+    description: '이제 샤워기도 편리하게 가지고 다니세요! 남들이 함부로 사용할 수 없도록 비밀번호 설정하는 것 잊지 마세요!',
+    imageUrl: '/bluetooth_shower.svg',
+    detailImageUrl: '/bluetooth_shower.svg',
   },
-  TIME_MACHINE: {
-    id: 3,
-    name: '포켓 타임머신',
-    description: '주머니에 들어가는 작은 시간여행 장치',
-    imageUrl: '/images/inventions/time-machine.png'
-  }
 };
