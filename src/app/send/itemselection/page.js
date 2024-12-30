@@ -122,7 +122,7 @@ export default function ItemSelectionPage() {
                   handleDeleteClick={handleDeleteClick}
                   handleUpdateClick={handleUpdateClick}    
                   isSelected={true}
-                  isEdit={true}
+                  isinBox={true}
                 />
               </div>
             ))}

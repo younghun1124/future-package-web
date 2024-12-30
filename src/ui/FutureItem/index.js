@@ -35,26 +35,32 @@ const componentsMap = {
     // FutureGifticon,
 };
 
-const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteClick, isSelected, isEdit }) => {
+ // Start of Selection
+const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteClick, isSelected, isinBox=false}) => {
     const Component = componentsMap[item.type] || DefaultComponent;
     const closeButtonRef = useRef(null);
     const currentData = useRef(null);
-    // 디버깅을 위한 로그 추가
+    const [modalState,setModalState] =useState(null)
+    // useEffect(() => {
+        
+    //     console.log('Current Item:', item);
+    //     console.log('Current Data:', currentData);
+    // }, [item, currentData]);   
+
     useEffect(() => {
-        console.log('Current Item:', item);
-        console.log('Current Data:', currentData);
-    }, [item, currentData]);   
+        setModalState(isSelected ? 'inboxpreview' : 'edit');
+    }, [isSelected]);
 
     return (
         <DialogRoot size="cover">
-            <DialogTrigger asChild>         
-                <Button className='flex-col w-[83px] h-[105px]'>
+            <DialogTrigger asChild disabled={isSelected&&!isinBox}>         
+                <Button className={`flex-col w-[83px] h-[105px] ${isSelected && !isinBox ? 'cursor-not-allowed'  : ''}`}>
                     <Image 
                         src={item.icon}
                         alt="File Icon" 
                         width={74} 
-                        height={74}                 
-                        className={`cursor-pointer ${isSelected && !isEdit ? 'opacity-50' : ''}`}
+                        height={74}   
+                        disabled={isSelected}
                         priority={true}
                     />
                     <div className='text-white text-sm'>{item.name}</div>
@@ -72,37 +78,69 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                     </DialogTitle>
                 </DialogHeader> */}
                 <DialogBody className="flex flex-col gap-6 px-6">
+                {modalState}
                     <Component 
                         item={item}
-                        dataRef={currentData} 
-                        isEdit={isEdit}                       
+                        dataRef={currentData}
+                        modalState={modalState}
+                                            
                     />
                 </DialogBody>
                 <DialogFooter className="gap-4 p-4 grid justify-center">                    
-                    {!isEdit ? (
+                    {modalState === 'view' && (
                         <DoodleButton 
                             onClick={()=>{
                                 handleInsertClick(item, currentData.current)
                                 closeButtonRef.current.click();
                             }}                        
                         >
-                            담기
+                            이미지 저장
                         </DoodleButton>
-                    ) : (
+                    )}
+                    {modalState === 'edit' && (
+                             <DoodleButton 
+                                onClick={() => {
+                                    if (isSelected) {
+                                        // isSelected true일 때의 동작
+                                        setModalState('inboxpreview')
+                                        handleUpdateClick(item, currentData.current);
+                                    } else {
+                                        //false일 때의 동작
+                                        setModalState('preview')
+                                    }
+                                }}       
+                            >
+                               완료
+                            </DoodleButton>
+                        
+                    )}
+                    {modalState === 'inboxpreview' && (
                         <>
-                            <DoodleButton variant="white"
-                        onClick={() => handleDeleteClick(item)}
-                      className=""
-                    >빼기</DoodleButton>
+                        <DoodleButton variant="white"
+                                    onClick={() => handleDeleteClick(item)}
+                                    className=""
+                                >
+                                    빼기
+                            </DoodleButton>
                             <DoodleButton 
                                 onClick={() => {
-                                    handleUpdateClick(item, currentData.current);
-                                    closeButtonRef.current.click();
-                                }}       
+                                    setModalState("edit");
+                                }}
                             >
                                 수정하기
                             </DoodleButton>
+                           
                         </>
+                    )}
+                    {modalState === 'preview' && (
+                        <DoodleButton 
+                            onClick={() => {
+                                closeButtonRef.current.click()
+                                handleInsertClick(item,currentData.current)
+                            }}
+                        >
+                            담기
+                        </DoodleButton>
                     )}
                 </DialogFooter>
                 <DialogCloseTrigger ref={closeButtonRef}>
