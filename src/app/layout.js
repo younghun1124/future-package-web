@@ -36,7 +36,7 @@ export default function RootLayout({ children }) {
         <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js" async></script>
       </head>
       <body
-        className={`${gaegu.variable} font-gaegu antialiased text-base animate-fadeIn h-[100dvh] overflow-hidden`}
+        className={`${gaegu.variable} font-gaegu antialiased text-base animate-fadeIn`}
         style={{
           backgroundImage: "url('/bgdark.png')",
           backgroundRepeat: 'repeat',
@@ -44,12 +44,9 @@ export default function RootLayout({ children }) {
         }}
       >
         <Provider>
-          <div className="h-full">
-           
-            <div className="w-full max-w-[393px] mx-auto px-5 h-[100%] overflow-y-auto">
+            <div className="w-full max-w-[393px] mx-auto px-5">
               {children}
             </div>
-          </div>
         </Provider>
       </body>        
     </html>

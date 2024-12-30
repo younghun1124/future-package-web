@@ -4,14 +4,15 @@ import { useState, Suspense } from 'react';
 import FutureItem from '@ui/FutureItem';
 import { dummyItems } from '@/mocks/items';
 import Image from 'next/image';
-
+import DoodleButton from '@/ui/buttons/DoodleButton';
 export default function ItemSelectionPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedItems, setSelectedItems] = useState([]);
 
-  const receiver = searchParams.get('receiver');
-  const sender = searchParams.get('sender');
+  // 쿼리파라미터 값 받아오기
+  const receiver = searchParams.get('receiver') || '친구';
+  const sender = searchParams.get('sender') || '기본 발신자';
 
   const handleInsertClick = (item, contentData) => {
     const newItem = {
@@ -77,7 +78,7 @@ export default function ItemSelectionPage() {
   console.log("===========")
   return (
     <main className="flex flex-col h-full">
-      <h2 className="text-2xl font-normal text-white text-center py-4">친구에게 보낼 선물을 담아보세요!</h2>
+      <h2 className="text-2xl font-normal text-white text-center py-4">{receiver} 님에게 보낼 선물을 담아보세요!</h2>
       
       {/* 아이템 선택 영역 - 고정 높이 */}
       <div className="h-[280px]">
@@ -109,14 +110,10 @@ export default function ItemSelectionPage() {
       </div>
 
       {/* 선택된 아이템 목록 - 남은 공간 채우기 */}
-      <div className="flex-1 overflow-y-auto min-h-[200px] p-6">
-        <h2 className="text-lg font-bold mb-4 text-center text-white">담은 선물</h2>
-        {selectedItems.length === 0 ? (
-          <p className="text-center text-white">선물을 선택해주세요</p>
-        ) : (
-          <div className="grid grid-cols-2 gap-4">
-            {selectedItems.map((item) => (              
-              <div key={`selected_${item.type}`} className="relative">
+      <div className="min-h-[200px]">
+        {/* <h2 className="text-lg font-bold mb-4 text-center text-white">담은 선물</h2> */}
+          <div className="grid grid-cols-2 gap-2 bg-[url('/emptybox.svg')] min-h-[329] bg-center bg-no-repeat bg-contain ">
+            {selectedItems.map((item) => (     
                 <FutureItem 
                   key={`selected_${item.type}`}
                   item={item}
@@ -125,26 +122,21 @@ export default function ItemSelectionPage() {
                   isSelected={true}
                   isinBox={true}
                 />
-              </div>
             ))}
           </div>
-        )}
       </div>
-
       {/* 포장하기 버튼 - 하단 고정 */}
-      <div className="p-4">
-        <button
+      <div className="flex justify-center w-full">
+      <DoodleButton 
+          
           onClick={handleSubmit}
           disabled={selectedItems.length === 0}
-          className={`w-full py-4 rounded-lg text-white transition-all ${
-            selectedItems.length === 0
-              ? 'bg-gray-400 cursor-not-allowed'
-              : 'bg-accent hover:bg-opacity-90'
-          }`}
         >
           포장하기
-        </button>
+        </DoodleButton>
       </div>
+        
+      
     </main>
   );
 }

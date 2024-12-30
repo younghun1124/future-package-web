@@ -1,3 +1,4 @@
+'use client'
 import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 import { FUTURE_GIFTICON_TYPES } from '@/constants/futureItems';
 import { useState } from 'react';

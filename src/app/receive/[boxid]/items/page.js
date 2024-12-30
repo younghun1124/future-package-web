@@ -1,11 +1,12 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import styles from './page.module.css';
 import SendButton from '@/ui/buttons/SendButton';
 import FutureItem from '@/ui/FutureItem';
 import { dummyItems } from '@/mocks/items';
 
 export default function ItemsPage() {
-  const [items] = useState(dummyItems);
+
+  
 
   const handleSaveImage = () => {
     // 이미지 저장 로직 구현 예정

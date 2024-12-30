@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useRef, useState } from 'react';
 import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 import { ReactSketchCanvas } from 'react-sketch-canvas';

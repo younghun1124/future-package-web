@@ -1,3 +1,4 @@
+'use client'
 import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 import { useState, useRef } from 'react';
 
@@ -22,27 +23,27 @@ export default function FutureHologramEdit({ dataRef }) {
         }
     };
 
-    const startCamera = async () => {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ 
-                video: { facingMode: 'environment' } // 후면 카메라 사용
-            });
-            videoRef.current.srcObject = stream;
-            streamRef.current = stream;
-            setShowCamera(true);
-        } catch (err) {
-            console.error("카메라 접근 실패:", err);
-            alert("카메라를 사용할 수 없습니다.");
-        }
-    };
+    // const startCamera = async () => {
+    //     try {
+    //         const stream = await navigator.mediaDevices.getUserMedia({ 
+    //             video: { facingMode: 'environment' } // 후면 카메라 사용
+    //         });
+    //         videoRef.current.srcObject = stream;
+    //         streamRef.current = stream;
+    //         setShowCamera(true);
+    //     } catch (err) {
+    //         console.error("카메라 접근 실패:", err);
+    //         alert("카메라를 사용할 수 없습니다.");
+    //     }
+    // };
 
-    const stopCamera = () => {
-        if (streamRef.current) {
-            streamRef.current.getTracks().forEach(track => track.stop());
-            streamRef.current = null;
-        }
-        setShowCamera(false);
-    };
+    // const stopCamera = () => {
+    //     if (streamRef.current) {
+    //         streamRef.current.getTracks().forEach(track => track.stop());
+    //         streamRef.current = null;
+    //     }
+    //     setShowCamera(false);
+    // };
 
     const capturePhoto = () => {
         const canvas = document.createElement('canvas');
@@ -126,12 +127,12 @@ export default function FutureHologramEdit({ dataRef }) {
                             onChange={handleFileChange}
                             className="hidden"
                         />
-                        <button
+                        {/* <button
                             onClick={startCamera}
                             className="px-4 py-2 bg-white/10 rounded-lg text-white hover:bg-white/20"
                         >
                             사진 촬영하기
-                        </button>
+                        </button> */}
                     </div>
                 </>
             )}
