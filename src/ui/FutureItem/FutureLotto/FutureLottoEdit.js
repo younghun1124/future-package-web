@@ -1,31 +1,45 @@
 import { useEffect, useRef, useState } from 'react';
 
-export default function FutureLottoInput({ item, dataRef }) {    
-    const [selectedNumbers, setSelectedNumbers] = useState(item?.content?.numbers || []);    
+export default function FutureLottoEdit({ item, dataRef }) {    
+    const [selectedNumbers, setSelectedNumbers] = useState(dataRef.content?.numbers || []);    
 
     useEffect(() => {
         const loadSavedData = async () => {
-            if (item?.content?.numbers) {
-                setSelectedNumbers(item.content.numbers);
+            if (dataRef?.current) {
+                setSelectedNumbers(dataRef.current.numbers || []);
             }
         };
-        
+        console.log("dataRef 불러옴");
+        console.log(dataRef.content);
         loadSavedData();
     }, [item]);
-    
-    const handleDataChange = async () => {
-        try {
-            dataRef.current = {
-                numbers: selectedNumbers
+
+    const handleDataChange = (i) => {
+        setSelectedNumbers((prev) => {
+            let updatedNumbers;
+            if (prev.includes(i)) {
+                // 숫자가 포함되어 있으면 제거
+                updatedNumbers = prev.filter(n => n !== i);
+            } else if (prev.length < 6) {
+                // 숫자가 포함되어 있지 않고 6개 미만이면 추가
+                updatedNumbers = [...prev, i].sort((a, b) => a - b);
+            } else {
+                updatedNumbers = prev; // 변경이 없는 경우
             }
-        } catch (error) {
-            console.error('Data change error:', error);
-        }
+
+            // `dataRef.current` 업데이트
+            dataRef.current = {
+                numbers: updatedNumbers,
+            };
+            console.log('dataRef updated:', dataRef.current);
+
+            return updatedNumbers; // 상태 업데이트
+        });
     };
 
     return (
         <div className="flex mt-9 flex-col gap-4">
-            <div className=" text-center">
+            <div className="text-center">
                 <h2 className="text-2xl font-bold text-white mb-2">로또 (2352회)</h2>
                 <p className="text-white mb-4">행운의 번호 6개를 선택해주세요</p>
             </div>
@@ -34,13 +48,7 @@ export default function FutureLottoInput({ item, dataRef }) {
                 {[...Array(45)].map((_, i) => (
                     <button
                         key={i + 1}
-                        onClick={() => {
-                            if (selectedNumbers.includes(i + 1)) {
-                                setSelectedNumbers(prev => prev.filter(n => n !== i + 1));
-                            } else if (selectedNumbers.length < 6) {
-                                setSelectedNumbers(prev => [...prev, i + 1].sort((a, b) => a - b));
-                            }
-                        }}
+                        onClick={() => handleDataChange(i + 1)}
                         className={`
                             w-7 h-7 bg-[url('/lottocircle.svg')] bg-[length:100%_100%] bg-no-repeat bg-center flex items-center justify-center text-lg font-bold
                             ${selectedNumbers.includes(i + 1) 
@@ -57,38 +65,22 @@ export default function FutureLottoInput({ item, dataRef }) {
                 ))}
             </div>
 
-            {/* <div className="mt-4">
-                <div className="flex justify-center gap-2 mb-4">
-                    {selectedNumbers.map((num) => (
-                        <div key={num} className="w-10 h-10 rounded-full bg-white flex items-center justify-center font-bold">
-                            {num}
-                        </div>
-                    ))}
-                    {[...Array(6 - selectedNumbers.length)].map((_, i) => (
-                        <div key={i} className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                            ?
-                        </div>
-                    ))}
-                </div>
-
-                
-            </div> */}
             <button
-                    onClick={() => {
-                        dataRef.current = {
-                            numbers: selectedNumbers
-                        };
-                        handleDataChange();
-                    }}
-                    disabled={selectedNumbers.length !== 6}
-                    className={`
-                        w-full py-3 rounded-lg font-bold
-                        ${selectedNumbers.length === 6 
-                            ? 'bg-accent text-black hover:bg-accent' 
-                            : 'bg-gray-500 text-white cursor-not-allowed'}
-                    `}
-                >
-                    번호 선택 완료
+                onClick={() => {
+                    dataRef.current = {
+                        numbers: selectedNumbers,
+                    };
+                    console.log('최종 선택된 번호:', dataRef.current.numbers);
+                }}
+                disabled={selectedNumbers.length !== 6}
+                className={`
+                    w-full py-3 rounded-lg font-bold
+                    ${selectedNumbers.length === 6 
+                        ? 'bg-accent text-black hover:bg-accent' 
+                        : 'bg-gray-500 text-white cursor-not-allowed'}
+                `}
+            >
+                번호 선택 완료
             </button>
         </div>
     );

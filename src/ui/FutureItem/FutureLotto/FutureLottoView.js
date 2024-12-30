@@ -1,5 +1,5 @@
-
-const FutureLottoView = () => {
+import Image from "next/image";
+export default function FutureLottoView() {
     const items = ['아이템 1', '아이템 2', '아이템 3'];
 
     return (
@@ -13,4 +13,3 @@ const FutureLottoView = () => {
     );
 };
 
-export default FutureLottoView;
