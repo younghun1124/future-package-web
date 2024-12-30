@@ -13,36 +13,37 @@ export default function ItemSelectionPage() {
   const receiver = searchParams.get('receiver');
   const sender = searchParams.get('sender');
 
-  const handleInsertClick = (item,contentData) => {
+  const handleInsertClick = (item, contentData) => {
     const newItem = {
-      ...item,
-      id: item['type'],
-      content: contentData
+        ...item,
+        id: item['type'],
+        content: {
+            ...contentData
+        }
     };
-    
-    console.log(newItem)
-    setSelectedItems([...selectedItems, newItem]);
+    setSelectedItems(prevItems => [...prevItems, newItem]);
   };
   
   const handleDeleteClick= (item)=>{
     setSelectedItems(selectedItems.filter(i => i.id !== item.id))
   }
 
-  const handleUpdateClick = (item,data) => {
-    const newItem = {      
-      ...item,
-      id: item['type'],
-      content:data
+  const handleUpdateClick = (item, data) => {
+    const newItem = {
+        ...item,
+        id: item['type'],
+        content: data
+        
     };
-    
-    
-    // selectedItems 배열을 순회하면서 
-    // 업데이트할 아이템의 type과 일치하는 경우 newItem으로 교체하고
-    // 일치하지 않는 경우 기존 item을 유지
-    const updatedItems = selectedItems.map(item => 
-      item.type === newItem.type ? newItem : item
-    );    
-    setSelectedItems(updatedItems);
+    console.log("이전 아이템 정보")
+    console.log(item)
+    console.log("이후 아이템 정보")
+    console.log(newItem)
+    setSelectedItems(prevItems => 
+        prevItems.map(prevItem => 
+            prevItem.type === newItem.type ? {...newItem} : prevItem
+        )
+    );
   };
 
   const handleSubmit = async () => {

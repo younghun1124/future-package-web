@@ -5,7 +5,6 @@ export const dummyItems = [
     icon: '/futurenote_icon.svg',
     type: 'FutureNote', 
     name: '커스텀 쪽지',
-    content: '여러가지 텍스트! 정말 다양하고 기상천외해~',
   },
   {
     id: 'mirror_1',
@@ -31,21 +30,21 @@ export const dummyItems = [
   {
     id: 'movieticket',
     icon: '/futuremovieticket_icon.svg',
-    type: 'Futuremovieticket',
+    type: 'FutureMovieTicket',
     name: '영화 티켓',
     content: '',
   },
   {
     id: 'gifticon',
     icon: '/futuregifticon_icon.svg',
-    type: 'Futuregifticon',
+    type: 'FutureGifticon',
     name: '기프티콘',
     content: '',
   },
   {
     id: 'invention',
     icon: '/futureinvention_icon.svg',
-    type: 'Futureinvention',
+    type: 'FutureInvention',
     name: '미래 발명품',
     content: '',
   },

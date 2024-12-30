@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 
 export default function FutureLottoEdit({ item, dataRef }) {    
-    const [selectedNumbers, setSelectedNumbers] = useState(dataRef.content?.numbers || []);    
+    const [selectedNumbers, setSelectedNumbers] = useState([]);    
 
     useEffect(() => {
         const loadSavedData = async () => {
-            if (dataRef?.current) {
-                setSelectedNumbers(dataRef.current.numbers || []);
+            if (dataRef.current?.numbers) {
+                setSelectedNumbers(dataRef.current.numbers);
+            } else {
+                setSelectedNumbers([]);
             }
         };
         console.log("dataRef 불러옴");
-        console.log(dataRef.content);
+        console.log(dataRef.current?.numbers);
         loadSavedData();
     }, [item]);
 
@@ -64,24 +66,6 @@ export default function FutureLottoEdit({ item, dataRef }) {
                     </button>
                 ))}
             </div>
-
-            <button
-                onClick={() => {
-                    dataRef.current = {
-                        numbers: selectedNumbers,
-                    };
-                    console.log('최종 선택된 번호:', dataRef.current.numbers);
-                }}
-                disabled={selectedNumbers.length !== 6}
-                className={`
-                    w-full py-3 rounded-lg font-bold
-                    ${selectedNumbers.length === 6 
-                        ? 'bg-accent text-black hover:bg-accent' 
-                        : 'bg-gray-500 text-white cursor-not-allowed'}
-                `}
-            >
-                번호 선택 완료
-            </button>
         </div>
     );
 }

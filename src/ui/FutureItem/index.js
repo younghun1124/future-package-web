@@ -15,7 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import FutureFaceMirror from './FutureFaceMirror';
 import FutureNote from './FutureNote';
-import FutureLotto from './FutureLotto/FutureLottoView';
+import FutureLotto from './FutureLotto';
 import FutureInvention from './FutureInvention';
 import FutureMovieTicket from './FutureMovieTicket';
 import FutureHologram from './FutureHologram';
@@ -27,32 +27,69 @@ const DefaultComponent = () => <div>기본 컴포넌트</div>;
 
 const componentsMap = {
     FutureFaceMirror,
-    // FutureNote,
+    FutureNote,
     FutureLotto,
-    // FutureInvention,
-    // FutureMovieTicket,
-    // FutureHologram,
-    // FutureGifticon,
+    FutureInvention,
+    FutureMovieTicket,
+    FutureHologram,
+    FutureGifticon,
 };
 
  // Start of Selection
 const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteClick, isSelected, isinBox=false}) => {
     const Component = componentsMap[item.type] || DefaultComponent;
     const closeButtonRef = useRef(null);
-    const currentData = useRef(null);
-    const [modalState,setModalState] =useState(null)
-    // useEffect(() => {
-        
-    //     console.log('Current Item:', item);
-    //     console.log('Current Data:', currentData);
-    // }, [item, currentData]);   
+    const currentData = useRef(item.content);
+    console.log('currentData 초기화')
+    console.log(currentData.current)
+    const [modalState, setModalState] = useState('edit');
+    const [isOpen, setIsOpen] = useState(false);
 
+    // modalState 초기화 로직
     useEffect(() => {
-        setModalState(isSelected ? 'inboxpreview' : 'edit');
-    }, [isSelected]);
+        if (isOpen) {
+            setModalState(isSelected ? 'inboxpreview' : 'edit');
+        }
+    }, [isSelected, isOpen]);
+
+    // // 모달이 열리거나 닫힐 때 currentData 초기화
+    // useEffect(() => {
+    //     if (isOpen) {
+    //         // 모달이 열릴 때 초기 데이터 설정
+    //         currentData.current = isSelected ? item.content : null;
+    //     } else {
+    //         // 모달이 닫힐 때 데이터 초기화
+    //         currentData.current = null;
+    //     }
+    // }, [isOpen, isSelected, item.content]);
+
+    // modalState 변경 시 로깅
+    useEffect(() => {
+        console.log('Modal State:', modalState);
+        console.log('Current Data:', currentData.current);
+    }, [modalState]);
+
+    const handleComplete = () => {
+        const data = currentData.current;
+        console.log("현재 업데이트 함수에 넣을 데이터")
+        console.log(currentData)
+        console.log("+=======+")
+        if (isSelected) {
+            handleUpdateClick(item, data);
+            setModalState('inboxpreview');
+        } else {
+            setModalState('preview');
+        }
+    };
+
+    const handleInsertWithData = () => {
+        const data = currentData.current;
+        handleInsertClick(item, data);
+        closeButtonRef.current.click();
+    };
 
     return (
-        <DialogRoot size="cover">
+        <DialogRoot size="cover" onOpenChange={setIsOpen}>
             <DialogTrigger asChild disabled={isSelected&&!isinBox}>         
                 <Button className={`flex-col w-[83px] h-[105px] ${isSelected && !isinBox ? 'cursor-not-allowed'  : ''}`}>
                     <Image 
@@ -72,73 +109,40 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                 borderRadius="22.5px"                
                 className="backdrop-blur-md"
             >
-                {/* <DialogHeader>
-                    <DialogTitle className="text-2xl font-bold text-center py-4 text-white">
-                        {isEdit ? '선물 수정하기' : item.type}
-                    </DialogTitle>
-                </DialogHeader> */}
+            {modalState}
                 <DialogBody className="flex flex-col gap-6 px-6">
-                {modalState}
                     <Component 
                         item={item}
                         dataRef={currentData}
                         modalState={modalState}
-                                            
                     />
                 </DialogBody>
                 <DialogFooter className="gap-4 p-4 grid justify-center">                    
                     {modalState === 'view' && (
-                        <DoodleButton 
-                            onClick={()=>{
-                                handleInsertClick(item, currentData.current)
-                                closeButtonRef.current.click();
-                            }}                        
-                        >
+                        <DoodleButton onClick={handleInsertWithData}>
                             이미지 저장
                         </DoodleButton>
                     )}
                     {modalState === 'edit' && (
-                             <DoodleButton 
-                                onClick={() => {
-                                    if (isSelected) {
-                                        // isSelected true일 때의 동작
-                                        setModalState('inboxpreview')
-                                        handleUpdateClick(item, currentData.current);
-                                    } else {
-                                        //false일 때의 동작
-                                        setModalState('preview')
-                                    }
-                                }}       
-                            >
-                               완료
-                            </DoodleButton>
-                        
+                        <DoodleButton onClick={handleComplete}>
+                            완료
+                        </DoodleButton>
                     )}
                     {modalState === 'inboxpreview' && (
                         <>
-                        <DoodleButton variant="white"
-                                    onClick={() => handleDeleteClick(item)}
-                                    className=""
-                                >
-                                    빼기
-                            </DoodleButton>
                             <DoodleButton 
-                                onClick={() => {
-                                    setModalState("edit");
-                                }}
+                                variant="white"
+                                onClick={() => handleDeleteClick(item)}
                             >
+                                빼기
+                            </DoodleButton>
+                            <DoodleButton onClick={() => setModalState("edit")}>
                                 수정하기
                             </DoodleButton>
-                           
                         </>
                     )}
                     {modalState === 'preview' && (
-                        <DoodleButton 
-                            onClick={() => {
-                                closeButtonRef.current.click()
-                                handleInsertClick(item,currentData.current)
-                            }}
-                        >
+                        <DoodleButton onClick={handleInsertWithData}>
                             담기
                         </DoodleButton>
                     )}

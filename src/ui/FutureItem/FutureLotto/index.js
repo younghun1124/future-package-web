@@ -5,7 +5,7 @@ export default function FutureLotto({modalState,dataRef}) {
     return (
         modalState==='edit'?
         <FutureLottoEdit dataRef={dataRef}/>:
-        <FutureLottoView/>
+        <FutureLottoView dataRef={dataRef}/>
     );
 }
 
