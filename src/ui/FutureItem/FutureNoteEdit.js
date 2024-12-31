@@ -2,7 +2,6 @@
 import React, { useEffect, useRef } from 'react';
 
 export default function FutureNoteEdit({dataRef}) {  
-    // useEffect로 초기값 설정을 클라이언트 사이드로 이동
     useEffect(() => {
         if (!dataRef.current) {
             dataRef.current = {
@@ -29,4 +28,4 @@ export default function FutureNoteEdit({dataRef}) {
             />
         </div>
     );
-}
+} 

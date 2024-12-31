@@ -3,15 +3,12 @@ import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 import DoodleButton from '@ui/buttons/DoodleButton'
 import {
-    DialogActionTrigger,
-    DialogBody,
-    DialogCloseTrigger,
-    DialogContent,
-    DialogFooter,
-    DialogHeader,
     DialogRoot,
-    DialogTitle,
     DialogTrigger,
+    DialogContent,
+    DialogBody,
+    DialogFooter,
+    DialogCloseTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import FutureFaceMirror from './FutureFaceMirror';
@@ -37,35 +34,57 @@ const componentsMap = {
 };
 
  // Start of Selection
-const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteClick, isSelected, isinBox=false}) => {
+const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteClick, isSelected, isinBox=false, modalState: initialModalState='edit' }) => {
+    // 모든 상태와 ref를 최상단에 선언
     const Component = componentsMap[item.type] || DefaultComponent;
     const closeButtonRef = useRef(null);
     const currentData = useRef(item.content);
-    console.log('currentData 초기화')
-    console.log(currentData)
-    const [modalState, setModalState] = useState('edit');
+    
+    const [modalState, setModalState] = useState(initialModalState);
     const [isOpen, setIsOpen] = useState(false);
+    const [isMounted, setIsMounted] = useState(false);
 
-    // modalState 초기화 로직
+    // useEffect를 순서대로 배치
     useEffect(() => {
-        if (isOpen) {
+        setIsMounted(true);
+    }, []);
+
+    useEffect(() => {
+        if (isOpen && isMounted) {
             setModalState(isSelected ? 'inboxpreview' : 'edit');
         }
-    }, [isSelected, isOpen]);
+    }, [isSelected, isOpen, isMounted]);
 
-    // modalState 변경 시 로깅
     useEffect(() => {
-        console.log('Modal State:', modalState);
-        console.log('Current Data:', currentData);
+        if (typeof window !== 'undefined') {
+            console.log('Modal State:', modalState);
+            console.log('Current Data:', currentData.current);
+        }
     }, [modalState]);
+
+    // 서버사이드 렌더링 시 기본 상태 반환
+    if (!isMounted) {
+        return (
+            <Button 
+                className={`flex-col w-[83px] h-[105px] ${isSelected && !isinBox ? 'cursor-not-allowed' : ''}`}
+            >
+                <Image 
+                    src={item.icon}
+                    alt="File Icon" 
+                    width={74} 
+                    height={74}   
+                    disabled={isSelected}
+                    priority={true}
+                />
+                {!isinBox ? <div className='text-white text-sm'>{item.name}</div>:<></>}
+            </Button>
+        );
+    }
 
     const handleComplete = () => {
         const data = currentData.current;
-        console.log("현재 업데이트 함수에 넣을 데이터")
-        console.log(data)
-        console.log("+=======+")
         if (isSelected) {
-            handleUpdateClick(item, data);
+            handleUpdateClick?.(item, data);
             setModalState('inboxpreview');
         } else {
             setModalState('preview');
@@ -74,23 +93,15 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
 
     const handleInsertWithData = () => {
         const data = currentData.current;
-        handleInsertClick(item, data);
-        closeButtonRef.current.click();
-    };
-
-    const handleOpenModal = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        if (!isSelected || isinBox) {
-            setIsOpen(true);
-        }
+        handleInsertClick?.(item, data);
+        closeButtonRef.current?.click();
     };
 
     return (
         <DialogRoot size="cover" closeOnInteractOutside={false} scrollBehavior="inside" motionPreset='none' onOpenChange={setIsOpen}>
-            <DialogTrigger asChild disabled={isSelected&&!isinBox}>         
+            <DialogTrigger asChild disabled={isSelected && !isinBox}>         
                 <Button 
-                    className={`flex-col w-[83px] h-[105px] ${isSelected && !isinBox ? 'cursor-not-allowed'  : ''}`}
+                    className={`flex-col w-[83px] h-[105px] ${isSelected && !isinBox ? 'cursor-not-allowed' : ''}`}
                 >
                     <Image 
                         src={item.icon}
@@ -109,7 +120,6 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                 borderRadius="22.5px"                
                 className="backdrop-blur-md"
             >
-            {/* {modalState} */}
                 <DialogBody className="flex flex-col gap-6 px-6">
                     <Component 
                         item={item}
@@ -118,21 +128,21 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                     />
                 </DialogBody>
                 <DialogFooter className="gap-4 p-4 grid justify-center">                    
-                    {modalState === 'view' && (
-                        <DoodleButton onClick={handleInsertWithData}>
-                            이미지 저장
-                        </DoodleButton>
-                    )}
                     {modalState === 'edit' && (
                         <DoodleButton onClick={handleComplete}>
                             완료
+                        </DoodleButton>
+                    )}
+                    {modalState === 'preview' && !isSelected && (
+                        <DoodleButton onClick={handleInsertWithData}>
+                            담기
                         </DoodleButton>
                     )}
                     {modalState === 'inboxpreview' && (
                         <>
                             <DoodleButton 
                                 variant="white"
-                                onClick={() => handleDeleteClick(item)}
+                                onClick={() => handleDeleteClick?.(item)}
                             >
                                 빼기
                             </DoodleButton>
@@ -140,11 +150,6 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                                 수정하기
                             </DoodleButton>
                         </>
-                    )}
-                    {modalState === 'preview' && (
-                        <DoodleButton onClick={handleInsertWithData}>
-                            담기
-                        </DoodleButton>
                     )}
                 </DialogFooter>
                 <DialogCloseTrigger ref={closeButtonRef}>

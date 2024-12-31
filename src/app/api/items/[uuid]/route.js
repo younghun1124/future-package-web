@@ -4,7 +4,7 @@ import { neon } from '@neondatabase/serverless';
 export async function GET(request, { params }) {
   try {
     const sql = neon(process.env.DATABASE_URL);
-    const { uuid } = params;
+    const uuid = params.uuid;
 
     const [futureBox] = await sql`
       SELECT * FROM future_box 

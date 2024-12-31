@@ -77,7 +77,7 @@ export default function ItemSelectionPage() {
   console.log(selectedItems)
   console.log("===========")
   return (
-    <main className="flex flex-col h-full">
+    <main className="flex flex-col min-h-screen p-4 gap-4">
       <h2 className="text-2xl font-normal text-white text-center py-4">{receiver} 님에게 보낼 선물을 담아보세요!</h2>
       
       {/* 아이템 선택 영역 - 고정 높이 */}
@@ -109,35 +109,53 @@ export default function ItemSelectionPage() {
         </div>
       </div>
 
-      {/* 선택된 아이템 목록 - 남은 공간 채우기 */}
-      <div className="min-h-[200px] relative">
-        {/* <h2 className="text-lg font-bold mb-4 text-center text-white">담은 선물</h2> */}
-          <div className="absolute h-[100%] top-0 grid grid-cols-2 gap-2  ">
-            {selectedItems.map((item) => (     
-                <FutureItem 
-                  key={`selected_${item.type}`}
-                  item={item}
-                  handleDeleteClick={handleDeleteClick}
-                  handleUpdateClick={handleUpdateClick}    
-                  isSelected={true}
-                  isinBox={true}
-                />
-            ))}
-          </div>
-          <div className="bg-[url('/emptybox.svg')] min-h-[329] bg-center bg-no-repeat bg-contain"></div>
+      {/* 선택된 아이템 목록 - 상자 안에 고정 위치로 배치 */}
+      <div className="min-h-[329px] relative">
+        <div className="bg-[url('/emptybox.svg')] h-[329px] bg-center bg-no-repeat bg-contain"></div>
+        <div className="absolute top-0 left-0 w-full h-full">
+            <div className="relative h-full">
+                {/* 각 아이템의 고정 위치 */}
+                {selectedItems.map((item) => {
+                    // 아이템 타입별 위치 매핑
+                    const positions = {
+                        FutureNote: 'top-[20%] left-[30%]',
+                        FutureFaceMirror: 'top-[15%] left-[50%]',
+                        FutureHologram: 'top-[15%] right-[5%]',
+                        FutureLotto: 'top-[45%] left-[20%]',
+                        FutureMovieTicket: 'top-[45%] rotate-[78.76deg] left-[40%]',
+                        FutureGifticon: 'top-[45%] right-[12%]',
+                        FutureInvention: 'top-[45%] left-[80%]',
+                    };
+
+                    return (
+                        <div 
+                            key={`selected_${item.type}`}
+                            className={`absolute ${positions[item.type]} transform -translate-x-1/2 -translate-y-1/2`}
+                        >
+                            <FutureItem 
+                                item={item}
+                                handleDeleteClick={handleDeleteClick}
+                                handleUpdateClick={handleUpdateClick}    
+                                isSelected={true}
+                                isinBox={true}
+                            />
+                        </div>
+                    );
+                })}
+            </div>
+        </div>
       </div>
-      {/* 포장하기 버튼 - 하단 고정 */}
+
+      {/* 포장하기 버튼 */}
       <div className="flex justify-center w-full">
-      <DoodleButton 
-          className='w-[85%]'
-          onClick={handleSubmit}
-          disabled={selectedItems.length === 0}
+        <DoodleButton 
+            className='w-[85%]'
+            onClick={handleSubmit}
+            disabled={selectedItems.length === 0}
         >
-          포장하기
+            포장하기
         </DoodleButton>
       </div>
-        
-      
     </main>
   );
 }
