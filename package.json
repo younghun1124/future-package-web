@@ -11,14 +11,18 @@
   "dependencies": {
     "@chakra-ui/react": "^3.2.3",
     "@emotion/react": "^11.14.0",
+    "@google-cloud/storage": "^7.14.0",
     "@neondatabase/serverless": "^0.10.4",
+    "formidable": "^3.5.2",
+    "multer": "^1.4.5-lts.1",
     "next": "15.1.2",
+    "next-connect": "^1.0.0",
     "next-themes": "^0.4.4",
+    "punycode": "^2.3.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
     "react-sketch-canvas": "^6.2.0",
-    "@google-cloud/storage": "^8.15.0",
     "uuid": "^11.0.3"
   },
   "devDependencies": {
