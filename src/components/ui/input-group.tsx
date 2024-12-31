@@ -1,13 +1,14 @@
 import type { BoxProps, InputElementProps } from "@chakra-ui/react"
 import { Group, InputElement } from "@chakra-ui/react"
 import * as React from "react"
+import { ReactElement } from 'react';
 
 export interface InputGroupProps extends BoxProps {
   startElementProps?: InputElementProps
   endElementProps?: InputElementProps
   startElement?: React.ReactNode
   endElement?: React.ReactNode
-  children: React.ReactElement
+  children: ReactElement
   startOffset?: InputElementProps["paddingStart"]
   endOffset?: InputElementProps["paddingEnd"]
 }
