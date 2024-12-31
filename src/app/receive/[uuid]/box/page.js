@@ -2,12 +2,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import DoodleButton from '@/ui/buttons/DoodleButton';
 
-export default function DeliveryPage({ params }) {
+export default async function DeliveryPage({ params }) {
     const uuid = params.uuid;
+
+
 
     return (
         <main className="flex flex-col gap-8 items-center justify-between py-8">
-           
             <div className="flex-1 w-full flex items-center justify-center">
                 <div>
                     <Image 
