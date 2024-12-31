@@ -117,8 +117,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
             
             <DialogContent                 
                 backgroundColor="#585858"
-                borderRadius="22.5px"                
-                className="backdrop-blur-md"
+                borderRadius="22.5px" style={{ maxHeight: '90vh' }}           
             >
                 <DialogBody className="flex flex-col gap-6 px-6">
                     <Component 

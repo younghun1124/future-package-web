@@ -10,11 +10,9 @@ export default function FutureHologramEdit({ dataRef }) {
         const file = event.target.files[0];
         if (file) {
             try {
-                // FormData 생성
                 const formData = new FormData();
                 formData.append('image', file);
                 
-                // API 호출
                 const response = await fetch('/api/upload', {
                     method: 'POST',
                     body: formData,
@@ -25,11 +23,7 @@ export default function FutureHologramEdit({ dataRef }) {
                 }
 
                 const data = await response.json();
-                
-                // 미리보기 URL 설정
                 setPreviewUrl(data.imageUrl);
-                
-                // dataRef 업데이트
                 dataRef.current = {
                     imageUrl: data.imageUrl
                 };
@@ -42,18 +36,18 @@ export default function FutureHologramEdit({ dataRef }) {
     };
 
     return (
-        <div className="flex flex-col gap-4">
-            <DialogHeader>
-                <DialogTitle className="text-2xl font-bold text-center py-4 text-white">
+        <div className="flex flex-col items-center gap-6 w-full">
+            <DialogHeader className="w-full text-center">
+                <DialogTitle className="text-2xl font-bold py-4 text-white">
                     홀로그램
                 </DialogTitle>
-                <p className="text-white text-center">
+                <p className="text-white">
                     홀로그램으로 만들 사진을 선택해주세요!
                 </p>
             </DialogHeader>
 
             {/* 미리보기 영역 */}
-            <div className="relative w-full aspect-[255/170] bg-gray-100 rounded-lg overflow-hidden">
+            <div className="relative w-[280px] aspect-[255/170] bg-gray-100 rounded-lg overflow-hidden mx-auto">
                 {previewUrl ? (
                     <img 
                         src={previewUrl} 
@@ -68,10 +62,10 @@ export default function FutureHologramEdit({ dataRef }) {
             </div>
 
             {/* 버튼 영역 */}
-            <div className="flex gap-4 justify-center">
+            <div className="flex justify-center w-full">
                 <button
                     onClick={() => fileInputRef.current?.click()}
-                    className="px-4 py-2 bg-white/10 rounded-lg text-white hover:bg-white/20"
+                    className="px-6 py-3 bg-white/10 rounded-lg text-white hover:bg-white/20 transition-colors"
                 >
                     갤러리에서 선택
                 </button>

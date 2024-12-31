@@ -1,7 +1,7 @@
 import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 
-export default function FutureGifticonView({ dataRef }) {    
-    const selectedGifticon = dataRef.current;
+export default function FutureGifticonView({ dataRef ,data}) {    
+    const selectedGifticon = dataRef?.current||data;
 
     if (!selectedGifticon) {
         return null;
@@ -10,7 +10,7 @@ export default function FutureGifticonView({ dataRef }) {
     return (
         <div className="flex flex-col items-center gap-4">
             <DialogHeader>
-                <DialogTitle className="text-2xl font-bold text-center py-4">
+                <DialogTitle className="text-2xl text-white font-bold text-center py-4">
                     미래 기프티콘
                 </DialogTitle>
             </DialogHeader>

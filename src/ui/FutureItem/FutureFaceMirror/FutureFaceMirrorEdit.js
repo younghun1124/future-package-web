@@ -97,7 +97,7 @@ export default function FutureFaceMirrorEdit({ dataRef }) {
                             canvasRef.current?.eraseMode(false);
                         }}
                         className={`px-3 py-1 border rounded ${
-                            isEraser ? 'bg-white' : 'bg-blue-500 text-white'
+                            isEraser ? 'bg-white' : 'bg-accent text-white'
                         }`}
                     >
                         그리기 모드
@@ -108,7 +108,7 @@ export default function FutureFaceMirrorEdit({ dataRef }) {
                             canvasRef.current?.eraseMode(true);
                         }}
                         className={`px-3 py-1 border rounded ${
-                            isEraser ? 'bg-blue-500 text-white' : 'bg-white'
+                            isEraser ? 'bg-accent text-white' : 'bg-white'
                         }`}
                     >
                         지우개 모드
@@ -117,7 +117,7 @@ export default function FutureFaceMirrorEdit({ dataRef }) {
 
                 {/* 작업 취소 및 다시 실행 */}
                 <div className="flex gap-2">
-                        <button
+                        {/* <button
                         onClick={() => {
                             if (!canvasRef.current) {
                                 console.warn("Canvas reference is null.");
@@ -138,7 +138,7 @@ export default function FutureFaceMirrorEdit({ dataRef }) {
                         className="px-3 py-1 border rounded"
                     >
                         다시실행
-                    </button>
+                    </button> */}
                     <button 
                         onClick={() => {
                             canvasRef.current?.clearCanvas();
@@ -146,7 +146,7 @@ export default function FutureFaceMirrorEdit({ dataRef }) {
                         }}
                         className="px-3 py-1 border rounded"
                     >
-                        전체지우기
+                        전체 지우기
                     </button>
                 </div>
             </div>

@@ -7,7 +7,7 @@ import {
     FUTURE_GIFTICON_TYPES,
     FUTURE_INVENTION_TYPES 
 } from '@/constants/futureItems';
-
+import NavigateButton from '@/ui/buttons/NavigateButton';
 export default function ItemsPage() {
     const { uuid } = useParams();
     const [boxData, setBoxData] = useState(null);
@@ -58,13 +58,13 @@ export default function ItemsPage() {
 
         // 각 아이템 타입별 위치 매핑
         const positions = {
-            FutureNote: 'top-[20%] left-[30%]',
-            FutureFaceMirror: 'top-[15%] left-[50%]',
-            FutureHologram: 'top-[15%] right-[5%]',
-            FutureLotto: 'top-[45%] left-[20%]',
-            FutureMovieTicket: 'top-[45%] rotate-[78.76deg] left-[40%]',
-            FutureGifticon: 'top-[45%] right-[12%]',
-            FutureInvention: 'top-[45%] left-[80%]',
+            FutureNote: 'top-[20%] left-[40%] rotate-[0deg]',
+            FutureFaceMirror: 'top-[35%] left-[50%]  rotate-[30deg]',
+            FutureHologram: 'top-[0%]  left-[40%] rotate-[-50deg]',
+            FutureLotto: 'top-[10%] left-[70%] rotate-[-20deg]',
+            FutureMovieTicket: 'top-[35%] left-[35%] rotate-[78.76deg] ',
+            FutureGifticon: 'top-[45%] left-[65%]',
+            FutureInvention: 'top-[35%] left-[75%]',
         };
 
         // 각 아이템 타입별 처리
@@ -112,31 +112,88 @@ export default function ItemsPage() {
             })));
         }
 
+        // 영화 티켓 처리
+        if (futureMovieType) {
+            const movieData = Object.values(FUTURE_MOVIE_TYPES).find(
+                movie => movie.id === futureMovieType
+            );
+            if (movieData) {
+                items.push({
+                    id: `movie_${movieData.id}`,
+                    type: 'FutureMovieTicket',
+                    name: '영화 티켓',
+                    icon: icons.FutureMovieTicket,
+                    position: positions.FutureMovieTicket,
+                    content: movieData
+                });
+            }
+        }
+
+        // 기프티콘 처리
+        if (futureGifticonType) {
+            const gifticonData = Object.values(FUTURE_GIFTICON_TYPES).find(
+                gifticon => gifticon.id === futureGifticonType
+            );
+            if (gifticonData) {
+                items.push({
+                    id: `gifticon_${gifticonData.id}`,
+                    type: 'FutureGifticon',
+                    name: '기프티콘',
+                    icon: icons.FutureGifticon,
+                    position: positions.FutureGifticon,
+                    content: gifticonData
+                });
+            }
+        }
+
+        // 발명품 처리
+        if (futureInventionType) {
+            const inventionData = Object.values(FUTURE_INVENTION_TYPES).find(
+                invention => invention.id === futureInventionType
+            );
+            if (inventionData) {
+                items.push({
+                    id: `invention_${inventionData.id}`,
+                    type: 'FutureInvention',
+                    name: '미래 발명품',
+                    icon: icons.FutureInvention,
+                    position: positions.FutureInvention,
+                    content: inventionData
+                });
+            }
+        }
+
         return items;
     };
 
     return (
-        <main className="min-h-screen flex flex-col items-center p-4">
-            <h1 className="text-2xl font-bold text-white text-center mb-8">
+        <main className="min-h-screen flex flex-col items-center p-4 pt-0">
+            <h1 className="text-xl text-white text-center mb-8">
                 터치해서 선물을 열어보세요!
             </h1>
 
             <div className="relative w-full max-w-md aspect-[4/5]">
-                <div className="absolute inset-0 bg-[url('/emptybox.svg')] bg-contain bg-center bg-no-repeat" />
-                
                 <div className="relative h-full">
+                    <div className="absolute inset-0 bg-[url('/futurebox_inside.svg')] bg-cover bg-center  bg-no-repeat" />
                     {renderItems().map((item) => (
                         <div 
-                            key={item.id}
+                            key={item.type}
                             className={`absolute ${item.position} transform -translate-x-1/2 -translate-y-1/2`}
                         >
                             <FutureItemView 
-                                item={item}
+                                item={{
+                                    ...item,
+                                    data: item.content
+                                }}
                             />
                         </div>
                     ))}
+                    <div className="absolute pointer-events-none inset-0 bg-[url('/futurebox_outside.svg')] bg-cover bg-center bg-no-repeat" />
                 </div>
             </div>
+            <NavigateButton className='w-[300px]' href='/send/form'>
+                       나도 보내기
+                    </NavigateButton>
         </main>
     );
 } 

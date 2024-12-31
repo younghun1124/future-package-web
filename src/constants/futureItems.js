@@ -2,14 +2,14 @@ export const FUTURE_MOVIE_TYPES = {
   ACTION: {
     id: 1,
     name: '범죄시골39',
-    description: '2047년 개봉 예정인 액션 블록버스터',
+    description: '배추 밭에선 신발끈도 묶지 말라고!',
     imageUrl: '/crimecountry39_poster.svg',
     detailImageUrl: '/crimecountry39_ticket.svg',
   },
   ROMANCE: {
     id: 2,
-    name: '아웃사이드 인',
-    description: '감정을 완벽하게 지배 하는 나',
+    name: '아웃사이드 인 15',
+    description: '기쁨이와 라일리의 환갑잔치 대소동!'  ,
     imageUrl: '/outsidein_poster.svg',
     detailImageUrl: '/outsidein_ticket.svg',
   },
@@ -29,6 +29,7 @@ export const FUTURE_GIFTICON_TYPES = {
     description: '이 냄새 뭐지...? 매력적이야.. 천상의 맛 두리안이 한가득!',
     imageUrl: '/dooriancake_dish.svg',
     detailImageUrl: '/dooriancake_coupon.svg',
+    
   },
   
 };
@@ -44,7 +45,7 @@ export const FUTURE_INVENTION_TYPES = {
   BlueToothShower: {
     id: 2,
     name: '블루투스 샤워기',
-    description: '이제 샤워기도 편리하게 가지고 다니세요! 남들이 함부로 사용할 수 없도록 비밀번호 설정하는 것 잊지 마세요!',
+    description: '...누가 샤워기에 오렌지 주스 연결해놨어? 왜 샤워기로 피부에 비타민 공급 하는건데!',
     imageUrl: '/bluetooth_shower.svg',
     detailImageUrl: '/bluetooth_shower.svg',
   },

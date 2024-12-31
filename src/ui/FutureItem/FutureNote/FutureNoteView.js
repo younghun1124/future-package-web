@@ -1,9 +1,10 @@
 import Image from "next/image";
 
-export default function FutureNoteView({dataRef}) {
+export default function FutureNoteView({dataRef,data}) {
+    const text = dataRef?.current.text || data?.text;
     return (
         <div className="relative">
-            <h2 className="text-3xl text-center font-bold text-white mb-2">쪽지</h2>
+            <h2 className="text-3xl text-center font-bold text-white mt-3 mb-2">쪽지</h2>
             <div className="relative">
                 <Image 
                     src="/futurenote_detail.svg" 
@@ -15,7 +16,7 @@ export default function FutureNoteView({dataRef}) {
                 />
                 <div className="absolute top-[70%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] text-center overflow-y-auto">
                     <p className="text-black text-xl whitespace-pre-wrap break-words p-4">
-                        {dataRef.current?.text || ''}
+                        {text || ''}
                     </p>
                 </div>
             </div>

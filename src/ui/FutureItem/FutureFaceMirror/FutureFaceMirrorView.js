@@ -1,30 +1,40 @@
 import { DialogHeader, DialogTitle } from '@chakra-ui/react';
+import { useParams } from 'next/navigation';
 
-export default function FutureFaceMirrorView({ dataRef }) {    
+export default function FutureFaceMirrorView({ data, dataRef }) {    
+    const mirrorData = dataRef?.current.svgImage||null;
+    const mirrorUrl =  data?.imageUrl||null;
+    const params = useParams();
+    const receiver = params?.receiver || '당신';
+
     return (
         <div className="flex flex-col items-center gap-4">
             <DialogHeader>
-                <DialogTitle className="text-2xl font-bold text-center py-4">
-                    미래의 거울
+                <DialogTitle className="text-2xl text-white font-bold text-center py-4">
+                    {receiver}님의 미래를 비추는 거울
                 </DialogTitle>
             </DialogHeader>
             
             {/* 이미지 컨테이너 */}
-            <div 
-                className="relative w-full"
-                style={{ aspectRatio: '255/170' }}
-            >
-                {/* SVG 그림 */}
-                <div 
-                    className="absolute top-0 left-0 w-full h-full z-0"
-                    dangerouslySetInnerHTML={{ __html: dataRef?.current?.svgImage || '' }}
-                />
-                
-                {/* 배경 이미지 */}
+            <div className="relative w-[300px] mx-auto">
+                {/* SVG 이미지 */}
+                {mirrorData && (
+                    <div 
+                        className="absolute top-[5%] left-[51%] transform -translate-x-1/2 w-[65%] h-[50%] z-10"
+                        dangerouslySetInnerHTML={{ __html: mirrorData }}
+                    />
+                )}
+                {mirrorUrl && (
+                    <img 
+                        src={mirrorUrl}
+                        className="absolute top-[5%] left-[51%] transform -translate-x-1/2 w-[65%] h-[50%] z-10"
+                    />
+                )}
+                {/* 거울 프레임 */}
                 <img 
                     src="/futurefacemirror_detail.svg" 
                     alt="거울 프레임"
-                    className="absolute top-0 left-0 w-full h-full z-10"
+                    className="w-full z-20 relative"
                 />
             </div>
         </div>

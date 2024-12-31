@@ -1,9 +1,9 @@
 import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 
-export default function FutureHologramView({ dataRef }) {    
-    const uploadedImage = dataRef.current?.imageUrl;
+export default function FutureHologramView({ data, dataRef }) {    
+    const hologramData = dataRef?.current || data;
 
-    if (!uploadedImage) {
+    if (!hologramData?.imageUrl) {
         return null;
     }
 
@@ -11,29 +11,27 @@ export default function FutureHologramView({ dataRef }) {
         <div className="flex flex-col items-center gap-4">
             <DialogHeader>
                 <DialogTitle className="text-2xl font-bold text-center py-4 text-white">
-                    홀로그램
+                    홀로그램 액자
                 </DialogTitle>
             </DialogHeader>
             
-            <div className="relative w-full h-[400px]">
+            <div className="relative w-[300px] mx-auto">
+                {/* 홀로그램 프레임 이미지 */}
+                <img 
+                    src="/futurehologram_detail.svg" 
+                    alt="홀로그램 프레임"
+                    className="w-full"
+                />
+
                 {/* 업로드된 이미지 + 홀로그램 효과 */}
-                <div className="absolute bottom-[45%] left-1/2 -translate-x-1/2 w-[60%] aspect-square z-20">
+                <div className="absolute bottom-[55%] left-1/2 -translate-x-1/2 w-[60%] aspect-square">
                     <div className="relative w-full h-full hologram-container">
                         <img 
-                            src={uploadedImage}
+                            src={hologramData.imageUrl}
                             alt="홀로그램 이미지"
                             className="w-full h-full object-contain hologram-effect"
                         />
                     </div>
-                </div>
-                
-                {/* 홀로그램 프레임 이미지 */}
-                <div className="absolute bottom-0 left-0 w-full">
-                    <img 
-                        src="/futurehologram_detail.svg" 
-                        alt="홀로그램 프레임"
-                        className="w-full h-auto"
-                    />
                 </div>
             </div>
 

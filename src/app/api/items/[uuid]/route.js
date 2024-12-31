@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
 import { neon } from '@neondatabase/serverless';
 
-export async function GET(request, { params }) {
+export async function GET(request) {
   try {
     const sql = neon(process.env.DATABASE_URL);
-    const uuid = params.uuid;
+    const uuid = request.url.split('/').pop();
 
     const [futureBox] = await sql`
       SELECT * FROM future_box 
