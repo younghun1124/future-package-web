@@ -26,9 +26,9 @@ function DeliveryContent() {
         window.Kakao.Share.sendDefault({
             objectType: 'feed',
             content: {
-                title: '미래에서 온 선물이 도착했어요! 🎁',
-                description: '미래에서 온 특별한 선물을 확인해보세요.',
-                imageUrl: 'https://your-domain.com/future_package.png',
+                title: '미래에서 온 선물이 도착했어요!🛸',
+                description: '00이 XX에게 어떤 선물들을 보냈는지 확인해보세요🎁',
+                imageUrl: 'https://storage.googleapis.com/future-box-cdn/uploads/1735661768022-delivery_complete.png',
                 link: {
                     mobileWebUrl: shareUrl,
                     webUrl: shareUrl,
