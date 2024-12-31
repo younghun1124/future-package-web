@@ -1,14 +1,14 @@
 'use client';
-import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
-import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { useEffect, Suspense } from 'react';
+import Image from 'next/image';
 import DoodleButton from '@/ui/buttons/DoodleButton';
-import { useRouter } from 'next/navigation'; // useRouter를 next/navigation에서 불러옴
 
-const DeliveryPage = () => {
+function DeliveryContent() {
     const searchParams = useSearchParams();
     const uuid = searchParams.get('uuid');
-    const router = useRouter(); // useRouter를 컴포넌트 내부에서 호출
+    const router = useRouter();
 
     useEffect(() => {
         // Kakao SDK 초기화
@@ -48,8 +48,7 @@ const DeliveryPage = () => {
     };
 
     return (
-        <main className="flex flex-col gap-8 items-center justify-between py-8">
-            {/* 택배 박스 애니메이션 */}
+        <div className="flex flex-col gap-8 items-center justify-between py-8">
             <div className="flex-1 w-full flex items-center justify-center">
                 <div>
                     <Image 
@@ -69,7 +68,6 @@ const DeliveryPage = () => {
                 </div>
             </div>
 
-            {/* 배송하기 버튼 */}
             <div className="w-full flex justify-center">
                 <DoodleButton 
                     width='300px'
@@ -79,8 +77,16 @@ const DeliveryPage = () => {
                     카카오톡으로 전달하기
                 </DoodleButton>
             </div>
+        </div>
+    );
+}
+
+export default function DeliveryPage() {
+    return (
+        <main>
+            <Suspense fallback={<div>Loading...</div>}>
+                <DeliveryContent />
+            </Suspense>
         </main>
     );
-};
-
-export default DeliveryPage;
+}

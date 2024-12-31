@@ -1,11 +1,12 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useState, Suspense } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import FutureItem from '@ui/FutureItem';
 import { dummyItems } from '@/mocks/items';
 import Image from 'next/image';
 import DoodleButton from '@/ui/buttons/DoodleButton';
-export default function ItemSelectionPage() {
+
+function ItemSelectionContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedItems, setSelectedItems] = useState([]);
@@ -77,7 +78,7 @@ export default function ItemSelectionPage() {
   console.log(selectedItems)
   console.log("===========")
   return (
-    <main className="flex flex-col min-h-screen p-4 gap-4">
+    <div className="min-h-screen flex flex-col items-center p-4">
       <h2 className="text-2xl font-normal text-white text-center py-4">{receiver} 님에게 보낼 선물을 담아보세요!</h2>
       
       {/* 아이템 선택 영역 - 고정 높이 */}
@@ -111,7 +112,7 @@ export default function ItemSelectionPage() {
 
       {/* 선택된 아이템 목록 - 상자 안에 고정 위치로 배치 */}
       <div className="min-h-[329px] relative">
-        <div className="bg-[url('/emptybox.svg')] h-[329px] bg-center bg-no-repeat bg-contain"></div>
+        <div className="bg-[url('/emptybox.svg')] h-[329px] w-[329px] bg-center bg-no-repeat bg-contain"></div>
         <div className="absolute top-0 left-0 w-full h-full">
             <div className="relative h-full">
                 {/* 각 아이템의 고정 위치 */}
@@ -156,6 +157,20 @@ export default function ItemSelectionPage() {
             포장하기
         </DoodleButton>
       </div>
-    </main>
+    </div>
   );
+}
+
+export default function ItemSelectionPage() {
+    return (
+        <main>
+            <Suspense fallback={
+                <div className="min-h-screen flex items-center justify-center">
+                    <div className="text-white text-xl">Loading...</div>
+                </div>
+            }>
+                <ItemSelectionContent />
+            </Suspense>
+        </main>
+    );
 }
