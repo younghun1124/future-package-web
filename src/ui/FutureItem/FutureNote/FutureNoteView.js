@@ -13,8 +13,8 @@ export default function FutureNoteView({dataRef}) {
                     priority={true}
                     className="mx-auto" 
                 />
-                <div className="absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] text-center overflow-y-auto">
-                    <p className="text-black text-lg whitespace-pre-wrap break-words p-4">
+                <div className="absolute top-[70%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] text-center overflow-y-auto">
+                    <p className="text-black text-xl whitespace-pre-wrap break-words p-4">
                         {dataRef.current?.text || ''}
                     </p>
                 </div>

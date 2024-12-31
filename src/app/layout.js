@@ -1,3 +1,4 @@
+
 import { Gaegu } from "next/font/google";
 import "./globals.css";
 import { Provider } from "@/components/ui/provider"

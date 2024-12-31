@@ -22,7 +22,7 @@ const DeliveryPage = () => {
             return;
         }
 
-        const shareUrl = `${process.env.NEXT_PUBLIC_SERVICE_URL}/receive/${uuid}`;
+        const shareUrl = `${process.env.NEXT_PUBLIC_SERVICE_URL}/receive/${uuid}/box`;
         window.Kakao.Share.sendDefault({
             objectType: 'feed',
             content: {

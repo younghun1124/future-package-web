@@ -3,7 +3,7 @@ import Link from 'next/link';
 import DoodleButton from '@/ui/buttons/DoodleButton';
 
 // params로 boxid를 받아옵니다
-const DeliveryPage = ({ params }) => {
+export default function DeliveryPage ({params}) {
     const { boxid } = params;
 
     return (
@@ -40,7 +40,7 @@ const DeliveryPage = ({ params }) => {
     );
 };
 
-export default DeliveryPage;
+
 
 
 
