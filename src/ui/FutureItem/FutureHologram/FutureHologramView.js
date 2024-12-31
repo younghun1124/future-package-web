@@ -18,9 +18,9 @@ export default function FutureHologramView({ dataRef }) {
             <div className="relative w-full">
                 {/* 홀로그램 프레임 이미지 */}
                 <img 
-                    src="/hologram_detail.svg" 
+                    src="/futurehologram_detail.svg" 
                     alt="홀로그램 프레임"
-                    className="absolute top-0 left-0 w-full h-full z-10"
+                    className=" w-full h-full z-10"
                 />
                 
                 {/* 업로드된 이미지 */}
