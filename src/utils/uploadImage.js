@@ -1,30 +1,65 @@
 import { Storage } from '@google-cloud/storage';
 
-const storage = new Storage({
-  projectId: process.env.GCP_PROJECT_ID,
-  credentials: JSON.parse(process.env.GCP_SERVICE_ACCOUNT_KEY)
-});
+let storage;
+try {
+  const credentials = process.env.GCP_SERVICE_ACCOUNT_KEY;
+  if (!credentials) {
+    throw new Error('GCP 서비스 계정 키가 설정되지 않았습니다.');
+  }
+
+  storage = new Storage({
+    projectId: process.env.GCP_PROJECT_ID,
+    credentials: JSON.parse(credentials)
+  });
+} catch (error) {
+  console.error('GCP Storage 초기화 오류:', error);
+  throw new Error('GCP 스토리지 설정에 문제가 있습니다. 환경 변수를 확인해주세요.');
+}
 
 const bucket = storage.bucket(process.env.GCP_BUCKET_NAME);
 
 export async function uploadToGCS(file, folder) {
+  if (!bucket) {
+    throw new Error('GCP 버킷이 초기화되지 않았습니다.');
+  }
+
   const timestamp = Date.now();
-  const fileName = `${folder}/${timestamp}-${file.name}`;
+  const fileName = `${folder}/${timestamp}-${file.originalFilename || file.name}`;
+  const contentType = file.mimetype || file.type;
   const blob = bucket.file(fileName);
-  
-  const blobStream = blob.createWriteStream({
-    resumable: false,
-    metadata: {
-      contentType: file.type,
-    },
-  });
+
+  console.log('업로드 시작:', fileName);
+  console.log('Content-Type:', contentType);
 
   return new Promise((resolve, reject) => {
-    blobStream.on('error', (err) => reject(err));
-    blobStream.on('finish', () => {
-      const publicUrl = `https://storage.googleapis.com/${bucket.name}/${fileName}`;
-      resolve(publicUrl);
+    const blobStream = blob.createWriteStream({
+      resumable: false,
+      metadata: {
+        contentType: contentType,
+      }
     });
+
+    blobStream.on('error', (error) => {
+      console.error('스트림 오류:', error);
+      reject(error);
+    });
+
+    blobStream.on('finish', async () => {
+      try {
+        const publicUrl = `https://storage.googleapis.com/${bucket.name}/${fileName}`;
+        console.log('업로드 성공:', publicUrl);
+        resolve(publicUrl);
+      } catch (error) {
+        console.error('파일 업로드 오류:', error);
+        reject(error);
+      }
+    });
+
+    if (!file.buffer) {
+      reject(new Error('파일 버퍼가 없습니다.'));
+      return;
+    }
+
     blobStream.end(file.buffer);
   });
-} 
+}
