@@ -21,8 +21,8 @@ export default function FutureInventionView({ dataRef }) {
                     alt={selectedInvention.name}
                     className="w-full h-auto"
                 />
-                <h3 className="text-xl font-bold text-center mt-4">{selectedInvention.name}</h3>
-                <p className="text-center text-gray-400">{selectedInvention.description}</p>
+                {/* <h3 className="text-xl font-bold text-center mt-4">{selectedInvention.name}</h3>
+                <p className="text-center text-gray-400">{selectedInvention.description}</p> */}
             </div>
         </div>
     );

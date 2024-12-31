@@ -1,9 +1,9 @@
 import Image from "next/image";
 
-export default function FutureNoteView({dataRef}) {    
+export default function FutureNoteView({dataRef}) {
     return (
         <div className="relative">
-        <h2 className="text-3xl text-center font-bold text-white mb-2">쪽지</h2>
+            <h2 className="text-3xl text-center font-bold text-white mb-2">쪽지</h2>
             <div className="relative">
                 <Image 
                     src="/futurenote_detail.svg" 

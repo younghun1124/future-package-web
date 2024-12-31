@@ -21,10 +21,10 @@ export default function FutureGifticonView({ dataRef }) {
                     alt={selectedGifticon.name}
                     className="w-full h-auto"
                 />
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
+                {/* <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center">
                     <h3 className="text-xl font-bold">{selectedGifticon.name}</h3>
                     <p className="text-sm text-gray-600">{selectedGifticon.description}</p>
-                </div>
+                </div> */}
             </div>
         </div>
     );

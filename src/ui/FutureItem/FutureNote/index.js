@@ -1,7 +1,7 @@
 import FutureNoteEdit from "./FutureNoteEdit";
 import FutureNoteView from "./FutureNoteView";
 
-export default function FutureFaceMirror({modalState,dataRef}) {
+export default function FutureNote({modalState,dataRef}) {
     return (
         modalState==='edit'?
         <FutureNoteEdit dataRef={dataRef}/>:

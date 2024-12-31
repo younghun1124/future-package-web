@@ -1,4 +1,11 @@
-export default function FutureNoteEdit({dataRef}) {    
+export default function FutureNoteEdit({dataRef}) {  
+    // 초기값 설정
+    if (!dataRef.current) {
+        dataRef.current = {
+            text: ''
+        };
+    }
+     
     return (
         <div className="flex mt-9 flex-col gap-4">
             <div className="text-center">
@@ -13,7 +20,7 @@ export default function FutureNoteEdit({dataRef}) {
                         text: e.target.value
                     };
                 }}
-                defaultValue={dataRef.current?.text || ''}
+                defaultValue={dataRef.current.text || ''}
             />
         </div>
     );

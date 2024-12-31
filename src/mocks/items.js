@@ -5,6 +5,7 @@ export const dummyItems = [
     icon: '/futurenote_icon.svg',
     type: 'FutureNote', 
     name: '커스텀 쪽지',
+    content:' '
   },
   {
     id: 'mirror_1',

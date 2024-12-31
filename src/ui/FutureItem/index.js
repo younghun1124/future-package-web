@@ -40,9 +40,9 @@ const componentsMap = {
 const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteClick, isSelected, isinBox=false}) => {
     const Component = componentsMap[item.type] || DefaultComponent;
     const closeButtonRef = useRef(null);
-    let currentData = useRef(item.content);
+    const currentData = useRef(item.content);
     console.log('currentData 초기화')
-    console.log(currentData.current)
+    console.log(currentData)
     const [modalState, setModalState] = useState('edit');
     const [isOpen, setIsOpen] = useState(false);
 
@@ -50,31 +50,19 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
     useEffect(() => {
         if (isOpen) {
             setModalState(isSelected ? 'inboxpreview' : 'edit');
-            currentData=item.content
         }
     }, [isSelected, isOpen]);
-
-    // // 모달이 열리거나 닫힐 때 currentData 초기화
-    // useEffect(() => {
-    //     if (isOpen) {
-    //         // 모달이 열릴 때 초기 데이터 설정
-    //         currentData.current = isSelected ? item.content : null;
-    //     } else {
-    //         // 모달이 닫힐 때 데이터 초기화
-    //         currentData.current = null;
-    //     }
-    // }, [isOpen, isSelected, item.content]);
 
     // modalState 변경 시 로깅
     useEffect(() => {
         console.log('Modal State:', modalState);
-        console.log('Current Data:', currentData.current);
+        console.log('Current Data:', currentData);
     }, [modalState]);
 
     const handleComplete = () => {
         const data = currentData.current;
         console.log("현재 업데이트 함수에 넣을 데이터")
-        console.log(currentData)
+        console.log(data)
         console.log("+=======+")
         if (isSelected) {
             handleUpdateClick(item, data);
@@ -121,7 +109,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                 borderRadius="22.5px"                
                 className="backdrop-blur-md"
             >
-            {modalState}
+            {/* {modalState} */}
                 <DialogBody className="flex flex-col gap-6 px-6">
                     <Component 
                         item={item}
