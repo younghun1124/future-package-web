@@ -40,7 +40,7 @@ const componentsMap = {
 const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteClick, isSelected, isinBox=false}) => {
     const Component = componentsMap[item.type] || DefaultComponent;
     const closeButtonRef = useRef(null);
-    const currentData = useRef(item.content);
+    let currentData = useRef(item.content);
     console.log('currentData 초기화')
     console.log(currentData.current)
     const [modalState, setModalState] = useState('edit');
@@ -50,6 +50,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
     useEffect(() => {
         if (isOpen) {
             setModalState(isSelected ? 'inboxpreview' : 'edit');
+            currentData=item.content
         }
     }, [isSelected, isOpen]);
 

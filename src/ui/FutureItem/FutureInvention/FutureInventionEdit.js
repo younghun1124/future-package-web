@@ -8,10 +8,11 @@ export default function FutureInventionEdit({ dataRef }) {
     const inventions = Object.values(FUTURE_INVENTION_TYPES);
 
     const handleSelect = (type) => {
-        dataRef.current = {
-            type: type
-        };
+        dataRef.current = 
+            type
+        ;
     };
+   
 
     const handlePrev = () => {
         setCurrentIndex((prev) => {

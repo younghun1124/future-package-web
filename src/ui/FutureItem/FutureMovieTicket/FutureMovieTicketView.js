@@ -1,10 +1,10 @@
 import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 
 export default function FutureMovieTicketView({ dataRef }) {    
-    const selectedMovie = dataRef.current?.type;
+    const selectedMovie = dataRef.current;
 
     if (!selectedMovie) {
-        return null;
+        return <div>선택된 영화 데이터 없음</div>
     }
 
     return (

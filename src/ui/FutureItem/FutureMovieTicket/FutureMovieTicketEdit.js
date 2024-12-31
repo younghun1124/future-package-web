@@ -6,13 +6,15 @@ import { useState } from 'react';
 export default function FutureMovieTicketEdit({ dataRef }) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const movies = Object.values(FUTURE_MOVIE_TYPES);
+    console.log('movies')
+    console.log(movies)
 
     const handleSelect = (type) => {
-        dataRef.current = {
-            type: type
-        };
+        dataRef.current = 
+            type
+        ;
     };
-
+   
     const handlePrev = () => {
         setCurrentIndex((prev) => {
             const newIndex = prev - 1;
@@ -30,7 +32,6 @@ export default function FutureMovieTicketEdit({ dataRef }) {
             return newIndex >= movies.length ? 0 : newIndex;
         });
     };
-
     return (
         <div className="flex flex-col gap-4">
             <DialogHeader>

@@ -1,14 +1,14 @@
 import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 
 export default function FutureInventionView({ dataRef }) {    
-    const selectedInvention = dataRef.current?.type;
+    const selectedInvention = dataRef.current;
 
     if (!selectedInvention) {
         return null;
     }
 
     return (
-        <div className="flex flex-col items-center gap-4">
+        <div className="flex flex-col text-white  items-center gap-4">
             <DialogHeader>
                 <DialogTitle className="text-2xl font-bold text-center py-4">
                     미래 발명품

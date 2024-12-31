@@ -8,10 +8,11 @@ export default function FutureGifticonEdit({ dataRef }) {
     const gifticons = Object.values(FUTURE_GIFTICON_TYPES);
 
     const handleSelect = (type) => {
-        dataRef.current = {
-            type: type
-        };
+        dataRef.current = 
+            type
+        ;
     };
+   
 
     const handlePrev = () => {
         setCurrentIndex((prev) => {

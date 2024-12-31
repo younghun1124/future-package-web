@@ -1,7 +1,7 @@
 import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 
 export default function FutureGifticonView({ dataRef }) {    
-    const selectedGifticon = dataRef.current?.type;
+    const selectedGifticon = dataRef.current;
 
     if (!selectedGifticon) {
         return null;
