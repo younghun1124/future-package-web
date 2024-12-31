@@ -3,11 +3,13 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 import DoodleButton from '@/ui/buttons/DoodleButton';
+import { useRouter } from 'next/navigation'; // useRouter를 next/navigation에서 불러옴
 
 const DeliveryPage = () => {
     const searchParams = useSearchParams();
     const uuid = searchParams.get('uuid');
-    
+    const router = useRouter(); // useRouter를 컴포넌트 내부에서 호출
+
     useEffect(() => {
         // Kakao SDK 초기화
         if (!window.Kakao.isInitialized()) {
@@ -21,7 +23,6 @@ const DeliveryPage = () => {
         }
 
         const shareUrl = `${process.env.NEXT_PUBLIC_SERVICE_URL}/receive/${uuid}`;
-
         window.Kakao.Share.sendDefault({
             objectType: 'feed',
             content: {
@@ -43,6 +44,7 @@ const DeliveryPage = () => {
                 },
             ],
         });
+        router.push('/send/complete'); // 페이지 이동
     };
 
     return (
@@ -52,11 +54,11 @@ const DeliveryPage = () => {
                 <div>
                     <Image 
                         src='/ufo.svg'
-                        alt="배달 ufo" 
-                        width={150}
-                        height={130}
+                        alt="배달 ufo"
+                        width={100}
+                        height={100}
                         className='ml-auto'
-                    />   
+                    />
                     <Image 
                         src='/future_package.svg'
                         alt="미래 택배 상자"
@@ -70,6 +72,7 @@ const DeliveryPage = () => {
             {/* 배송하기 버튼 */}
             <div className="w-full flex justify-center">
                 <DoodleButton 
+                    className='w-[85%]'
                     onClick={handleShare}
                     color="black"
                 >
@@ -81,7 +84,3 @@ const DeliveryPage = () => {
 };
 
 export default DeliveryPage;
-
-
-
-
