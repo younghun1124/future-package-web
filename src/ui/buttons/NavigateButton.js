@@ -2,10 +2,10 @@
 import Link from 'next/link';
 import DoodleButton from './DoodleButton';
 
-export default function NavigateButton({ href, children }) {
+export default function NavigateButton({ href, children,className ,...props}) {
   return (
     <Link href={href}>
-      <DoodleButton>
+      <DoodleButton className={className} {...props}>
         {children}
       </DoodleButton>
     </Link>

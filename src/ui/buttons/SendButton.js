@@ -1,5 +1,4 @@
 import Link from 'next/link';
-
 export default function SendButton({ className = '' }) {
   return (
     <Link

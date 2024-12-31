@@ -59,7 +59,7 @@ const DeliveryPage = () => {
                         height={100}
                         className='ml-auto'
                     />
-                    <Image 
+                    <Image
                         src='/future_package.svg'
                         alt="미래 택배 상자"
                         width={300}
@@ -72,7 +72,7 @@ const DeliveryPage = () => {
             {/* 배송하기 버튼 */}
             <div className="w-full flex justify-center">
                 <DoodleButton 
-                    className='w-[85%]'
+                    width='300px'
                     onClick={handleShare}
                     color="black"
                 >
