@@ -38,9 +38,10 @@ export default function FutureMovieTicketEdit({ dataRef }) {
                 <DialogTitle className="text-2xl font-bold text-center py-4 text-white">
                     미래 영화 티켓
                 </DialogTitle>
-                <p className="text-white">
-                    
+                <p className="text-white text-lg text-center">
+                    미래에 개봉될 영화를 살짝 알려줄까요?
                 </p>
+                
             </DialogHeader>
 
             <div className="relative w-full px-12">
