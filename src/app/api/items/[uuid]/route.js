@@ -1,3 +1,6 @@
+import { NextResponse } from 'next/server';
+import { neon } from '@neondatabase/serverless';
+
 export async function GET(request, { params }) {
   try {
     const sql = neon(process.env.DATABASE_URL);
@@ -16,27 +19,40 @@ export async function GET(request, { params }) {
     }
 
     const [futureNotes, futureLottos, futureHolograms, futureFaceMirrors] = await Promise.all([
-      sql`SELECT * FROM future_note WHERE box_id = ${futureBox.id} ORDER BY created_at DESC`,
-      sql`SELECT * FROM future_lotto WHERE box_id = ${futureBox.id} ORDER BY created_at DESC`,
-      sql`SELECT * FROM future_hologram WHERE box_id = ${futureBox.id} ORDER BY created_at DESC`,
-      sql`SELECT * FROM future_face_mirror WHERE box_id = ${futureBox.id} ORDER BY created_at DESC`
+      sql`SELECT * FROM future_note WHERE box_id = ${futureBox.id}`,
+      sql`SELECT * FROM future_lotto WHERE box_id = ${futureBox.id}`,
+      sql`SELECT * FROM future_hologram WHERE box_id = ${futureBox.id}`,
+      sql`SELECT * FROM future_face_mirror WHERE box_id = ${futureBox.id}`
     ]);
 
     const response = {
-      future_box: {
+      box: {
         uuid: futureBox.uuid,
         receiver: futureBox.receiver,
         sender: futureBox.sender,
-        future_movie_type: futureBox.future_movie_type,
-        future_gifticon_type: futureBox.future_gifticon_type,
-        future_invention_type: futureBox.future_invention_type,
-        created_at: futureBox.created_at
+        futureMovieType: futureBox.future_movie_type,
+        futureGifticonType: futureBox.future_gifticon_type,
+        futureInventionType: futureBox.future_invention_type,
+        createdAt: futureBox.created_at
       },
-      future_items: {
-        future_notes: futureNotes,
-        future_lottos: futureLottos,
-        future_holograms: futureHolograms,
-        future_face_mirrors: futureFaceMirrors
+      items: {
+        futureNotes: futureNotes.map(note => ({
+          id: note.id,
+          message: note.message
+        })),
+        futureLottos: futureLottos.map(lotto => ({
+          id: lotto.id,
+          numbers: lotto.numbers
+        })),
+        futureHolograms: futureHolograms.map(hologram => ({
+          id: hologram.id,
+          imageUrl: hologram.image_url
+        })),
+        futureFaceMirrors: futureFaceMirrors.map(mirror => ({
+          id: mirror.id,
+          year: mirror.year,
+          imageUrl: mirror.image_url
+        }))
       }
     };
 

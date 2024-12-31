@@ -5,9 +5,9 @@ CREATE TABLE future_box (
   receiver VARCHAR(100) NOT NULL,
   sender VARCHAR(100) NOT NULL,
   is_opened BOOLEAN DEFAULT FALSE,
-  future_movie_type INT NOT NULL,
-  future_gifticon_type INT NOT NULL,
-  future_invention_type INT NOT NULL,
+  future_movie_type INT,
+  future_gifticon_type INT,
+  future_invention_type INT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

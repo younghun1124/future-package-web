@@ -49,28 +49,28 @@ export default function ItemSelectionPage() {
 
   const handleSubmit = async () => {
     try {
-        const response = await fetch('/api/items', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                receiver,
-                sender,
-                items: selectedItems.map(item => ({
-                    ...item,
-                    ...(item.svgData && { svgData: item.svgData }),
-                    ...(item.svgImage && { svgImage: item.svgImage })
-                }))
-            }),
-        });        
-        if (response.ok) {
-            router.push('/send/delivery');
-        } else {
-            alert('아이템 저장에 실패했습니다. 다시 시도해주세요.');
-        }
+      const response = await fetch('/api/items', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          receiver,
+          sender,
+          futureItems: selectedItems
+        }),
+      });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        router.push(`/send/delivery?uuid=${data.uuid}`);
+      } else {
+        alert('아이템 저장에 실패했습니다. 다시 시도해주세요.');
+      }
     } catch (error) {
-        router.push('/send/delivery');
+      console.error('Error saving items:', error);
+      alert('아이템 저장 중 오류가 발생했습니다.');
     }
   };
   console.log("선택된 아이템")
