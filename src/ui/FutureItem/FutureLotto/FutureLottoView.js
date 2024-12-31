@@ -1,6 +1,6 @@
 import Image from "next/image";
-export default function FutureLottoView({dataRef}) {
-    
+
+export default function FutureLottoView({ data }) {    
     return (
         <div className="relative">
             <div className="relative">
@@ -12,9 +12,9 @@ export default function FutureLottoView({dataRef}) {
                     priority={true}
                     className="mx-auto" 
                 />
-                <div className="absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 flex gap-4 justify-center w-full">
-                    {dataRef.current?.numbers?.map((number, index) => (
-                        <div key={index} className="w-4 h-8 rounded-full text-white flex items-center justify-center font-bold">
+                <div className="absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 flex gap-2 justify-center w-full">
+                    {data?.numbers?.map((number, index) => (
+                        <div key={index} className="w-5 h-5 bg-black rounded-full text-white flex items-center justify-center font-bold">
                             {number}
                         </div>
                     ))}
@@ -22,5 +22,5 @@ export default function FutureLottoView({dataRef}) {
             </div>
         </div>
     );
-};
+}
 
