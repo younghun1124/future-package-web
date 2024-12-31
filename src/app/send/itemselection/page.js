@@ -110,9 +110,9 @@ export default function ItemSelectionPage() {
       </div>
 
       {/* 선택된 아이템 목록 - 남은 공간 채우기 */}
-      <div className="min-h-[200px]">
+      <div className="min-h-[200px] relative">
         {/* <h2 className="text-lg font-bold mb-4 text-center text-white">담은 선물</h2> */}
-          <div className="grid grid-cols-2 gap-2 bg-[url('/emptybox.svg')] min-h-[329] bg-center bg-no-repeat bg-contain ">
+          <div className="absolute h-[100%] top-0 grid grid-cols-2 gap-2  ">
             {selectedItems.map((item) => (     
                 <FutureItem 
                   key={`selected_${item.type}`}
@@ -124,11 +124,12 @@ export default function ItemSelectionPage() {
                 />
             ))}
           </div>
+          <div className="bg-[url('/emptybox.svg')] min-h-[329] bg-center bg-no-repeat bg-contain"></div>
       </div>
       {/* 포장하기 버튼 - 하단 고정 */}
       <div className="flex justify-center w-full">
       <DoodleButton 
-          
+          className='w-[85%]'
           onClick={handleSubmit}
           disabled={selectedItems.length === 0}
         >
