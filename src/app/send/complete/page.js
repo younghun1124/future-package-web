@@ -24,10 +24,10 @@ export default function CompletePage() {
 
                 {/* 버튼 영역 */}
                 <div className="w-full flex flex-col items-center space-y-4">
-                    <DoodleButton className='w-[85%]' variant='white'>
+                    {/* <DoodleButton className='w-[85%]'  variant='white'>
                         다른 친구에게 요청하기
-                    </DoodleButton>
-                    <NavigateButton className='w-[85%]' href='/send/form'>
+                    </DoodleButton> */}
+                    <NavigateButton className='w-[300px]' href='/send/form'>
                         다른 친구에게도 보내기
                     </NavigateButton>
                 </div>

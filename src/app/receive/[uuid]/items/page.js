@@ -1,8 +1,12 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import FutureItem from '@/ui/FutureItem';
-import Image from 'next/image';
+import FutureItemView from '@/ui/FutureItem/FutureItemView';
+import { 
+    FUTURE_MOVIE_TYPES,
+    FUTURE_GIFTICON_TYPES,
+    FUTURE_INVENTION_TYPES 
+} from '@/constants/futureItems';
 
 export default function ItemsPage() {
     const { uuid } = useParams();
@@ -39,16 +43,17 @@ export default function ItemsPage() {
     const renderItems = () => {
         const items = [];
         const { futureNotes, futureLottos, futureHolograms, futureFaceMirrors } = boxData.items;
+        const { futureMovieType, futureGifticonType, futureInventionType } = boxData.box;
 
-        // 아이템 타입별 아이콘 매핑
+        // 아이템 타입별 아이콘 매핑 수정
         const icons = {
-            FutureNote: '/futurenote.svg',
-            FutureFaceMirror: '/futurefacemirror.svg',
-            FutureHologram: '/futurehologram.svg',
-            FutureLotto: '/futurelotto.svg',
-            FutureMovieTicket: '/futuremovieticket.svg',
-            FutureGifticon: '/futuregifticon.svg',
-            FutureInvention: '/futureinvention.svg',
+            FutureNote: '/futurenote_icon.svg',
+            FutureFaceMirror: '/futurefacemirror_icon.svg',
+            FutureHologram: '/futurehologram_icon.svg',
+            FutureLotto: '/futurelotto_icon.svg',
+            FutureMovieTicket: '/futuremovieticket_icon.svg',
+            FutureGifticon: '/futuregifticon_icon.svg',
+            FutureInvention: '/futureinvention_icon.svg',
         };
 
         // 각 아이템 타입별 위치 매핑
@@ -63,7 +68,7 @@ export default function ItemsPage() {
         };
 
         // 각 아이템 타입별 처리
-        if (futureNotes) {
+        if (futureNotes?.length) {
             items.push(...futureNotes.map(item => ({
                 id: item.id,
                 type: 'FutureNote',
@@ -116,23 +121,17 @@ export default function ItemsPage() {
                 터치해서 선물을 열어보세요!
             </h1>
 
-            {/* 상자 이미지와 아이템들 */}
             <div className="relative w-full max-w-md aspect-[4/5]">
-                {/* 상자 배경 이미지 */}
                 <div className="absolute inset-0 bg-[url('/emptybox.svg')] bg-contain bg-center bg-no-repeat" />
                 
-                {/* 아이템들 */}
                 <div className="relative h-full">
                     {renderItems().map((item) => (
                         <div 
                             key={item.id}
                             className={`absolute ${item.position} transform -translate-x-1/2 -translate-y-1/2`}
                         >
-                            <FutureItem 
+                            <FutureItemView 
                                 item={item}
-                                isSelected={true}
-                                modalState="view"
-                                isinBox={true}
                             />
                         </div>
                     ))}

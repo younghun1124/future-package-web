@@ -5,7 +5,7 @@ export default function FutureLottoView({dataRef}) {
         <div className="relative">
             <div className="relative">
                 <Image 
-                    src="/futurelotto_detail.svg" 
+                    src="/futurelotto_detail.png" 
                     alt="Future Lotto Detail" 
                     width={320} 
                     height={320} 
