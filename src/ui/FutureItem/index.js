@@ -76,7 +76,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                     disabled={isSelected}
                     priority={true}
                 />
-                {!isinBox ? <div className='text-white text-sm'>{item.name}</div>:<></>}
+                {!isinBox ? <div className='text-white text-sm'>{item.name}</div>:''}
             </Button>
         );
     }
