@@ -8,6 +8,13 @@ export async function POST(request) {
     const sql = neon(process.env.DATABASE_URL);
     const { receiver, sender, futureItems } = await request.json();
     
+    // IP 주소 가져오기
+    const forwardedFor = request.headers.get('x-forwarded-for');
+    const ipAddress = forwardedFor ? forwardedFor.split(',')[0] : '127.0.0.1';
+    
+    // User Agent 가져오기
+    const userAgent = request.headers.get('user-agent') || '';
+
     const boxUuid = uuidv4();
     
     // 이미지 업로드가 필요한 아이템들을 먼저 처리
@@ -52,6 +59,16 @@ export async function POST(request) {
     
     const futureBoxId = futureBoxResult.id;
     
+    // future_box_logs에 로그 저장
+    await sql`
+      INSERT INTO future_box_logs (
+        box_id, ip_address, user_agent
+      )
+      VALUES (
+        ${futureBoxId}, ${ipAddress}, ${userAgent}
+      )
+    `;
+
     for (const item of processedItems) {
       switch (item.type) {
         case 'FutureNote':
