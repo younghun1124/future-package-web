@@ -46,23 +46,18 @@ export async function uploadToGCS(file, folder) {
 
   return new Promise((resolve, reject) => {
     const blobStream = blob.createWriteStream({
-      resumable: true,
+      resumable: false,
       metadata: {
         contentType: contentType,
-      },
-      timeout: 30000 // 30초 타임아웃 설정
+      }
     });
 
-    let hasError = false;
-
     blobStream.on('error', (error) => {
-      hasError = true;
       console.error('스트림 오류:', error);
       reject(error);
     });
 
     blobStream.on('finish', async () => {
-      if (hasError) return;
       try {
         const publicUrl = `https://storage.googleapis.com/${bucket.name}/${fileName}`;
         console.log('업로드 성공:', publicUrl);
@@ -78,21 +73,6 @@ export async function uploadToGCS(file, folder) {
       return;
     }
 
-    // 스트림에 데이터 쓰기 전에 에러 체크
-    if (!hasError) {
-      try {
-        blobStream.write(file.buffer, (err) => {
-          if (err) {
-            hasError = true;
-            reject(err);
-            return;
-          }
-          blobStream.end();
-        });
-      } catch (error) {
-        hasError = true;
-        reject(error);
-      }
-    }
+    blobStream.end(file.buffer);
   });
 }
