@@ -2,14 +2,18 @@ import { Storage } from '@google-cloud/storage';
 
 let storage;
 try {
-  const credentials = process.env.GCP_SERVICE_ACCOUNT_KEY;
+  const credentials = JSON.parse(process.env.GCP_SERVICE_ACCOUNT_KEY);
+  
+  // private_key 문자열 처리 수정
+  credentials.private_key = credentials.private_key.replace(/\\n/g, '\n');
+  
   if (!credentials) {
     throw new Error('GCP 서비스 계정 키가 설정되지 않았습니다.');
   }
 
   storage = new Storage({
     projectId: process.env.GCP_PROJECT_ID,
-    credentials: JSON.parse(credentials)
+    credentials: credentials
   });
 } catch (error) {
   console.error('GCP Storage 초기화 오류:', error);
