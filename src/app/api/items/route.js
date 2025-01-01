@@ -6,6 +6,8 @@ import { uploadToGCS } from '@/utils/uploadImage';
 export async function POST(request) {
   try {
     const sql = neon(process.env.DATABASE_URL);
+    // 서울 시간대로 현재 시간 설정
+    await sql`SET timezone = 'Asia/Seoul'`;
     const { receiver, sender, futureItems } = await request.json();
     
     // IP 주소 가져오기
@@ -48,11 +50,13 @@ export async function POST(request) {
     const [futureBoxResult] = await sql`
       INSERT INTO future_box (
         uuid, receiver, sender, 
-        future_movie_type, future_gifticon_type, future_invention_type
+        future_movie_type, future_gifticon_type, future_invention_type,
+        created_at
       )
       VALUES (
         ${boxUuid}, ${receiver}, ${sender},
-        ${futureMovieType}, ${futureGifticonType}, ${futureInventionType}
+        ${futureMovieType}, ${futureGifticonType}, ${futureInventionType},
+        CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Seoul'
       )
       RETURNING id
     `;
