@@ -1,12 +1,25 @@
 'use client';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import ShareButton from '@/ui/buttons/RequestButton';
 import SendButton from '@/ui/buttons/SendButton';
 import NavigateButton from '../../../ui/buttons/NavigateButton';
 import DoodleButton from '../../../ui/buttons/DoodleButton';
 import Image from 'next/image';
+import ChannelService from '../../../ChannelService';
 
 export default function CompletePage() {
+    useEffect(() => {
+        ChannelService.loadScript();
+        ChannelService.boot({
+            pluginKey: process.env.NEXT_PUBLIC_CHANNEL_IO_KEY,
+        });
+
+        return () => {
+            ChannelService.shutdown();
+        };
+    }, []);
+
     return (
         <main className="min-h-screen flex flex-col items-center px-4">
             {/* 배송 완료 이미지 */}
