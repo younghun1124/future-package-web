@@ -43,9 +43,9 @@ export async function POST(request) {
       })
     );
 
-    const futureMovieType = processedItems.find(item => item.type === 'FutureMovieTicket')?.content?.type?.id || 1;
-    const futureGifticonType = processedItems.find(item => item.type === 'FutureGifticon')?.content?.type?.id || 1;
-    const futureInventionType = processedItems.find(item => item.type === 'FutureInvention')?.content?.type?.id || 1;
+    const futureMovieType = processedItems.find(item => item.type === 'FutureMovieTicket')?.content?.id || null;
+    const futureGifticonType = processedItems.find(item => item.type === 'FutureGifticon')?.content?.id || null;
+    const futureInventionType = processedItems.find(item => item.type === 'FutureInvention')?.content?.id || null;
 
     const [futureBoxResult] = await sql`
       INSERT INTO future_box (
