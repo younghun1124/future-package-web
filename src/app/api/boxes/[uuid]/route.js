@@ -122,4 +122,34 @@ export async function GET(request, { params }) {
       { status: 500 }
     );
   }
-} 
+}
+
+export async function PATCH(request, { params }) {
+  try {
+    const sql = neon(process.env.DATABASE_URL);
+    const uuid = params.uuid;
+
+    const [updatedBox] = await sql`
+      UPDATE future_box 
+      SET is_opened = true 
+      WHERE uuid = ${uuid}
+      RETURNING *
+    `;
+
+    if (!updatedBox) {
+      return NextResponse.json(
+        { error: '존재하지 않는 FutureBox입니다.' },
+        { status: 404 }
+      );
+    }
+
+    return NextResponse.json({ success: true });
+
+  } catch (error) {
+    console.error('Error updating FutureBox:', error);
+    return NextResponse.json(
+      { error: 'FutureBox 업데이트 중 오류가 발생했습니다.' },
+      { status: 500 }
+    );
+  }
+}

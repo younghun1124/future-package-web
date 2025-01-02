@@ -7,8 +7,10 @@ export async function GET(request) {
     const uuid = request.url.split('/').pop();
 
     const [futureBox] = await sql`
-      SELECT * FROM future_box 
+      UPDATE future_box 
+      SET is_opened = true 
       WHERE uuid = ${uuid}
+      RETURNING *
     `;
 
     if (!futureBox) {
