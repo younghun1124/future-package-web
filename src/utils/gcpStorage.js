@@ -1,4 +1,4 @@
-// gcpStorage.js
+// src/utils/gcpStorage.js
 import { Storage } from '@google-cloud/storage';
 
 function getGcpCredentials() {
