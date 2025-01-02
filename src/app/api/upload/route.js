@@ -46,11 +46,13 @@ export async function POST(req) {
       buffer
     };
 
-    // GCS에 업로드 -> 경로만 받아옴 (ex: "uploads/1679911112223-myfile.png")
-    const filePath = await uploadToGCS(fileData, 'uploads');
+    // GCS에 업로드 -> 경로와 서명된 URL 받아옴
+    const { filePath, signedUrl } = await uploadToGCS(fileData, 'uploads');
 
-    // 여기서는 filePath만 반환 (public url X, signed url X)
-    return NextResponse.json({ filePath });
+    return NextResponse.json({ 
+      filePath,
+      imageUrl: signedUrl 
+    });
 
   } catch (error) {
     console.error('업로드 에러:', error);

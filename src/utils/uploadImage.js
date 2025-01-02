@@ -37,10 +37,11 @@ export async function uploadToGCS(file, folder) {
 
     blobStream.on('finish', async () => {
       try {
-        // 이제 public URL을 바로 만드는 대신
-        // GCS 상의 파일 경로만 반환합니다.
-        // (예: "uploads/1679999999999-myfile.svg")
-        resolve(fileName);
+        const signedUrl = await getSignedUrlFromGCS(fileName);
+        resolve({
+          filePath: fileName,
+          signedUrl
+        });
       } catch (error) {
         console.error('파일 업로드 오류:', error);
         reject(error);
@@ -62,16 +63,17 @@ export async function uploadToGCS(file, folder) {
  * @param {Number} expiresInSeconds - 몇 초 동안 유효한 URL인지 (기본 3600초 = 1시간)
  * @returns {Promise<String>} Signed URL
  */
-export async function getSignedUrlFromGCS(filePath, expiresInSeconds = 3600) {
-  try {
-    const blob = bucket.file(filePath);
-    const [signedUrl] = await blob.getSignedUrl({
-      action: 'read',
-      expires: Date.now() + expiresInSeconds * 1000 // 예: 1시간 유효
-    });
-    return signedUrl;
-  } catch (error) {
-    console.error('Signed URL 발급 오류:', error);
-    throw error;
+export async function getSignedUrlFromGCS(filePath) {
+  if (!bucket) {
+    throw new Error('GCP 버킷이 초기화되지 않았습니다.');
   }
+
+  const file = bucket.file(filePath);
+  const [url] = await file.getSignedUrl({
+    version: 'v4',
+    action: 'read',
+    expires: Date.now() + 60 * 60 * 1000, // 1시간
+  });
+
+  return url;
 }

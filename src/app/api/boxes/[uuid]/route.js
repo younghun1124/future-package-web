@@ -34,21 +34,33 @@ export async function GET(request, { params }) {
     // GCS filePath를 Signed URL로 변환
     const hologramsWithUrl = await Promise.all(
       futureHolograms.map(async (h) => {
-        const signedUrl = await getSignedUrlFromGCS(h.image_url);
-        return {
-          ...h,
-          image_url: signedUrl // <- 실제 응답 시에는 signed url로 덮어쓰기
-        };
+        if (!h.image_url) return h;
+        try {
+          const signedUrl = await getSignedUrlFromGCS(h.image_url);
+          return {
+            ...h,
+            image_url: signedUrl
+          };
+        } catch (error) {
+          console.error('홀로그램 Signed URL 생성 실패:', error);
+          return h;
+        }
       })
     );
 
     const mirrorsWithUrl = await Promise.all(
       futureFaceMirrors.map(async (m) => {
-        const signedUrl = await getSignedUrlFromGCS(m.image_url);
-        return {
-          ...m,
-          image_url: signedUrl // <- 실제 응답 시에는 signed url로 덮어쓰기
-        };
+        if (!m.image_url) return m;
+        try {
+          const signedUrl = await getSignedUrlFromGCS(m.image_url);
+          return {
+            ...m,
+            image_url: signedUrl
+          };
+        } catch (error) {
+          console.error('미러 Signed URL 생성 실패:', error);
+          return m;
+        }
       })
     );
 

@@ -26,11 +26,15 @@ export default function FutureHologramView({ data, dataRef }) {
                 {/* 업로드된 이미지 + 홀로그램 효과 */}
                 <div className="absolute bottom-[55%] left-1/2 -translate-x-1/2 w-[60%] aspect-square">
                     <div className="relative w-full h-full hologram-container">
-                        <img 
-                            src={hologramData.imageUrl}
-                            alt="홀로그램 이미지"
-                            className="w-full h-full object-contain hologram-effect"
-                        />
+                        {hologramData.imageUrl && (
+                            <img 
+                                src={hologramData.imageUrl.startsWith('http') 
+                                    ? hologramData.imageUrl 
+                                    : `/api/image?path=${encodeURIComponent(hologramData.imageUrl)}`}
+                                alt="홀로그램 이미지"
+                                className="w-full h-full object-contain hologram-effect"
+                            />
+                        )}
                     </div>
                 </div>
             </div>
