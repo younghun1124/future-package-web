@@ -65,7 +65,7 @@ function ItemSelectionContent() {
       const data = await response.json();
       
       if (response.ok) {
-        router.push(`/send/delivery?uuid=${data.uuid}`);
+        router.push(`/send/delivery?uuid=${data.uuid}&receiver=${receiver}&sender=${sender}`);
       } else {
         alert('아이템 저장에 실패했습니다. 다시 시도해주세요.');
       }
