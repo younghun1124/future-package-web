@@ -6,8 +6,17 @@ import { uploadToGCS } from '@/utils/uploadImage';
 export async function POST(request) {
   try {
     const sql = neon(process.env.DATABASE_URL);
+    // 서울 시간대로 현재 시간 설정
+    await sql`SET timezone = 'Asia/Seoul'`;
     const { receiver, sender, futureItems } = await request.json();
     
+    // IP 주소 가져오기
+    const forwardedFor = request.headers.get('x-forwarded-for');
+    const ipAddress = forwardedFor ? forwardedFor.split(',')[0] : '127.0.0.1';
+    
+    // User Agent 가져오기
+    const userAgent = request.headers.get('user-agent') || '';
+
     const boxUuid = uuidv4();
     
     // 이미지 업로드가 필요한 아이템들을 먼저 처리
@@ -34,24 +43,36 @@ export async function POST(request) {
       })
     );
 
-    const futureMovieType = processedItems.find(item => item.type === 'FutureMovieTicket')?.content?.type?.id || 1;
-    const futureGifticonType = processedItems.find(item => item.type === 'FutureGifticon')?.content?.type?.id || 1;
-    const futureInventionType = processedItems.find(item => item.type === 'FutureInvention')?.content?.type?.id || 1;
+    const futureMovieType = processedItems.find(item => item.type === 'FutureMovieTicket')?.content?.id || null;
+    const futureGifticonType = processedItems.find(item => item.type === 'FutureGifticon')?.content?.id || null;
+    const futureInventionType = processedItems.find(item => item.type === 'FutureInvention')?.content?.id || null;
 
     const [futureBoxResult] = await sql`
       INSERT INTO future_box (
         uuid, receiver, sender, 
-        future_movie_type, future_gifticon_type, future_invention_type
+        future_movie_type, future_gifticon_type, future_invention_type,
+        created_at
       )
       VALUES (
         ${boxUuid}, ${receiver}, ${sender},
-        ${futureMovieType}, ${futureGifticonType}, ${futureInventionType}
+        ${futureMovieType}, ${futureGifticonType}, ${futureInventionType},
+        CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Seoul'
       )
       RETURNING id
     `;
     
     const futureBoxId = futureBoxResult.id;
     
+    // future_box_logs에 로그 저장
+    await sql`
+      INSERT INTO future_box_logs (
+        box_id, ip_address, user_agent
+      )
+      VALUES (
+        ${futureBoxId}, ${ipAddress}, ${userAgent}
+      )
+    `;
+
     for (const item of processedItems) {
       switch (item.type) {
         case 'FutureNote':

@@ -1,22 +1,5 @@
-import { Storage } from '@google-cloud/storage';
-
-let storage;
-try {
-  const credentials = process.env.GCP_SERVICE_ACCOUNT_KEY;
-  if (!credentials) {
-    throw new Error('GCP 서비스 계정 키가 설정되지 않았습니다.');
-  }
-
-  storage = new Storage({
-    projectId: process.env.GCP_PROJECT_ID,
-    credentials: JSON.parse(credentials)
-  });
-} catch (error) {
-  console.error('GCP Storage 초기화 오류:', error);
-  throw new Error('GCP 스토리지 설정에 문제가 있습니다. 환경 변수를 확인해주세요.');
-}
-
-const bucket = storage.bucket(process.env.GCP_BUCKET_NAME);
+// uploadImage.js
+import bucket from './gcpStorage'; // 위에서 export한 bucket
 
 export async function uploadToGCS(file, folder) {
   if (!bucket) {
@@ -35,8 +18,8 @@ export async function uploadToGCS(file, folder) {
     const blobStream = blob.createWriteStream({
       resumable: false,
       metadata: {
-        contentType: contentType,
-      }
+        contentType,
+      },
     });
 
     blobStream.on('error', (error) => {
