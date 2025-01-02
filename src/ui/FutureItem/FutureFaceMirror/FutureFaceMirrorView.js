@@ -1,11 +1,11 @@
 import { DialogHeader, DialogTitle } from '@chakra-ui/react';
-import { useParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 export default function FutureFaceMirrorView({ data, dataRef }) {    
     const mirrorData = dataRef?.current.svgImage||null;
-    const mirrorUrl =  data?.imageUrl||null;
-    const params = useParams();
-    const receiver = params?.receiver || '당신';
+    const mirrorUrl = data?.imageUrl||null;
+    const searchParams = useSearchParams();
+    const receiver = searchParams.get('receiver') || '당신';
 
     return (
         <div className="flex flex-col items-center gap-4">
