@@ -62,6 +62,36 @@ export default function FutureFaceMirrorEdit({ dataRef }) {
         };
     };
 
+    const handleSave = async () => {
+        if (!canvasRef.current) return;
+        
+        try {
+            setPaths([]);
+            const svgData = await canvasRef.current.getSvgXML();
+            const formData = new FormData();
+            const svgBlob = new Blob([svgData], { type: 'image/svg+xml' });
+            formData.append('image', svgBlob, `mirror-${Date.now()}.svg`);
+
+            const response = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error('이미지 업로드에 실패했습니다.');
+            }
+
+            const data = await response.json();
+            dataRef.current = {
+                imageUrl: data.filePath
+            };
+
+        } catch (error) {
+            console.error('저장 중 오류 발생:', error);
+            alert('저장 중 오류가 발생했습니다.');
+        }
+    };
+
     return (
         <div className="flex flex-col gap-4">
             <DialogHeader>

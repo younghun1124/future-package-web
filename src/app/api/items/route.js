@@ -40,7 +40,7 @@ export async function POST(request) {
             buffer: svgBuffer
           };
           
-          const filePath = await uploadToGCS(imageObject, 'mirrors');
+          const { filePath, signedUrl } = await uploadToGCS(imageObject, 'mirrors');
           return { ...item, content: { ...item.content, imageUrl: filePath } };
         }
         
