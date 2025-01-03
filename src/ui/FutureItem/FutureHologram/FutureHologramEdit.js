@@ -25,7 +25,7 @@ export default function FutureHologramEdit({ dataRef }) {
                 const data = await response.json();
                 setPreviewUrl(data.imageUrl);
                 dataRef.current = {
-                    imageUrl: data.imageUrl
+                    imageUrl: data.filePath
                 };
 
             } catch (error) {

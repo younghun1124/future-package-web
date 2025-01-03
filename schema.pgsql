@@ -40,3 +40,12 @@ CREATE TABLE future_face_mirror (
   year INTEGER,
   image_url TEXT NOT NULL,
 );
+
+-- 로깅
+CREATE TABLE future_box_open_logs (
+  id SERIAL PRIMARY KEY,
+  box_id INTEGER REFERENCES future_box(id),
+  ip_address VARCHAR(45) NOT NULL,
+  user_agent TEXT,
+  opened_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
