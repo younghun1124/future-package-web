@@ -2,9 +2,33 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import DoodleButton from '@/ui/buttons/DoodleButton';
 
 export default function DeliveryBox({ uuid }) {
+    const router = useRouter();
+
+    const handleOpenBox = async () => {
+        try {
+            const response = await fetch(`/api/boxes/${uuid}/logs`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            if (!response.ok) {
+                console.error('로그 기록 실패');
+            }
+
+            // 상자 내용물 페이지로 이동
+            router.push(`/receive/${uuid}/items`);
+        } catch (error) {
+            console.error('상자 열기 오류:', error);
+            router.push(`/receive/${uuid}/items`);
+        }
+    };
+
     return (
         <div className="flex flex-col gap-8 items-center justify-between py-8">
             <div className="flex-1 w-full flex items-center justify-center">
@@ -27,11 +51,9 @@ export default function DeliveryBox({ uuid }) {
             </div>
 
             <div className="w-full flex justify-center">
-                <Link href={`/receive/${uuid}/items`}>
-                    <DoodleButton color="black">
-                        상자 열기
-                    </DoodleButton>
-                </Link>
+                <DoodleButton color="black" onClick={handleOpenBox}>
+                    상자 열기
+                </DoodleButton>
             </div>
         </div>
     );
