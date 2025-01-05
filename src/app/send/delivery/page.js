@@ -30,7 +30,7 @@ function DeliveryContent() {
             content: {
                 title: '미래에서 온 선물이 도착했어요!🛸',
                 description: `${sender}님이 ${receiver}님에게 어떤 선물들을 보냈는지 확인해보세요🎁`,
-                imageUrl: 'https://storage.googleapis.com/future-box-cdn/uploads/1735661768022-delivery_complete.png',
+                imageUrl: '/delivery_complete.png',
                 link: {
                     mobileWebUrl: shareUrl,
                     webUrl: shareUrl,
