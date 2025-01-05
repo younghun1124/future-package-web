@@ -1,3 +1,4 @@
+// src/app/api/upload/route.js
 import { NextResponse } from 'next/server';
 import { uploadToGCS } from '@/utils/uploadImage';
 
@@ -42,13 +43,16 @@ export async function POST(req) {
     const fileData = {
       originalFilename: file.name,
       mimetype: file.type,
-      buffer: buffer
+      buffer
     };
 
-    // GCS에 업로드
-    const imageUrl = await uploadToGCS(fileData, 'uploads');
+    // GCS에 업로드 -> 경로와 서명된 URL 받아옴
+    const { filePath, signedUrl } = await uploadToGCS(fileData, 'uploads');
 
-    return NextResponse.json({ imageUrl });
+    return NextResponse.json({ 
+      filePath,
+      imageUrl: signedUrl 
+    });
 
   } catch (error) {
     console.error('업로드 에러:', error);
