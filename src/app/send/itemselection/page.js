@@ -97,7 +97,7 @@ function ItemSelectionContent() {
             />  
           ))}
           
-          <div className='flex-col place-items-center'>
+          {/* <div className='flex-col place-items-center'>
             <Image 
               src="/questionmark_icon.svg"
               alt="입고 예정" 
@@ -106,7 +106,7 @@ function ItemSelectionContent() {
               priority={true}
             />
             <div className='text-white text-sm mt-1'>입고 예정</div>
-          </div>
+          </div> */}
         </div>
       </div>
 

@@ -18,7 +18,7 @@ import FutureInvention from './FutureInvention';
 import FutureMovieTicket from './FutureMovieTicket';
 import FutureHologram from './FutureHologram';
 import FutureGifticon from './FutureGifticon';
-
+import CatchMind from './CatchMind';
 
 // 임시로 다른 컴포넌트들도 기본 구현
 const DefaultComponent = () => <div>기본 컴포넌트</div>;
@@ -31,6 +31,8 @@ const componentsMap = {
     FutureMovieTicket,
     FutureHologram,
     FutureGifticon,
+    CatchMind,
+    
 };
 
  // Start of Selection
