@@ -37,11 +37,13 @@ export default function RootLayout({ children }) {
         <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js" async></script>
       </head>
       <body
-        className={`${gaegu.variable} font-gaegu antialiased text-base animate-fadeIn`}
+        className={` antialiased text-base animate-fadeIn`}
         style={{
           backgroundImage: "url('/bgdark.png')",
           backgroundRepeat: 'repeat',
-          backgroundAttachment: 'fixed'
+          backgroundAttachment: 'fixed',
+          fontFamily: 'Ownglyph_ParkDaHyun, sans-serif',
+          fontWeight:'100'
         }}
       >
         <Provider>
