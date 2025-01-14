@@ -1,11 +1,9 @@
+import  Modal  from "@/ui/Modal";
 
 export default function ModalLayout({ children }) {
-    
   return (
-    <>
-      {/* 네비게이션 버튼 */}
-      
+    <Modal>
       {children}
-    </>
+    </Modal>
   );
 }

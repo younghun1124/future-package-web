@@ -4,6 +4,7 @@ import { useEffect, useState, Suspense } from 'react';
 import FutureItem from '@ui/FutureItem';
 import { dummyItems } from '@/mocks/items';
 import Image from 'next/image';
+import Link from 'next/link';
 import DoodleButton from '@/ui/buttons/DoodleButton';
 
 function ItemSelectionContent() {
@@ -84,7 +85,9 @@ function ItemSelectionContent() {
       {/* 아이템 선택 영역 - 고정 높이 */}
       <div className="h-[280px]">
         <div className="grid grid-cols-4 grid-rows-2 gap-4 place-items-center h-full">
+        <Link href={`/send/itemselection/note`}>쪽지</Link>
           {dummyItems.map((item) => (
+            
             <FutureItem 
               
               key={item.id}
