@@ -15,13 +15,6 @@ export const dummyItems = [
     content: '',
   },
   {
-    id: 'catchmind',
-    icon: '/futurefacemirror_icon.svg',
-    type: 'CatchMind',
-    name: '그림 퀴즈',
-    content: '',
-  },
-  {
     id: 'hologram',
     icon: '/futurehologram_icon.svg', 
     type: 'FutureHologram',
