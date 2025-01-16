@@ -18,7 +18,7 @@ import FutureInvention from './FutureInvention';
 import FutureMovieTicket from './FutureMovieTicket';
 import FutureHologram from './FutureHologram';
 import FutureGifticon from './FutureGifticon';
-
+import FutureTarot from './FutureTarot'
 
 // 임시로 다른 컴포넌트들도 기본 구현
 const DefaultComponent = () => <div>기본 컴포넌트</div>;
@@ -31,6 +31,7 @@ const componentsMap = {
     FutureMovieTicket,
     FutureHologram,
     FutureGifticon, 
+    FutureTarot,
 };
 
  // Start of Selection
@@ -74,7 +75,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
     };
 
     return (
-        <DialogRoot size="cover" closeOnInteractOutside={false} scrollBehavior="inside" motionPreset='none' onOpenChange={setIsOpen}>
+        <DialogRoot closeOnInteractOutside={true} scrollBehavior="inside" motionPreset='none' onOpenChange={setIsOpen}>
             <DialogTrigger asChild disabled={isSelected && !isinBox}>         
                 <Button 
                     className={`flex-col w-[83px] h-[105px] ${isSelected && !isinBox ? 'cursor-not-allowed' : ''}`}
@@ -93,7 +94,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
             
             <DialogContent                 
                 backgroundColor="#585858"
-                borderRadius="22.5px" style={{ maxHeight: '90vh' }}           
+                borderRadius="22px" style={{ maxHeight: '90vh', maxWidth:'90vw' }}           
             >
                 <DialogBody className="flex flex-col gap-6 px-6">
                     <Component 
