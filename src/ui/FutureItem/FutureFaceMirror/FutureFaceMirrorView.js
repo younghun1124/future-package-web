@@ -21,7 +21,7 @@ export default function FutureFaceMirrorView({ data, dataRef }) {
                 {mirrorData && (
                     <div 
                         className="absolute top-[5%] left-[51%] transform -translate-x-1/2 w-[65%] h-[50%] z-10"
-                        // dangerouslySetInnerHTML={{ __html: mirrorData }}
+                        // ouslySetInnerHTML={{ __html: mirrorData }}
                     />
                 )}
                 {mirrorUrl && (
