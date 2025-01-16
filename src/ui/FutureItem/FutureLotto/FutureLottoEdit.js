@@ -43,7 +43,7 @@ export default function FutureLottoEdit({ item, dataRef }) {
     return (
         <div className="flex mt-9 flex-col gap-4">
             <div className="text-center">
-                <h2 className="text-2xl font-bold text-white mb-2">로또 (2352회)</h2>
+                <h2 className="text-2xl text-white mb-2">로또 (2352회)</h2>
                 <p className="text-white mb-4">행운의 번호 6개를 선택해주세요</p>
             </div>
 

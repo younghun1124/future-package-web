@@ -6,7 +6,7 @@ const ReceiverPage = () => {
   const router = useRouter();
   
   const wrapperStyle = "relative h-14 bg-[url('/doodlebox_white.svg')] bg-[length:100%_100%] bg-no-repeat bg-center";
-  const inputStyle = "w-[150px] h-full px-4 bg-transparent focus:outline-none absolute left-1/2 -translate-x-1/2 inset-0";
+  const inputStyle = "w-[200px] h-full px-4 bg-transparent focus:outline-none absolute left-1/2 -translate-x-1/2 inset-0";
   
   const handleSubmit = (e) => {
     e.preventDefault();

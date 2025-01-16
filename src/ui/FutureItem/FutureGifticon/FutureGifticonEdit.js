@@ -35,7 +35,7 @@ export default function FutureGifticonEdit({ dataRef }) {
     return (
         <div className="flex flex-col gap-4">
             <DialogHeader>
-                <DialogTitle className="text-2xl font-bold text-center py-4 text-white">
+                <DialogTitle className="text-2xl text-center py-4 text-white">
                     미래 기프티콘
                 </DialogTitle>
                 <p className="text-white">

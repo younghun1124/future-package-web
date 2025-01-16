@@ -29,19 +29,19 @@ export const dummyItems = [
     content: '',
   },
   
-  // {
-  //   id: 'movieticket',
-  //   icon: '/futuremovieticket_icon.svg',
-  //   type: 'FutureMovieTicket',
-  //   name: '영화 티켓',
-  //   content: {
-  //   id: 1,
-  //   name: '범죄시골39',
-  //   description: '2047년 개봉 예정인 액션 블록버스터',
-  //   imageUrl: '/crimecountry39_poster.svg',
-  //   detailImageUrl: '/crimecountry39_ticket.svg',
-  // },
-  // },
+  {
+    id: 'movieticket',
+    icon: '/futuremovieticket_icon.svg',
+    type: 'FutureMovieTicket',
+    name: '기억의 향수',
+    content: {
+    id: 1,
+    name: '범죄시골39',
+    description: '2047년 개봉 예정인 액션 블록버스터',
+    imageUrl: '/crimecountry39_poster.svg',
+    detailImageUrl: '/crimecountry39_ticket.svg',
+  },
+  },
   {
     id: 'gifticon',
     icon: '/futuregifticon_icon.svg',

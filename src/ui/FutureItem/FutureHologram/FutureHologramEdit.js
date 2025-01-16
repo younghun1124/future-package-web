@@ -38,7 +38,7 @@ export default function FutureHologramEdit({ dataRef }) {
     return (
         <div className="flex flex-col items-center gap-6 w-full">
             <DialogHeader className="w-full text-center">
-                <DialogTitle className="text-2xl font-bold py-4 text-white">
+                <DialogTitle className="text-2xl py-4 text-white">
                     홀로그램
                 </DialogTitle>
                 <p className="text-white">

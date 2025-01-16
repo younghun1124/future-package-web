@@ -95,11 +95,11 @@ export default function FutureFaceMirrorEdit({ dataRef }) {
     return (
         <div className="flex flex-col gap-4">
             <DialogHeader>
-                <DialogTitle className="text-2xl font-bold text-center py-4 text-white">
+                <DialogTitle className="text-2xl text-center py-4 text-white">
                     미래의 거울
                 </DialogTitle>
                 <p className="text-white">
-                    미래의 친구는 어떤 모습일까요? 미래 친구의 모습을 그려 선물해보세요.
+                    미래는 어떤 모습일까요? 미래의 모습을 그려 선물해보세요.
                 </p>
             </DialogHeader>
 
