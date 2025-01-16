@@ -167,7 +167,7 @@ export default function ItemsPage() {
     };
 
     return (
-        <main className="min-h-screen flex flex-col items-center p-4 pt-0">
+        <main className=" flex flex-col items-center p-4 pt-0">
             <h1 className="text-xl text-white text-center mb-8">
                 터치해서 선물을 열어보세요!
             </h1>

@@ -11,6 +11,8 @@ function ItemSelectionContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedItems, setSelectedItems] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentItemType, setCurrentItemType] = useState(null);
 
   // 쿼리파라미터 값 받아오기
   const receiver = searchParams.get('receiver') || '친구';
@@ -75,47 +77,51 @@ function ItemSelectionContent() {
       alert('아이템 저장 중 오류가 발생했습니다.');
     }
   };
+
+  const handleItemClick = (item) => {
+    setCurrentItemType(item.type);
+    setIsModalOpen(true);
+  };
+
+  const handleModalSave = (data) => {
+    // 현재 선택된 아이템 타입으로 새 아이템 생성
+    const newItem = {
+        type: currentItemType,
+        id: currentItemType,
+        content: data
+    };
+    handleInsertClick(newItem, data);
+    setIsModalOpen(false);
+  };
+
   console.log("선택된 아이템")
   console.log(selectedItems)
   console.log("===========")
   return (
-    <div className="min-h-screen flex flex-col items-center p-4">
+    <div className="flex flex-col items-center">
       <h2 className="text-2xl font-normal text-white text-center py-4">{receiver} 님에게 보낼 선물을 담아보세요!</h2>
       
       {/* 아이템 선택 영역 - 고정 높이 */}
       <div className="h-[280px]">
         <div className="grid grid-cols-4 grid-rows-2 gap-4 place-items-center h-full">
-        <Link href={`/send/itemselection/note`}>쪽지</Link>
           {dummyItems.map((item) => (
-            
-            <FutureItem 
-              
-              key={item.id}
-              item={item} 
-              handleInsertClick={handleInsertClick}
-              isSelected={selectedItems.some(selectedItem => 
-                selectedItem.type === item.type && selectedItem.id.includes(item.type)
-              )}
-              isEdit={false}
-            />  
+            <div key={item.id} onClick={() => handleItemClick(item)}>
+              <FutureItem 
+                item={item} 
+                handleInsertClick={handleInsertClick}
+                isSelected={selectedItems.some(selectedItem => 
+                  selectedItem.type === item.type
+                )}
+                isEdit={false}
+              />
+            </div>
           ))}
-          
-          {/* <div className='flex-col place-items-center'>
-            <Image 
-              src="/questionmark_icon.svg"
-              alt="입고 예정" 
-              width={75} 
-              height={75}   
-              priority={true}
-            />
-            <div className='text-white text-sm mt-1'>입고 예정</div>
-          </div> */}
         </div>
       </div>
 
       {/* 선택된 아이템 목록 - 상자 안에 고정 위치로 배치 */}
-      <div className="min-h-[329px] relative">
-        <div className="bg-[url('/emptybox.svg')] h-[329px] w-[329px] bg-center bg-no-repeat bg-contain"></div>
+      <div className="min-h-[250px] relative">
+        <div className="bg-[url('/emptybox.svg')] h-[250px] w-[250px] bg-center bg-no-repeat bg-contain"></div>
         <div className="absolute top-0 left-0 w-full h-full">
             <div className="relative h-full">
                 {/* 각 아이템의 고정 위치 */}
@@ -168,7 +174,7 @@ export default function ItemSelectionPage() {
     return (
         <main>
             <Suspense fallback={
-                <div className="min-h-screen flex items-center justify-center">
+                <div className="flex items-center justify-center">
                     <div className="text-white text-xl">Loading...</div>
                 </div>
             }>

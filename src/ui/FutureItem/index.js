@@ -42,18 +42,13 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
     
     const [modalState, setModalState] = useState(initialModalState);
     const [isOpen, setIsOpen] = useState(false);
-    const [isMounted, setIsMounted] = useState(false);
 
     // useEffect를 순서대로 배치
     useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
-    useEffect(() => {
-        if (isOpen && isMounted) {
+        if (isOpen) {
             setModalState(isSelected ? 'inboxpreview' : 'edit');
         }
-    }, [isSelected, isOpen, isMounted]);
+    }, [isSelected, isOpen]);
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -61,25 +56,6 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
             console.log('Current Data:', currentData.current);
         }
     }, [modalState]);
-
-    // 서버사이드 렌더링 시 기본 상태 반환
-    if (!isMounted) {
-        return (
-            <Button 
-                className={`flex-col w-[83px] h-[105px] ${isSelected && !isinBox ? 'cursor-not-allowed' : ''}`}
-            >
-                <Image 
-                    src={item.icon}
-                    alt="File Icon" 
-                    width={74} 
-                    height={74}   
-                    disabled={isSelected}
-                    priority={true}
-                />
-                {!isinBox ? <div className='text-white text-sm'>{item.name}</div>:''}
-            </Button>
-        );
-    }
 
     const handleComplete = () => {
         const data = currentData.current;

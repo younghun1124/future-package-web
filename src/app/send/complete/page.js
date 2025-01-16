@@ -21,7 +21,7 @@ export default function CompletePage() {
     }, []);
 
     return (
-        <main className="min-h-screen flex flex-col items-center px-4">
+        <main className="flex flex-col items-center px-4">
             {/* 배송 완료 이미지 */}
             <div className="flex-1 flex flex-col items-center justify-center w-full max-w-md">
                 <h2 className="text-2xl font-bold text-white text-center mb-8">배송 완료!</h2>
