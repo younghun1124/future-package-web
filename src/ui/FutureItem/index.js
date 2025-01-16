@@ -30,9 +30,7 @@ const componentsMap = {
     FutureInvention,
     FutureMovieTicket,
     FutureHologram,
-    FutureGifticon,
-    
-    
+    FutureGifticon, 
 };
 
  // Start of Selection
