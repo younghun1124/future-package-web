@@ -17,7 +17,7 @@ export default function FutureLottoView({ data, dataRef }) {
                 />
                 <div className="absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 flex gap-2 justify-center w-full">
                     {lottoData?.numbers?.map((number, index) => (
-                        <div key={index} className="w-5 h-5 bg-black rounded-full text-white flex items-center justify-center font-bold">
+                        <div key={index} className="w-5 h-5 bg-black rounded-full text-white flex items-center justify-center">
                             {number}
                         </div>
                     ))}

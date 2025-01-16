@@ -10,7 +10,7 @@ export default function FutureGifticonView({ dataRef ,data}) {
     return (
         <div className="flex flex-col items-center gap-4">
             <DialogHeader>
-                <DialogTitle className="text-2xl text-white font-bold text-center py-4">
+                <DialogTitle className="text-2xl text-white text-center py-4">
                     미래 기프티콘
                 </DialogTitle>
             </DialogHeader>
