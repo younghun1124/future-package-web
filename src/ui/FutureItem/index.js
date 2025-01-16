@@ -96,7 +96,11 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                 backgroundColor="#585858"
                 borderRadius="22px" style={{ maxHeight: '90vh', maxWidth:'90vw' }}           
             >
-                <DialogBody className="flex flex-col gap-6 px-6">
+            
+                <DialogBody className="flex flex-col gap-6 mt-11 px-6">
+                <DialogCloseTrigger ref={closeButtonRef}>
+                    <Image src="/x_icon.svg" alt="X" width={18} height={18} />
+                </DialogCloseTrigger>
                     <Component 
                         item={item}
                         dataRef={currentData}
@@ -128,9 +132,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                         </>
                     )}
                 </DialogFooter>
-                <DialogCloseTrigger ref={closeButtonRef}>
-                    <Image src="/x_icon.svg" alt="X" width={18} height={18} />
-                </DialogCloseTrigger>
+                
             </DialogContent>
         </DialogRoot>
     );

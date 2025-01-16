@@ -94,14 +94,14 @@ export default function FutureFaceMirrorEdit({ dataRef }) {
 
     return (
         <div className="flex flex-col gap-4">
-            <DialogHeader>
-                <DialogTitle className="text-2xl text-center py-4 text-white">
+            
+                <h2 className="text-[27.5px] text-center text-white">
                     미래의 거울
-                </DialogTitle>
+                </h2>
                 <p className="text-white">
-                    미래는 어떤 모습일까요? 미래의 모습을 그려 선물해보세요.
+                    미래의 모습을 그려봐. 친구 얼굴, 풍경, 뭐든 좋아
                 </p>
-            </DialogHeader>
+            
 
             {/* 도구 섹션 */}
             <div className="flex justify-between items-center">

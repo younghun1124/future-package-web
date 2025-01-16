@@ -12,7 +12,7 @@ export default function FutureNoteEdit({dataRef}) {
     }, []);
      
     return (
-        <div className="flex mt-9 flex-col gap-4">
+        <div className="flex flex-col gap-4">
             <div className="text-center">
                 <h2 className="text-3xl text-white mb-2">쪽지</h2>
                 <p className="text-white mb-4">미래에서 친구에게 전하고 싶은 메세지를 입력해보세요!</p>

@@ -25,7 +25,7 @@ export const dummyItems = [
     id: 'tarot',
     icon: '/futurelotto_icon.svg',
     type: 'FutureTarot',
-    name: '타로',
+    name: '타로또',
     content: '',
   },
   
