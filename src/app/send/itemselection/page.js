@@ -15,7 +15,7 @@ function ItemSelectionContent() {
   const [currentItemType, setCurrentItemType] = useState(null);
 
   // 쿼리파라미터 값 받아오기
-  const receiver = searchParams.get('receiver') || '친구';
+  const receiver = searchParams.get('receiver') || '익명의 친구';
   const sender = searchParams.get('sender') || '기본 발신자';
 
   const handleInsertClick = (item, contentData) => {
@@ -99,7 +99,7 @@ function ItemSelectionContent() {
   console.log("===========")
   return (
     <div className="flex flex-col items-center">
-      <h2 className="text-2xl font-normal text-white text-center py-4">{receiver} 님에게 보낼 선물을 담아보세요!</h2>
+      <h2 className="text-2xl font-normal text-white text-center py-4">{receiver}에게 무슨 선물을 보낼까?</h2>
       
       {/* 아이템 선택 영역 - 고정 높이 */}
       <div className="h-[280px]">

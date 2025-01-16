@@ -115,7 +115,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                     )}
                     {modalState === 'preview' && !isSelected && (
                         <DoodleButton onClick={handleInsertWithData}>
-                            담기
+                            담을래요
                         </DoodleButton>
                     )}
                     {modalState === 'inboxpreview' && (
@@ -124,10 +124,10 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                                 variant="white"
                                 onClick={() => handleDeleteClick?.(item)}
                             >
-                                빼기
+                                빼주세요
                             </DoodleButton>
                             <DoodleButton onClick={() => setModalState("edit")}>
-                                수정하기
+                                바꿀래요
                             </DoodleButton>
                         </>
                     )}
