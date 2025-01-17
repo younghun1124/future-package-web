@@ -48,3 +48,18 @@ body {
 .animate-fadeIn {
   animation: fadeIn 0.3s ease-in;
 }
+
+.centered-textarea {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 35px;
+    resize: none;
+}
+
+.centered-textarea::placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

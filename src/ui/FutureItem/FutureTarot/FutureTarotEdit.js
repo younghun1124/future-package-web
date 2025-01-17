@@ -3,29 +3,39 @@ import { useState } from 'react';
 import CardList from './CardList';
 import DoodleButton from '@/ui/buttons/DoodleButton';
 import Image from 'next/image';
-export default function FutureTarotEdit({ onSave }) {
+import { Center } from '@chakra-ui/react';
+import useItemStore from '@/store/useItemStore';
+
+export default function FutureTarotEdit() {
     const [selectedCards, setSelectedCards] = useState([]);
-    const [phase,setPhase]=useState('cardSelect')
+    const [phase, setPhase] = useState('cardSelect');
+    const [description, setDescription] = useState('');
+    const { insertItem, setModalOpen } = useItemStore();
+    
+    const receiver = new URLSearchParams(window.location.search).get('receiver');
+
     const handleCardSelect = (card) => {
         setSelectedCards(prev => {
-            // 이미 선택된 카드인 경우 제거
             if (prev.some(c => c.id === card.id)) {
                 return prev.filter(c => c.id !== card.id);
             }
-            // 3장 이하일 때만 새 카드 추가
             if (prev.length < 3) {
                 return [...prev, card];
             }
             return prev;
         });
     };
-    const receiver = new URLSearchParams(window.location.search).get('receiver');
+
     const handleSave = () => {
-        if (selectedCards.length !== 3) return;
-        onSave({
+        if (selectedCards.length !== 3 || !description) return;
+        insertItem({
+            type: 'FutureTarot',
+            name: '타로카드'
+        }, {
             cards: selectedCards,
-            description: selectedCards.map(card => card.description).join('\n')
+            description: description
         });
+        setModalOpen(false);
     };
 
     return (
@@ -33,76 +43,79 @@ export default function FutureTarotEdit({ onSave }) {
             <h2 className="text-[27.5px] text-center">
                 {receiver}님의 미래를 보여주는 카드
             </h2>
-            {phase==='cardSelect'?<>
-                <p>인간들은 미래도 모르고 살았다며? 불편했겠네.. 살짝 힌트를 줄까?</p>
-                <p className="text-white" >
-                   먼저, 3장의 카드를 선택해. ({selectedCards.length}/3)               
-                </p>
-                
-                
-                <CardList 
-                    selectedCards={selectedCards}
-                    onCardSelect={handleCardSelect}
-                />
-                <div className='text-white text-center'>
-                    {selectedCards.length===1 && <p> 시작이 좋아!</p>}
-                    {selectedCards.length===2 && <p> 혹시 모를까봐 말하는데, 한장 더 선택해야 3장이야.</p>}
-                    {selectedCards.length===3 && <p> 이걸 해내다니! 제법인걸.</p>}
-                </div>
-                {/* {selectedCards.length > 0 && (
-                    <div className="text-white text-center p-4">
-                        {selectedCards.map((card, index) => (
-                            <p key={card.id} className="mb-2">
-                                {index + 1}. {card.description}
-                            </p>
+            {phase === 'cardSelect' ? (
+                <>
+                    <p>인간들은 미래도 모르고 살았다며?...이제 살짝 힌트를 줄까?</p>
+                    <p className="text-white">
+                        먼저, 3장의 카드를 선택해. ({selectedCards.length}/3)
+                    </p>
+                    
+                    <CardList 
+                        selectedCards={selectedCards}
+                        onCardSelect={handleCardSelect}
+                    />
+                    <div className='text-white text-center'>
+                        {selectedCards.length === 1 && <p>시작이 좋아!</p>}
+                        {selectedCards.length === 2 && <p>혹시 모를까봐 말하는데, 한장 더 선택해야 3장이야.</p>}
+                        {selectedCards.length === 3 && <p>이걸 해내다니! 제법인걸.</p>}
+                    </div>
+                    
+                    <div className="flex justify-center">
+                        <DoodleButton
+                            onClick={() => setPhase('description')}
+                            disabled={selectedCards.length !== 3}
+                        >
+                            다 골랐어요
+                        </DoodleButton>
+                    </div>
+                </>
+            ) : (
+                <>
+                    <p>카드만 봐서는 이해를 못하겠지. 친절한 너가 설명해 줘</p>
+                    <div className="grid grid-cols-3 gap-4 items-center">
+                        {selectedCards.map(card => (
+                            <div
+                                key={card.id}
+                                className="relative aspect-[2/3] rounded-lg cursor-pointer"
+                            >
+                                <Image
+                                    src='https://storage.googleapis.com/future-box-cdn-public/futureitem/empty_card_2x.webp'
+                                    alt={card.name}
+                                    fill
+                                    className="object-cover rounded-lg"
+                                />
+                            </div>
                         ))}
                     </div>
-                )} */}
-                <div className="flex justify-center">
-                <DoodleButton
-                    onClick={()=>setPhase('description')}
-                    disabled={selectedCards.length !== 3}
-                >
-                    다 골랐어요
-                </DoodleButton>
-                </div>
-            </>:
-            //해설 쓰기
-            <>
-                <div className="grid grid-cols-3 gap-4 items-center">
-                    {selectedCards.map( card=> (
-                        <div
-                            key={card.id}
-                            className={`
-                                relative aspect-[3/5] rounded-lg cursor-pointer
-                            `}
+                    <Center>
+                        <textarea 
+                            placeholder='"별과 바람이 흐르는 곳으로.."'
+                            className="w-[301px] h-[91px] bg-[#666666] rounded-md text-center centered-textarea"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
+                    </Center>
+                    <div className="flex justify-center gap-4">
+                        <DoodleButton
+                            variant='white'
+                            width={130}
+                            onClick={() => {
+                                setPhase('cardSelect');
+                                setDescription('');
+                            }}
                         >
-                            <Image
-                                src='https://storage.googleapis.com/future-box-cdn-public/futureitem/empty_card_2x.webp'
-                                alt={card.name}
-                                fill
-                                className="object-cover rounded-lg"
-                            />
-                            <div className="absolute bottom-0 left-0 right-0 p-2 bg-black/50 rounded-b-lg">
-                                <p className="text-white text-center text-sm">{card.name}</p>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-                <div className="flex justify-center">
-                    <DoodleButton
-                        onClick={()=>setPhase('cardSelect')}
-                    >
-                        다시 고를래요
-                    </DoodleButton>
+                            다시 고를래요
+                        </DoodleButton>
+                        <DoodleButton
+                            width={130}
+                            onClick={handleSave}
+                            disabled={!description}
+                        >
+                            담을래요
+                        </DoodleButton>
                     </div>
-            </>
-            
-            }
-           
-                
-
-            
+                </>
+            )}
         </div>
     );
 }
