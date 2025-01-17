@@ -77,6 +77,7 @@ export default function FutureHologramEdit({ dataRef }) {
                     className="hidden"
                 />
             </div>
+            <DoodleButton onClick={handleComplete}>완료</DoodleButton>
         </div>
     );
 } 

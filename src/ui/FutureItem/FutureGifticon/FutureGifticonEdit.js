@@ -79,6 +79,7 @@ export default function FutureGifticonEdit({ dataRef }) {
                     </svg>
                 </button>
             </div>
+            <DoodleButton onClick={handleComplete}>완료</DoodleButton>
         </div>
     );
 } 

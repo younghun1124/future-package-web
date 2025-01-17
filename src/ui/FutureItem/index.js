@@ -108,7 +108,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                     />
                 </DialogBody>
                 <DialogFooter className="gap-4 p-4 grid justify-center">                    
-                    {modalState === 'edit' && (
+                    {/* {modalState === 'edit' && (
                         <DoodleButton onClick={handleComplete}>
                             완료
                         </DoodleButton>
@@ -130,7 +130,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                                 바꿀래요
                             </DoodleButton>
                         </>
-                    )}
+                    )} */}
                 </DialogFooter>
                 
             </DialogContent>

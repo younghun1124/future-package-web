@@ -27,6 +27,7 @@ export default function FutureNoteEdit({dataRef}) {
                 }}
                 defaultValue={dataRef.current?.text || ''}
             />
+            <DoodleButton onClick={handleComplete}>완료</DoodleButton>
         </div>
     );
 }
