@@ -1,6 +1,6 @@
 'use client'
 import React, { useEffect, useRef } from 'react';
-
+import DoodleButton from '@ui/buttons/DoodleButton';
 export default function FutureNoteEdit({dataRef}) {  
     // useEffect로 초기값 설정을 클라이언트 사이드로 이동
     useEffect(() => {

@@ -76,7 +76,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
 
     return (
         <DialogRoot closeOnInteractOutside={true} scrollBehavior="inside" motionPreset='none' onOpenChange={setIsOpen}>
-            <DialogTrigger asChild disabled={isSelected && !isinBox}>         
+            <DialogTrigger asChild disabled={isSelected && !isinBox}>
                 <Button 
                     className={`flex-col w-[83px] h-[105px] ${isSelected && !isinBox ? 'cursor-not-allowed' : ''}`}
                 >
