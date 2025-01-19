@@ -12,14 +12,10 @@ export default function FutureNote({modalState, dataRef}) {
             {(() => {
                 switch (modalState) {
                     case 'edit':
-                        return (
-                            <>
-                                <FutureTarotEdit dataRef={dataRef}/>
-                                {/* <DoodleButton onClick={handleComplete}>완료</DoodleButton> */}
-                            </>
-                        );
+                        return <FutureTarotEdit dataRef={dataRef}/>
+                       
                     case 'view':
-                        return <FutureTarotView dataRef={dataRef}/>;
+                        return <FutureTarotView dataRef={dataRef}/>
                 }
             })()}
         </div>
