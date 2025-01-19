@@ -12,10 +12,10 @@ export default function DoodleButton({
   const getBgImage = () => {
     switch (variant) {
       case "white":
-        return "/doodlebox_white.svg";
+        return "https://storage.googleapis.com/future-box-cdn-public/static/assets/doodlebox/doodlebox_white_2x.webp";
       case "green":
       default:
-        return "/greenButton.png";
+        return "https://storage.googleapis.com/future-box-cdn-public/static/assets/doodlebox/doodlebox_green_2x.webp";
     }
   };
 

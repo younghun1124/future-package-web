@@ -70,7 +70,7 @@ export default function FutureTarotEdit({ onSave }) {
                             {selectedCards.map(card => (
                                 <div
                                     key={card.id}
-                                    className="relative aspect-[3/5] rounded-lg cursor-pointer"
+                                    className="relative aspect-[2/3] rounded-lg cursor-pointer"
                                 >
                                     <Image
                                         src={card.imageUrl}
@@ -91,11 +91,15 @@ export default function FutureTarotEdit({ onSave }) {
                         </Center>
                         <div className="flex justify-center gap-4">
                             <DoodleButton
+                                variant='white'
+                                width={145}
                                 onClick={() => setPhase('cardSelect')}
                             >
                                 다시 고를래요
                             </DoodleButton>
                             <DoodleButton
+                                width={146}
+                                height={61}
                                 onClick={handleSave}
                                 disabled={!description}
                             >
