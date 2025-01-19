@@ -15,7 +15,7 @@ export default function FutureNote({modalState, dataRef}) {
                         return (
                             <>
                                 <FutureTarotEdit dataRef={dataRef}/>
-                                <DoodleButton onClick={handleComplete}>완료</DoodleButton>
+                                {/* <DoodleButton onClick={handleComplete}>완료</DoodleButton> */}
                             </>
                         );
                     case 'view':

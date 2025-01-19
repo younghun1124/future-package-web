@@ -78,14 +78,11 @@ export default function FutureTarotEdit({ onSave }) {
                             `}
                         >
                             <Image
-                                src='https://storage.googleapis.com/future-box-cdn-public/futureitem/empty_card_2x.webp'
+                                src={card.imageUrl}
                                 alt={card.name}
                                 fill
                                 className="object-cover rounded-lg"
                             />
-                            <div className="absolute bottom-0 left-0 right-0 p-2 bg-black/50 rounded-b-lg">
-                                <p className="text-white text-center text-sm">{card.name}</p>
-                            </div>
                         </div>
                     ))}
                 </div>
