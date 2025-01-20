@@ -3,14 +3,27 @@ import { NextResponse } from 'next/server';
 import { neon } from '@neondatabase/serverless';
 import { v4 as uuidv4 } from 'uuid';
 import { uploadToGCS } from '@/utils/uploadImage';
+import { FUTURE_GIFTICON_TYPES } from '@/constants/futureItems';
+
+// 서버 시작 시 FutureGifticon 타입 캐싱
+let cachedGifticonTypes = [];
+
+const cacheGifticonTypes = async (sql) => {
+  if (cachedGifticonTypes.length === 0) {
+    const gifticonTypes = await sql`SELECT * FROM future_gifticon_type`;
+    cachedGifticonTypes = gifticonTypes;
+  }
+  return cachedGifticonTypes;
+};
 
 export async function POST(request) {
   try {
     const sql = neon(process.env.DATABASE_URL);
-    // 서울 시간대로 현재 시간 설정
+    
+    // 시간대 설정
     await sql`SET timezone = 'Asia/Seoul'`;
 
-    const { receiver, sender, futureItems } = await request.json();
+    const { receiver, sender, futureItems, futureValueMeterIncluded } = await request.json();
     
     // IP, UA 가져오기
     const forwardedFor = request.headers.get('x-forwarded-for');
@@ -19,19 +32,16 @@ export async function POST(request) {
 
     const boxUuid = uuidv4();
 
+    // FutureGifticon 타입 캐싱
+    const gifticonTypes = await cacheGifticonTypes(sql);
+
     // 이미지 업로드가 필요한 아이템 처리
     const processedItems = await Promise.all(
       futureItems.map(async (item) => {
-        // 홀로그램 (이미 gcs url이면 그대로 둔다고 했으나,
-        // 이제는 private 버킷이므로, 어차피 이 로직에선 filePath만 DB에 저장)
         if (item.type === 'FutureHologram' && item.content.imageUrl) {
-          // 만약 기존에 외부 이미지가 들어온다면 직접 업로드해야 하지만,
-          // 이미 GCS URL이라고 가정하면 filePath를 추출해서 저장하도록 수정
-          // (만약 이미 GCS에 있고 private이라면 DB엔 uploads/xxxx 형태로만 저장)
           return item;
         }
 
-        // 미래얼굴
         if (item.type === 'FutureFaceMirror' && item.content.svgImage) {
           const svgBuffer = Buffer.from(item.content.svgImage);
           const imageObject = {
@@ -40,7 +50,7 @@ export async function POST(request) {
             buffer: svgBuffer
           };
           
-          const { filePath, signedUrl } = await uploadToGCS(imageObject, 'mirrors');
+          const { filePath } = await uploadToGCS(imageObject, 'mirrors');
           return { ...item, content: { ...item.content, imageUrl: filePath } };
         }
         
@@ -48,21 +58,23 @@ export async function POST(request) {
       })
     );
 
-    // 영화, 기프티콘, 발명품 ID 추출
-    const futureMovieType = processedItems.find(i => i.type === 'FutureMovieTicket')?.content?.id || null;
-    const futureGifticonType = processedItems.find(i => i.type === 'FutureGifticon')?.content?.id || null;
-    const futureInventionType = processedItems.find(i => i.type === 'FutureInvention')?.content?.id || null;
+    // 영화 티켓을 기프티콘으로 통합
+    const futureGifticonType = futureItems.find(i => i.type === 'FutureMovieTicket')?.content?.id || null;
+
+    // FutureTarot과 FuturePerfume 처리
+    const futureTarot = futureItems.find(i => i.type === 'FutureTarot')?.content || null;
+    const futurePerfume = futureItems.find(i => i.type === 'FuturePerfume')?.content || null;
 
     // future_box 생성
     const [futureBoxResult] = await sql`
       INSERT INTO future_box (
         uuid, receiver, sender, 
-        future_movie_type, future_gifticon_type, future_invention_type,
+        future_gifticon_type, future_value_meter_included,
         created_at
       )
       VALUES (
         ${boxUuid}, ${receiver}, ${sender},
-        ${futureMovieType}, ${futureGifticonType}, ${futureInventionType},
+        ${futureGifticonType}, ${futureValueMeterIncluded},
         CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Seoul'
       )
       RETURNING id
@@ -85,29 +97,42 @@ export async function POST(request) {
         case 'FutureNote':
           await sql`
             INSERT INTO future_note (box_id, message)
-            VALUES (${futureBoxId}, ${item.content.text})
-          `;
-          break;
-        case 'FutureLotto':
-          await sql`
-            INSERT INTO future_lotto (box_id, numbers)
-            VALUES (${futureBoxId}, ${item.content.numbers})
+            VALUES (${futureBoxId}, ${item.content.message})
           `;
           break;
         case 'FutureHologram':
-          // hologram.image_url 자리에 filePath(예: 'uploads/xxx.png')가 들어가야 함
           await sql`
             INSERT INTO future_hologram (box_id, image_url)
             VALUES (${futureBoxId}, ${item.content.imageUrl})
           `;
           break;
         case 'FutureFaceMirror':
-          // mirror.image_url 자리에 filePath(예: 'mirrors/xxx.svg')
           await sql`
             INSERT INTO future_face_mirror (box_id, year, image_url)
-            VALUES (${futureBoxId}, 2047, ${item.content.imageUrl})
+            VALUES (${futureBoxId}, ${item.content.year}, ${item.content.imageUrl})
           `;
           break;
+        case 'FutureTarot':
+          await sql`
+            INSERT INTO future_tarot (box_id, indexes, description)
+            VALUES (${futureBoxId}, ${item.content.cardIndexes}, ${item.content.description})
+          `;
+          break;
+        case 'FuturePerfume':
+          await sql`
+            INSERT INTO future_perfume (box_id, name, description, keywords, shape_type, color)
+            VALUES (${futureBoxId}, ${item.content.name}, ${item.content.description}, ${item.content.keywords}, ${item.content.shape}, ${item.content.color})
+          `;
+          break;
+        case 'FutureGifticon':
+          await sql`
+            INSERT INTO future_gifticon (box_id, gifticon_type_id)
+            VALUES (${futureBoxId}, ${item.content.id})
+          `;
+          break;
+        default:
+          // 알 수 없는 타입은 무시하거나 로깅
+          console.warn(`알 수 없는 아이템 타입: ${item.type}`);
       }
     }
 
