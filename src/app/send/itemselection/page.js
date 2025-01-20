@@ -12,7 +12,6 @@ function ItemSelectionContent() {
   const searchParams = useSearchParams();
   const [selectedItems, setSelectedItems] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [currentItemType, setCurrentItemType] = useState(null);
 
   // 쿼리파라미터 값 받아오기
   const receiver = searchParams.get('receiver') || '익명의 친구';
@@ -81,17 +80,6 @@ function ItemSelectionContent() {
   const handleItemClick = (item) => {
     setCurrentItemType(item.type);
     setIsModalOpen(true);
-  };
-
-  const handleModalSave = (data) => {
-    // 현재 선택된 아이템 타입으로 새 아이템 생성
-    const newItem = {
-        type: currentItemType,
-        id: currentItemType,
-        content: data
-    };
-    handleInsertClick(newItem, data);
-    setIsModalOpen(false);
   };
 
   console.log("선택된 아이템")
