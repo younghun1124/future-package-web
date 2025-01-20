@@ -35,7 +35,7 @@ const componentsMap = {
 };
 
  // Start of Selection
-const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteClick, isSelected, isInBox=false, modalState: initialModalState='edit' }) => {
+const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteClick, isSelected, isInBox=false, isReceive=false, modalState: initialModalState='edit' }) => {
     // 모든 상태와 ref를 최상단에 선언
     const Component = componentsMap[item.type] || DefaultComponent;
     const closeButtonRef = useRef(null);
@@ -117,6 +117,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                         isInbox={isInBox}
                         modalState={modalState}
                         setIsOpen={setIsOpen}
+                        isReceive={isReceive}
                         handleInsertWithData={handleInsertWithData}
                         setModalState={setModalState}
                         onDelete={handleDeleteClickWithData}

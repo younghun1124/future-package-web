@@ -5,7 +5,7 @@ import { Center } from '@chakra-ui/react';
 import DoodleButton from '@/ui/buttons/DoodleButton';
 import Image from 'next/image';
 
-export default function FutureTarotEdit({ onSave ,receiver}) {
+export default function FutureTarotEdit({ onSave ,receiver, handleInsertWithData}) {
     const [selectedCards, setSelectedCards] = useState([]);
     const [phase, setPhase] = useState('cardSelect');
     const [description, setDescription] = useState('');
@@ -83,7 +83,7 @@ export default function FutureTarotEdit({ onSave ,receiver}) {
                         </div>
                         <Center>
                             <textarea 
-                                className='rounded-md bg-[#666666] text-center p-4 w-full h-[90px] flex items-center justify-center' 
+                                className='rounded-md bg-[#666666] text-white text-center p-4 w-full h-[90px] flex items-center justify-center' 
                                 placeholder='해석을 입력해'
                                 value={description}
                                 onChange={(e) => setDescription(e.target.value)}

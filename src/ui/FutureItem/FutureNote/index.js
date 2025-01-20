@@ -9,7 +9,7 @@ export default function FutureNote({modalState,isInbox, onDelete, setModalState,
     return (
         <div>
             {modalState === 'edit' ? (
-                <FutureNoteEdit setModalState={setModalState}  dataRef={dataRef}/>
+                <FutureNoteEdit setModalState={setModalState} handleInsertWithData={handleInsertWithData} dataRef={dataRef}/>
             ) : (
                 <FutureNoteView handleInsertWithData={handleInsertWithData} onDelete={onDelete} setModalState={setModalState} isInbox={isInbox} dataRef={dataRef}/>
             )}
