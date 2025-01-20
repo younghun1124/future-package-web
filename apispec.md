@@ -1,4 +1,4 @@
-# Future Box API Documentation
+# Future Box API 명세서
 
 ## 이미지 업로드
 ```http
@@ -7,22 +7,15 @@ Content-Type: multipart/form-data
 
 form-data:
 {
-    "futureImage": "<file>",
-    "type": "FutureHologram" // or "FutureFaceMirror"
+    "image": "<file>"
 }
 ```
 
 ### Response 200
 ```json
 {
-    "imageUrl": "https://storage.googleapis.com/bucket-name/path/to/image.jpg"
-}
-```
-
-### Response 400
-```json
-{
-    "error": "파일이 없습니다."
+    "filePath": "uploads/1234567890-image.jpg",
+    "imageUrl": "https://storage.googleapis.com/bucket-name/uploads/1234567890-image.jpg"
 }
 ```
 
@@ -36,36 +29,45 @@ Content-Type: application/json
     "sender": "현재",
     "futureItems": [
         {
-            "id": "FutureNote",
-            "message": "미래에서 보내는 편지입니다."
+            "type": "FutureNote",
+            "content": {
+                "message": "미래에서 보내는 편지입니다.",
+                "encryptedMessage": "이모티콘 메시지"
+            }
         },
         {
-            "id": "FutureLotto",
-            "numbers": [1, 2, 3, 4, 5, 6]
+            "type": "FutureHologram",
+            "content": {
+                "imageUrl": "uploads/1234567890-hologram.jpg"
+            }
         },
         {
-            "id": "FutureHologram",
-            "message": "홀로그램 메시지",
-            "imageUrl": "https://storage.googleapis.com/bucket-name/holograms/image.jpg"
+            "type": "FutureFaceMirror",
+            "content": {
+                "year": 2047,
+                "imageUrl": "mirrors/1234567890-face.svg"
+            }
         },
         {
-            "id": "FutureFaceMirror",
-            "year": 2047,
-            "imageUrl": "https://storage.googleapis.com/bucket-name/mirrors/image.jpg"
-        },
-        {
-            "id": "FutureMovieTicket",
-            "type": 1
-        },
-        {
-            "id": "FutureGifticon",
-            "type": 2
-        },
-        {
-            "id": "FutureInvention",
-            "type": 3
+            "type": "FutureTarot",
+            "content": {
+                "cardIndexes": [1, 2, 3],
+                "description": "당신은 남은 하루를 재밌게 보낼거에요"
+            }
         }
-    ]
+        {
+            "type": "FuturePerfume",
+            "content": {
+                "name": "나는 모르는 향",
+                "description": "잔잔한 비가 내리는 날의 쾌쾌한 향",
+                "keywords": ["열정", "목표 성취", "감동"],
+                "shape": 1
+                "color": "#FFFFFF"
+            }
+        }
+    ],
+    "futureGifticonType": 1
+    "futureValueMeterIncluded": false
 }
 ```
 
@@ -85,47 +87,50 @@ GET {{base_url}}/api/items/{{uuid}}
 ### Response 200
 ```json
 {
-    "box": {
-        "uuid": "550e8400-e29b-41d4-a716-446655440000",
-        "receiver": "미래",
-        "sender": "현재",
-        "futureMovieType": 1,
-        "futureGifticonType": 2,
-        "futureInventionType": 3,
-        "createdAt": "2024-01-01T00:00:00Z"
-    },
-    "items": {
-        "futureNotes": [
-            {
-                "id": 1,
-                "boxId": 1,
-                "message": "미래에서 보내는 편지입니다."
+    "uuid": "550e8400-e29b-41d4-a716-446655440000",
+    "receiver": "미래",
+    "sender": "현재",
+    "futureItems": [
+        {
+            "type": "FutureNote",
+            "content": {
+                "message": "미래에서 보내는 편지입니다.",
+                "encryptedMessage": "이모티콘 메시지"
             }
-        ],
-        "futureLottos": [
-            {
-                "id": 1,
-                "boxId": 1,
-                "numbers": [1, 2, 3, 4, 5, 6]
+        },
+        {
+            "type": "FutureHologram",
+            "content": {
+                "imageUrl": "https://storage.googleapis.com/bucket-name/uploads/1234567890-hologram.jpg"
             }
-        ],
-        "futureHolograms": [
-            {
-                "id": 1,
-                "boxId": 1,
-                "message": "홀로그램 메시지",
-                "imageUrl": "https://storage.googleapis.com/bucket-name/holograms/image.jpg"
-            }
-        ],
-        "futureFaceMirrors": [
-            {
-                "id": 1,
-                "boxId": 1,
+        },
+        {
+            "type": "FutureFaceMirror",
+            "content": {
                 "year": 2047,
-                "imageUrl": "https://storage.googleapis.com/bucket-name/mirrors/image.jpg"
+                "imageUrl": "https://storage.googleapis.com/bucket-name/mirrors/1234567890-face.svg"
             }
-        ]
-    }
+        },
+        {
+            "type": "FutureTarot",
+            "content": {
+                "cardIndexes": [1, 2, 3],
+                "description": "당신은 남은 하루를 재밌게 보낼거에요"
+            }
+        },
+        {
+            "type": "FuturePerfume",
+            "content": {
+                "name": "나는 모르는 향",
+                "description": "잔잔한 비가 내리는 날의 쾌쾌한 향",
+                "keywords": ["열정", "목표 성취", "감동"],
+                "shape": 1,
+                "color": "#FFFFFF"
+            }
+        }
+    ],
+    "futureGifticonType": 1,
+    "futureValueMeterIncluded": false,
 }
 ```
 
@@ -136,7 +141,7 @@ GET {{base_url}}/api/items/{{uuid}}
 }
 ```
 
-### Environment Variables
+### 환경 변수
 ```json
 {
     "base_url": "http://localhost:3000",
