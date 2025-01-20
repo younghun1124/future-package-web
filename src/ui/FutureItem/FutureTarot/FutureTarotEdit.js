@@ -5,11 +5,11 @@ import { Center } from '@chakra-ui/react';
 import DoodleButton from '@/ui/buttons/DoodleButton';
 import Image from 'next/image';
 
-export default function FutureTarotEdit({ onSave }) {
+export default function FutureTarotEdit({ onSave ,receiver}) {
     const [selectedCards, setSelectedCards] = useState([]);
     const [phase, setPhase] = useState('cardSelect');
     const [description, setDescription] = useState('');
-    const receiver = new URLSearchParams(window.location.search).get('receiver');
+    
 
     const handleCardSelect = (card) => {
         setSelectedCards(prev => {
@@ -115,11 +115,6 @@ export default function FutureTarotEdit({ onSave }) {
     };
 
     return (
-        <div className="flex flex-col text-white text-center gap-6">
-            <h2 className="text-[27.5px] text-center">
-                {receiver || '익명의 친구'}의 미래를 보여주는 카드
-            </h2>
-            {renderPhaseContent()}
-        </div>
+            renderPhaseContent()
     );
 }

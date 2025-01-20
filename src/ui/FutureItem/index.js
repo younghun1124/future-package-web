@@ -43,6 +43,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
     
     const [modalState, setModalState] = useState(initialModalState);
     const [isOpen, setIsOpen] = useState(false);
+    const [receiver, setReceiver] = useState('');
 
     // useEffect를 순서대로 배치
     useEffect(() => {
@@ -50,6 +51,12 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
             setModalState(isSelected ? 'inboxpreview' : 'edit');
         }
     }, [isSelected, isOpen]);
+
+    useEffect(() => {
+        // 클라이언트 사이드에서만 실행
+        const searchParams = new URLSearchParams(window.location.search);
+        setReceiver(searchParams.get('receiver') || '');
+    }, []);
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -104,35 +111,12 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                     <Component 
                         item={item}
                         dataRef={currentData}
-                        modalState={modalState}
+                        receiver={receiver}
+                        // modalState={modalState}
+                        modalState={'view'}
+                        setModalState={setModalState}
                     />
                 </DialogBody>
-                <DialogFooter className="gap-4 p-4 grid justify-center">                    
-                    {/* {modalState === 'edit' && (
-                        <DoodleButton onClick={handleComplete}>
-                            완료
-                        </DoodleButton>
-                    )}
-                    {modalState === 'preview' && !isSelected && (
-                        <DoodleButton onClick={handleInsertWithData}>
-                            담을래요
-                        </DoodleButton>
-                    )}
-                    {modalState === 'inboxpreview' && (
-                        <>
-                            <DoodleButton 
-                                variant="white"
-                                onClick={() => handleDeleteClick?.(item)}
-                            >
-                                빼주세요
-                            </DoodleButton>
-                            <DoodleButton onClick={() => setModalState("edit")}>
-                                바꿀래요
-                            </DoodleButton>
-                        </>
-                    )} */}
-                </DialogFooter>
-                
             </DialogContent>
         </DialogRoot>
     );
