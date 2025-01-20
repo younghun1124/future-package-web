@@ -2,7 +2,7 @@ import { Button } from "@chakra-ui/react";
 
 export default function DoodleButton({
   variant = "green",
-  width = "200px",
+  width = "140px",
   height = "60px",
   fontSize = "lg",
   onClick,
