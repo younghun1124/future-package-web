@@ -35,7 +35,7 @@ const componentsMap = {
 };
 
  // Start of Selection
-const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteClick, isSelected, isinBox=false, modalState: initialModalState='edit' }) => {
+const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteClick, isSelected, isInBox=false, modalState: initialModalState='edit' }) => {
     // 모든 상태와 ref를 최상단에 선언
     const Component = componentsMap[item.type] || DefaultComponent;
     const closeButtonRef = useRef(null);
@@ -46,12 +46,6 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
     const [receiver, setReceiver] = useState('');
 
     // useEffect를 순서대로 배치
-    useEffect(() => {
-        if (isOpen) {
-            setModalState(isSelected ? 'inboxpreview' : 'edit');
-        }
-    }, [isSelected, isOpen]);
-
     useEffect(() => {
         // 클라이언트 사이드에서만 실행
         const searchParams = new URLSearchParams(window.location.search);
@@ -65,27 +59,35 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
         }
     }, [modalState]);
 
-    const handleComplete = () => {
-        const data = currentData.current;
-        if (isSelected) {
-            handleUpdateClick?.(item, data);
-            setModalState('inboxpreview');
-        } else {
-            setModalState('preview');
+    // isOpen이 변경될 때 modalState 초기화
+    useEffect(() => {
+        if (isOpen) {
+            // 박스에 들어있지 않으면 edit 모드로 초기화
+            if (!isInBox) {
+                setModalState('edit');
+            }
+            // 박스에 들어있으면 view 모드로 초기화
+            else {
+                setModalState('view');
+            }
         }
-    };
+    }, [isOpen, isInBox]);
 
     const handleInsertWithData = () => {
         const data = currentData.current;
         handleInsertClick?.(item, data);
         closeButtonRef.current?.click();
     };
+    const handleDeleteClickWithData=()=>{
+        handleDeleteClick(item)
+        closeButtonRef.current?.click();
+    }
 
     return (
         <DialogRoot closeOnInteractOutside={true} scrollBehavior="inside" motionPreset='none' onOpenChange={setIsOpen}>
-            <DialogTrigger asChild disabled={isSelected && !isinBox}>
+            <DialogTrigger asChild disabled={isSelected && !isInBox}>
                 <Button 
-                    className={`flex-col w-[83px] h-[105px] ${isSelected && !isinBox ? 'cursor-not-allowed' : ''}`}
+                    className={`flex-col w-[83px] h-[105px] ${isSelected && !isInBox ? 'cursor-not-allowed' : ''}`}
                 >
                     <Image 
                         src={item.icon}
@@ -95,7 +97,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                         disabled={isSelected}
                         priority={true}
                     />
-                    {!isinBox ? <div className='text-white text-sm'>{item.name}</div>:<></>}
+                    {!isInBox ? <div className='text-white text-sm'>{item.name}</div>:<></>}
                 </Button>
             </DialogTrigger>
             
@@ -112,9 +114,12 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                         item={item}
                         dataRef={currentData}
                         receiver={receiver}
-                        // modalState={modalState}
-                        modalState={'view'}
+                        isInbox={isInBox}
+                        modalState={modalState}
+                        setIsOpen={setIsOpen}
+                        handleInsertWithData={handleInsertWithData}
                         setModalState={setModalState}
+                        onDelete={handleDeleteClickWithData}
                     />
                 </DialogBody>
             </DialogContent>

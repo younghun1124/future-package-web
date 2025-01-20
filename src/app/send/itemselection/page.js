@@ -3,16 +3,14 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, Suspense } from 'react';
 import FutureItem from '@ui/FutureItem';
 import { dummyItems } from '@/mocks/items';
-import Image from 'next/image';
-import Link from 'next/link';
 import DoodleButton from '@/ui/buttons/DoodleButton';
 
 function ItemSelectionContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedItems, setSelectedItems] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
+  
   // 쿼리파라미터 값 받아오기
   const receiver = searchParams.get('receiver') || '익명의 친구';
   const sender = searchParams.get('sender') || '기본 발신자';
@@ -37,7 +35,6 @@ function ItemSelectionContent() {
         ...item,
         id: item['type'],
         content: data
-        
     };
     console.log("이전 아이템 정보")
     console.log(item)
@@ -93,13 +90,14 @@ function ItemSelectionContent() {
       <div className="h-[280px]">
         <div className="grid grid-cols-4 grid-rows-2 gap-4 place-items-center h-full">
           {dummyItems.map((item) => (
-            <div key={item.id} onClick={() => handleItemClick(item)}>
+            <div key={item.id}>
               <FutureItem 
                 item={item} 
                 handleInsertClick={handleInsertClick}
                 isSelected={selectedItems.some(selectedItem => 
                   selectedItem.type === item.type
                 )}
+                
                 isEdit={false}
               />
             </div>
@@ -135,7 +133,7 @@ function ItemSelectionContent() {
                                 handleDeleteClick={handleDeleteClick}
                                 handleUpdateClick={handleUpdateClick}    
                                 isSelected={true}
-                                isinBox={true}
+                                isInBox={true}
                             />
                         </div>
                     );

@@ -1,15 +1,8 @@
 'use client'
 import React, { useEffect, useRef } from 'react';
 import DoodleButton from '@ui/buttons/DoodleButton';
-export default function FutureNoteEdit({dataRef}) {  
-    // useEffect로 초기값 설정을 클라이언트 사이드로 이동
-    useEffect(() => {
-        if (!dataRef.current) {
-            dataRef.current = {
-                text: ''
-            };
-        }
-    }, []);
+export default function FutureNoteEdit({dataRef,setIsOpen, setModalState}) {  
+
      
     return (
         <div className="flex flex-col gap-4">
@@ -26,8 +19,10 @@ export default function FutureNoteEdit({dataRef}) {
                     };
                 }}
                 defaultValue={dataRef.current?.text || ''}
+                
             />
-            <DoodleButton onClick={handleComplete}>완료</DoodleButton>
+            <DoodleButton className='self-center' onClick={()=>{setModalState('view')}}>
+            완료</DoodleButton>
         </div>
     );
 }

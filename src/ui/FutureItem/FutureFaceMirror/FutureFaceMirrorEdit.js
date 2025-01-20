@@ -1,8 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react';
-import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 import { ReactSketchCanvas } from 'react-sketch-canvas';
-
+import DoodleButton from '@ui/buttons/DoodleButton';
 export default function FutureFaceMirrorEdit({ dataRef }) {    
     const [strokeWidth, setStrokeWidth] = useState(4);
     const [strokeColor, setStrokeColor] = useState("#000000");
