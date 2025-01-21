@@ -17,7 +17,7 @@ export default function FutureFaceMirror({
             case 'edit':
                 return ( <div className="flex justify-center">
                     <DoodleButton onClick={()=>setModalState('preview')}>
-                        담을래요
+                        다 그렸어요
                     </DoodleButton>
                 </div>); // 편집 모드의 버튼은 Edit 컴포넌트 내부에서 처리
             case 'preview':

@@ -28,7 +28,7 @@ export default function FutureNoteView({dataRef,data, isInbox,setModalState,onDe
                 :<DoodleButton className='self-center' onClick={()=>handleInsertWithData()}>담을래요</DoodleButton>
                 }
                 
-                </div>               
+                </div>
             </div>
         </div>
     );
