@@ -30,7 +30,7 @@ function DeliveryContent() {
             content: {
                 title: '미래에서 온 선물이 도착했어요!🛸',
                 description: `${sender}님이 ${receiver}님에게 어떤 선물들을 보냈는지 확인해보세요🎁`,
-                imageUrl: '/delivery_complete.png',
+                imageUrl: 'https://storage.googleapis.com/future-box-cdn-public/static/assets/message_thumbnail/message_thumbnail_2x.webp',
                 link: {
                     mobileWebUrl: shareUrl,
                     webUrl: shareUrl,
@@ -45,8 +45,12 @@ function DeliveryContent() {
                     },
                 },
             ],
+            // 썸네일 이미지가 로드되도록 잠시 대기
+            // serverCallbackArgs: {
+            //     key: 'value'
+            // }
         });
-        router.push('/send/complete'); // 페이지 이동
+        router.push('/send/complete');
     };
 
     return (
