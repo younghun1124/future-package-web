@@ -39,7 +39,7 @@ export default function RootLayout({ children }) {
       <body
         className={` antialiased text-base animate-fadeIn`}
         style={{
-          backgroundImage: "https://storage.googleapis.com/future-box-cdn-public/static/assets/bg/bg_paper_black_2x.webp",
+          backgroundImage: "url('https://storage.googleapis.com/future-box-cdn-public/static/assets/bg/bg_dark_2x.webp')",
           backgroundRepeat: 'repeat',
           backgroundAttachment: 'fixed',
           fontFamily: 'Ownglyph_ParkDaHyun, sans-serif',
