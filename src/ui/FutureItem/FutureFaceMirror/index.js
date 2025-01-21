@@ -2,7 +2,7 @@
 import FutureFaceMirrorView from "./FutureFaceMirrorView";
 import FutureFaceMirrorEdit from "./FutureFaceMirrorEdit";
 import DoodleButton from "@/ui/buttons/DoodleButton";
-
+import { useEffect } from "react";
 export default function FutureFaceMirror({ 
     modalState, 
     receiver, 
@@ -12,6 +12,10 @@ export default function FutureFaceMirror({
     onDelete, 
     isInbox 
 }) {
+    useEffect(()=>{
+        const img = new Image();
+        img.src = "https://storage.googleapis.com/future-box-cdn-public/futureitem/mirror/mirror_frame_vertical_2x.webp";
+    },[])
     const renderButtons = () => {
         switch (modalState) {
             case 'edit':
