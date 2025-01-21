@@ -10,13 +10,13 @@ const gaegu = Gaegu({
 });
 
 // 배경 이미지 URL을 가져오는 함수
-const getBackgroundImageUrl = () => {
-  const cdnUrl = process.env.NEXT_PUBLIC_CDN_URL;
-  const bgImage = process.env.NEXT_PUBLIC_BG_IMAGE;
+// const getBackgroundImageUrl = () => {
+//   const cdnUrl = process.env.NEXT_PUBLIC_CDN_URL;
+//   const bgImage = process.env.NEXT_PUBLIC_BG_IMAGE;
   
-  // CDN URL이 설정되어 있으면 CDN에서, 아니면 로컬에서 로드
-  return cdnUrl ? `${cdnUrl}${bgImage}` : bgImage;
-};
+//   // CDN URL이 설정되어 있으면 CDN에서, 아니면 로컬에서 로드
+//   return cdnUrl ? `${cdnUrl}${bgImage}` : bgImage;
+// };
 
 export const metadata = {
   title: "2047년에서 온 택배",
@@ -24,22 +24,22 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  const bgImageUrl = getBackgroundImageUrl();
+  // const bgImageUrl = getBackgroundImageUrl();
 
   return (
     <html lang='ko' suppressHydrationWarning>
       <head>
-        <link
+        {/* <link
           rel="preload"
           href={bgImageUrl}
           as="image"
-        />
+        /> */}
         <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js" async></script>
       </head>
       <body
         className={` antialiased text-base animate-fadeIn`}
         style={{
-          backgroundImage: "url('/bgdark.png')",
+          backgroundImage: "https://storage.googleapis.com/future-box-cdn-public/static/assets/bg/bg_paper_black_2x.webp",
           backgroundRepeat: 'repeat',
           backgroundAttachment: 'fixed',
           fontFamily: 'Ownglyph_ParkDaHyun, sans-serif',
