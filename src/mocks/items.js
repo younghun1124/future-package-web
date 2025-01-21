@@ -9,7 +9,7 @@ export const dummyItems = [
   },
   {
     id: 'mirror',
-    icon: '/futurefacemirror_icon.svg',
+    icon: 'https://storage.googleapis.com/future-box-cdn-public/static/assets/itemicons/icon_mirror_2x.webp',
     type: 'FutureFaceMirror',
     name: '미래를 비추는 거울',
     content: '',
@@ -62,18 +62,25 @@ export const dummyItems = [
       detailImageUrl: '/icecreamchicken_coupon.svg'
     },
   },
+  // {
+  //   id: 'invention',
+  //   icon: '/futureinvention_icon.svg',
+  //   type: 'FutureInvention',
+  //   name: '미래 발명품',
+  //   content: {
+  //     id: 1,
+  //     name: '운명의 상대 나침반',
+  //     description: '운명의 상대에게로 당신을 인도합니다',
+  //     imageUrl: '/destiny_compass.svg',
+  //     detailImageUrl: '/destiny_compass.svg'
+  //   },
+  // },
   {
-    id: 'invention',
+    id: 'valueMeter',
     icon: '/futureinvention_icon.svg',
-    type: 'FutureInvention',
-    name: '미래 발명품',
-    content: {
-      id: 1,
-      name: '운명의 상대 나침반',
-      description: '운명의 상대에게로 당신을 인도합니다',
-      imageUrl: '/destiny_compass.svg',
-      detailImageUrl: '/destiny_compass.svg'
-    },
+    type: 'FutureValueMeter',
+    name: '가치 측정기',
+    content: '',
   },
   
 ]; 
