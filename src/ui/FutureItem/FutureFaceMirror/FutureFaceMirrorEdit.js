@@ -191,7 +191,6 @@ export default function FutureFaceMirrorEdit({ dataRef }) {
                 strokeColor={isEraser ? "#ffffff" : strokeColor}                
                 exportWithBackgroundImage={false}
             />
-            <DoodleButton onClick={handleComplete}>완료</DoodleButton>
         </div>
     );
 }

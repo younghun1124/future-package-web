@@ -1,3 +1,4 @@
+'use client'
 import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 import { useSearchParams } from 'next/navigation';
 
@@ -21,7 +22,7 @@ export default function FutureFaceMirrorView({ data, dataRef }) {
                 {mirrorData && (
                     <div 
                         className="absolute top-[5%] left-[51%] transform -translate-x-1/2 w-[65%] h-[50%] z-10"
-                        // ouslySetInnerHTML={{ __html: mirrorData }}
+                        dangerouslySetInnerHTML={{ __html: mirrorData }}
                     />
                 )}
                 {mirrorUrl && (
