@@ -2,8 +2,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { ReactSketchCanvas } from 'react-sketch-canvas';
 import DoodleButton from '@ui/buttons/DoodleButton';
+import { DialogTitle } from '@chakra-ui/react';
 import { Center } from '@chakra-ui/react';
-export default function FutureFaceMirrorEdit({ dataRef }) {    
+export default function FutureFaceMirrorEdit({ dataRef,receiver }) {    
     const [strokeWidth, setStrokeWidth] = useState(4);
     const [strokeColor, setStrokeColor] = useState("#000000");
     const [isEraser, setIsEraser] = useState(false);
@@ -95,9 +96,9 @@ export default function FutureFaceMirrorEdit({ dataRef }) {
     return (
         <div className="flex flex-col gap-4">
             
-                <h2 className="text-[27.5px] text-center text-white">
-                    미래의 거울
-                </h2>
+                <DialogTitle className="text-2xl text-white text-center">
+                    {receiver}님의 미래를 비추는 거울
+                </DialogTitle>
                 <p className="text-white">
                     미래의 모습을 그려봐. 친구 얼굴, 풍경, 뭐든 좋아
                 </p>
@@ -109,7 +110,7 @@ export default function FutureFaceMirrorEdit({ dataRef }) {
                     height="360px"
                     onChange={handleCanvasChange}
                     strokeWidth={strokeWidth}
-                    strokeColor={isEraser ? "#ffffff" : strokeColor}                
+                    strokeColor={strokeColor}
                     exportWithBackgroundImage={false}
                 />
                 </Center>
