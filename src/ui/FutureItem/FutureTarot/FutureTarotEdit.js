@@ -36,10 +36,12 @@ export default function FutureTarotEdit({ onSave ,receiver, handleInsertWithData
             case 'cardSelect':
                 return (
                     <>
-                        <p>인간들은 미래도 모르고 살았다며? 불편했겠네.. 살짝 힌트를 줄까?</p>
-                        <p className="text-white">
-                            먼저, 3장의 카드를 선택해. ({selectedCards.length}/3)
-                        </p>
+                        <div className="text-white flex flex-col items-center">
+                            <p>인간들은 미래도 모르고 살았다며? 불편했겠네.. 살짝 힌트를 줄까?</p>
+                            <p >
+                                먼저, 3장의 카드를 선택해. ({selectedCards.length}/3)
+                            </p>
+                        </div>
                         
                         <CardList 
                             selectedCards={selectedCards}
