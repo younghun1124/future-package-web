@@ -53,7 +53,7 @@ export const dummyItems = [
     id: 'gifticon',
     icon: '/futuregifticon_icon.svg',
     type: 'FutureGifticon',
-    name: '기프티콘',
+    name: '기프트카드',
     content: {
       id: 1,
       name: '삐체씨 팝핑 아이스크림 치킨',
