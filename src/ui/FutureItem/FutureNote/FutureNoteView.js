@@ -9,8 +9,8 @@ export default function FutureNoteView({dataRef,data, isInbox,setModalState,onDe
                 <Image 
                     src="/futurenote_detail.svg" 
                     alt="Future Note Detail" 
-                    width={320} 
-                    height={320} 
+                    width={330} 
+                    height={330} 
                     priority={true}
                     className="mx-auto" 
                 />
@@ -21,7 +21,7 @@ export default function FutureNoteView({dataRef,data, isInbox,setModalState,onDe
                 </div>
                 <div className="flex flex-col">
                 {isInbox ? 
-                <div>
+                <div className="flex justify-between">
                     <DoodleButton variant='white' className='self-center' onClick={()=>onDelete()}>뺄래요</DoodleButton>
                     <DoodleButton className='self-center' onClick={()=>setModalState('edit')}>수정할래요</DoodleButton>
                 </div>
