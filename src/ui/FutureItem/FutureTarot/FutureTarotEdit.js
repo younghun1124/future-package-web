@@ -102,7 +102,14 @@ export default function FutureTarotEdit({ onSave ,receiver, handleInsertWithData
                             <DoodleButton
                                 width={146}
                                 height={61}
-                                onClick={handleSave}
+                                onClick={() => {
+                                    if (description) {
+                                        onSave({
+                                            cards: selectedCards,
+                                            description: description
+                                        });
+                                    }
+                                }}
                                 disabled={!description}
                             >
                                 담을래요

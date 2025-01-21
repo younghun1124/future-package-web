@@ -55,9 +55,10 @@ export default function FutureTarot({
             
             {modalState === 'edit' && (
                 <FutureTarotEdit 
+                    handleInsertWithData={handleInsertWithData}
                     onSave={(data) => {
                         dataRef.current = data;
-                        setModalState('preview');
+                        handleInsertWithData();
                     }}
                     receiver={receiver}
                 />
