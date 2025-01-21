@@ -2,11 +2,20 @@
 import { NextResponse } from 'next/server';
 import { neon } from '@neondatabase/serverless';
 import { 
-  FUTURE_MOVIE_TYPES,
-  FUTURE_GIFTICON_TYPES,
-  FUTURE_INVENTION_TYPES 
+  FUTURE_GIFTICON_TYPES
 } from '@/constants/futureItems';
 import { getSignedUrlFromGCS } from '@/utils/uploadImage';
+
+// 서버 시작 시 FutureGifticon 타입 캐싱
+let cachedGifticonTypes = [];
+
+const cacheGifticonTypes = async (sql) => {
+  if (cachedGifticonTypes.length === 0) {
+    const gifticonTypes = await sql`SELECT * FROM future_gifticon_type`;
+    cachedGifticonTypes = gifticonTypes;
+  }
+  return cachedGifticonTypes;
+};
 
 export async function GET(request, { params }) {
   try {
@@ -24,11 +33,13 @@ export async function GET(request, { params }) {
       );
     }
 
-    const [futureNotes, futureLottos, futureHolograms, futureFaceMirrors] = await Promise.all([
+    const [futureNotes, futureHolograms, futureFaceMirrors, futureTarots, futurePerfumes, futureGifticons] = await Promise.all([
       sql`SELECT * FROM future_note WHERE box_id = ${futureBox.id}`,
-      sql`SELECT * FROM future_lotto WHERE box_id = ${futureBox.id}`,
       sql`SELECT * FROM future_hologram WHERE box_id = ${futureBox.id}`,
-      sql`SELECT * FROM future_face_mirror WHERE box_id = ${futureBox.id}`
+      sql`SELECT * FROM future_face_mirror WHERE box_id = ${futureBox.id}`,
+      sql`SELECT * FROM future_tarot WHERE box_id = ${futureBox.id}`,
+      sql`SELECT * FROM future_perfume WHERE box_id = ${futureBox.id}`,
+      sql`SELECT * FROM future_gifticon WHERE box_id = ${futureBox.id}`
     ]);
 
     // GCS filePath를 Signed URL로 변환
@@ -64,6 +75,9 @@ export async function GET(request, { params }) {
       })
     );
 
+    // FutureGifticon 타입 캐싱
+    const gifticonTypes = await cacheGifticonTypes(sql);
+
     // 기본 아이템 변환
     const futureItems = [
       ...futureNotes.map(note => ({
@@ -72,13 +86,6 @@ export async function GET(request, { params }) {
         name: '쪽지',
         icon: '/futurenote_icon.svg',
         content: { message: note.message }
-      })),
-      ...futureLottos.map(lotto => ({
-        id: `lotto_${lotto.id}`,
-        type: 'FutureLotto',
-        name: '로또',
-        icon: '/futurelotto_icon.svg',
-        content: { numbers: lotto.numbers }
       })),
       ...hologramsWithUrl.map(hologram => ({
         id: `hologram_${hologram.id}`,
@@ -96,11 +103,47 @@ export async function GET(request, { params }) {
           year: mirror.year,
           imageUrl: mirror.image_url 
         }
-      }))
+      })),
+      ...futureTarots.map(tarot => ({
+        id: `tarot_${tarot.id}`,
+        type: 'FutureTarot',
+        name: '타로',
+        icon: '/futuretarot_icon.svg',
+        content: { 
+          cardIndexes: tarot.indexes, 
+          description: tarot.description 
+        }
+      })),
+      ...futurePerfumes.map(perfume => ({
+        id: `perfume_${perfume.id}`,
+        type: 'FuturePerfume',
+        name: '향수',
+        icon: '/futureperfume_icon.svg',
+        content: { 
+          name: perfume.name,
+          description: perfume.description,
+          keywords: perfume.keywords,
+          shapeType: perfume.shape_type,
+          color: perfume.color
+        }
+      })),
+      ...futureGifticons.map(gifticon => {
+        const type = gifticonTypes.find(gt => gt.id === gifticon.gifticon_type_id);
+        return {
+          id: `gifticon_${gifticon.id}`,
+          type: 'FutureGifticon',
+          name: type.name,
+          icon: type.image_url,
+          content: { 
+            id: type.id,
+            name: type.name,
+            description: type.description,
+            imageUrl: type.image_url,
+            detailImageUrl: type.detail_image_url 
+          }
+        };
+      })
     ];
-
-    // 영화, 기프티콘, 발명품 추가
-    // ... (기존 로직 동일)
 
     const response = {
       uuid: futureBox.uuid,

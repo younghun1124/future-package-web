@@ -1,4 +1,4 @@
-# Future Box API Documentation
+# Future Box API 스펙
 
 ## 이미지 업로드
 ```http
@@ -7,22 +7,15 @@ Content-Type: multipart/form-data
 
 form-data:
 {
-    "futureImage": "<file>",
-    "type": "FutureHologram" // or "FutureFaceMirror"
+    "image": "<file>"
 }
 ```
 
 ### Response 200
 ```json
 {
-    "imageUrl": "https://storage.googleapis.com/bucket-name/path/to/image.jpg"
-}
-```
-
-### Response 400
-```json
-{
-    "error": "파일이 없습니다."
+    "filePath": "uploads/1234567890-image.jpg",
+    "imageUrl": "https://storage.googleapis.com/bucket-name/uploads/1234567890-image.jpg"
 }
 ```
 
@@ -36,36 +29,45 @@ Content-Type: application/json
     "sender": "현재",
     "futureItems": [
         {
-            "id": "FutureNote",
-            "message": "미래에서 보내는 편지입니다."
+            "type": "FutureNote",
+            "content": {
+                "message": "미래에서 보내는 편지입니다.",
+                "encryptedMessage": "이모티콘 메시지"
+            }
         },
         {
-            "id": "FutureLotto",
-            "numbers": [1, 2, 3, 4, 5, 6]
+            "type": "FutureHologram",
+            "content": {
+                "imageUrl": "uploads/1234567890-hologram.jpg"
+            }
         },
         {
-            "id": "FutureHologram",
-            "message": "홀로그램 메시지",
-            "imageUrl": "https://storage.googleapis.com/bucket-name/holograms/image.jpg"
+            "type": "FutureFaceMirror",
+            "content": {
+                "year": 2047,
+                "imageUrl": "mirrors/1234567890-face.svg"
+            }
         },
         {
-            "id": "FutureFaceMirror",
-            "year": 2047,
-            "imageUrl": "https://storage.googleapis.com/bucket-name/mirrors/image.jpg"
-        },
-        {
-            "id": "FutureMovieTicket",
-            "type": 1
-        },
-        {
-            "id": "FutureGifticon",
-            "type": 2
-        },
-        {
-            "id": "FutureInvention",
-            "type": 3
+            "type": "FutureTarot",
+            "content": {
+                "cardIndexes": [1, 2, 3],
+                "description": "당신은 남은 하루를 재밌게 보낼거에요"
+            }
         }
-    ]
+        {
+            "type": "FuturePerfume",
+            "content": {
+                "name": "나는 모르는 향",
+                "description": "잔잔한 비가 내리는 날의 쾌쾌한 향",
+                "keywords": ["열정", "목표 성취", "감동"],
+                "shape": 1
+                "color": "#FFFFFF"
+            }
+        }
+    ],
+    "futureGifticonType": 1
+    "futureValueMeterIncluded": false
 }
 ```
 
@@ -85,47 +87,50 @@ GET {{base_url}}/api/items/{{uuid}}
 ### Response 200
 ```json
 {
-    "box": {
-        "uuid": "550e8400-e29b-41d4-a716-446655440000",
-        "receiver": "미래",
-        "sender": "현재",
-        "futureMovieType": 1,
-        "futureGifticonType": 2,
-        "futureInventionType": 3,
-        "createdAt": "2024-01-01T00:00:00Z"
-    },
-    "items": {
-        "futureNotes": [
-            {
-                "id": 1,
-                "boxId": 1,
-                "message": "미래에서 보내는 편지입니다."
+    "uuid": "550e8400-e29b-41d4-a716-446655440000",
+    "receiver": "미래",
+    "sender": "현재",
+    "futureItems": [
+        {
+            "type": "FutureNote",
+            "content": {
+                "message": "미래에서 보내는 편지입니다.",
+                "encryptedMessage": "이모티콘 메시지"
             }
-        ],
-        "futureLottos": [
-            {
-                "id": 1,
-                "boxId": 1,
-                "numbers": [1, 2, 3, 4, 5, 6]
+        },
+        {
+            "type": "FutureHologram",
+            "content": {
+                "imageUrl": "https://storage.googleapis.com/bucket-name/uploads/1234567890-hologram.jpg"
             }
-        ],
-        "futureHolograms": [
-            {
-                "id": 1,
-                "boxId": 1,
-                "message": "홀로그램 메시지",
-                "imageUrl": "https://storage.googleapis.com/bucket-name/holograms/image.jpg"
-            }
-        ],
-        "futureFaceMirrors": [
-            {
-                "id": 1,
-                "boxId": 1,
+        },
+        {
+            "type": "FutureFaceMirror",
+            "content": {
                 "year": 2047,
-                "imageUrl": "https://storage.googleapis.com/bucket-name/mirrors/image.jpg"
+                "imageUrl": "https://storage.googleapis.com/bucket-name/mirrors/1234567890-face.svg"
             }
-        ]
-    }
+        },
+        {
+            "type": "FutureTarot",
+            "content": {
+                "cardIndexes": [1, 2, 3],
+                "description": "당신은 남은 하루를 재밌게 보낼거에요"
+            }
+        },
+        {
+            "type": "FuturePerfume",
+            "content": {
+                "name": "나는 모르는 향",
+                "description": "잔잔한 비가 내리는 날의 쾌쾌한 향",
+                "keywords": ["열정", "목표 성취", "감동"],
+                "shape": 1,
+                "color": "#FFFFFF"
+            }
+        }
+    ],
+    "futureGifticonType": 1,
+    "futureValueMeterIncluded": false,
 }
 ```
 
@@ -136,7 +141,240 @@ GET {{base_url}}/api/items/{{uuid}}
 }
 ```
 
-### Environment Variables
+-----------------------------
+# 이모지 변환 API 스펙
+
+## 기본 정보
+- **엔드포인트**: `/api/emoji`
+- **메소드**: POST
+- **설명**: 텍스트를 이모지로 변환하는 API
+
+## 요청 (Request)
+
+### Headers
+```
+Content-Type: application/json
+```
+
+### Body
+```json
+{
+  "text": "변환할텍스트"
+}
+```
+
+### 제약 조건
+- `text`: 문자열
+  - 필수 항목
+  - 길이: 1-8자 이내
+  - 타입: string
+
+## 응답 (Response)
+
+### 성공 응답 (200 OK)
+```json
+{
+  "success": true,
+  "text": "입력한텍스트",
+  "emoji": "변환된이모지"
+}
+```
+
+### 오류 응답
+
+#### 잘못된 요청 (400 Bad Request)
+```json
+{
+  "error": "텍스트는 1-8자 사이여야 합니다."
+}
+```
+
+#### 서버 오류 (500 Internal Server Error)
+```json
+{
+  "error": "이모지 변환 중 오류가 발생했습니다."
+}
+```
+
+## 예시
+
+### 요청 예시
+```json
+{
+  "text": "사과나무"
+}
+```
+
+### 응답 예시
+```json
+{
+  "success": true,
+  "text": "사과나무",
+  "emoji": "🍎🌳"
+}
+```
+-----------------------------
+# 향수 설명 생성 API 스펙
+
+## 기본 정보
+- **엔드포인트**: `/api/perfume`
+- **메소드**: POST
+- **설명**: 키워드를 기반으로 향수 설명을 생성하는 API
+
+## 요청 (Request)
+
+### Headers
+```
+Content-Type: application/json
+```
+
+### Body
+```json
+{
+  "keywords": ["키워드1", "키워드2", "키워드3"]
+}
+```
+
+### 제약 조건
+- `keywords`: 문자열 배열
+  - 필수 항목
+  - 정확히 3개의 키워드 필요
+  - 각 키워드는 문자열
+  - 빈 문자열 불가
+
+## 응답 (Response)
+
+### 성공 응답 (200 OK)
+```json
+{
+  "success": true,
+  "keywords": ["키워드1", "키워드2", "키워드3"],
+  "description": "생성된 향수 설명"
+}
+```
+
+### 오류 응답
+
+#### 잘못된 요청 (400 Bad Request)
+```json
+{
+  "error": "정확히 3개의 키워드가 필요합니다."
+}
+```
+
+#### 서버 오류 (500 Internal Server Error)
+```json
+{
+  "error": "향수 설명 생성 중 오류가 발생했습니다."
+}
+```
+
+## 예시
+
+### 요청 예시
+```json
+{
+  "keywords": ["봄", "꽃", "달콤"]
+}
+```
+
+### 응답 예시
+```json
+{
+  "success": true,
+  "keywords": ["열정", "목표 성취", "자부심"],
+  "description": "별을 향해 불타는 자부심의 향기"
+}
+```
+
+## 참고사항
+- Google Gemini AI를 사용하여 향수 설명 생성
+- 감각적이고 시적인 표현으로 향수 설명 생성
+- 설명은 30자 이내의 한 문장으로 제한
+
+-----------------------------
+
+# 미래 가치 측정기 API 스펙
+
+## 기본 정보
+- **엔드포인트**: `/api/valuemeter`
+- **메소드**: POST
+- **설명**: 이미지를 분석하여 미래의 가치와 스토리를 예측하는 API
+
+## 요청 (Request)
+
+### Headers
+```
+Content-Type: multipart/form-data
+```
+
+### Body
+```
+image: File (이미지 파일)
+```
+
+### 제약 조건
+- `image`: 이미지 파일
+  - 필수 항목
+  - 파일 형식: image/*
+  - 최대 크기: 아직 안 정함
+  - 지원 형식: jpg, jpeg, png, gif, webp
+
+## 응답 (Response)
+
+### 성공 응답 (200 OK)
+```json
+{
+  "success": true,
+  "predictions": [
+    {
+      "year": 2025,
+      "story": "한정판으로 출시되어 컬렉터들의 관심을 받기 시작했다.",
+      "value": 150000
+    },
+    {
+      "year": 2032,
+      "story": "유명 아티스트의 작품에 등장하며 예술적 가치를 인정받았다.",
+      "value": 280000
+    },
+    {
+      "year": 2039,
+      "story": "빈티지 문화의 부활과 함께 박물관에서 전시되기 시작했다.",
+      "value": 750000
+    },
+    {
+      "year": 2047,
+      "story": "미래 사회를 대표하는 레트로 아이템으로 자리잡았다.",
+      "value": 1200000
+    }
+  ]
+}
+```
+
+### 오류 응답
+
+#### 잘못된 요청 (400 Bad Request)
+```json
+{
+  "error": "이미지가 필요합니다."
+}
+```
+
+```json
+{
+  "error": "이미지 파일만 업로드 가능합니다."
+}
+```
+
+#### 서버 오류 (500 Internal Server Error)
+```json
+{
+  "error": "가치 측정 중 오류가 발생했습니다."
+}
+```
+-----------------------------
+
+### 환경 변수
 ```json
 {
     "base_url": "http://localhost:3000",
