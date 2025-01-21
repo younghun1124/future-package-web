@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect, useRef } from 'react';
 import DoodleButton from '@ui/buttons/DoodleButton';
+import Image from 'next/image';
 export default function FutureNoteEdit({dataRef,setIsOpen, setModalState}) {  
 
      
@@ -23,6 +24,14 @@ export default function FutureNoteEdit({dataRef,setIsOpen, setModalState}) {
             />
             <DoodleButton className='self-center' onClick={()=>{setModalState('view')}}>
             완료</DoodleButton>
+            <Image 
+                    src="/futurenote_detail.svg" 
+                    alt="Future Note Detail" 
+                    width={330} 
+                    height={330} 
+                    priority={true}
+                    className="mx-auto hidden" 
+                />
         </div>
     );
 }
