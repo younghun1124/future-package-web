@@ -119,9 +119,13 @@ export default function FutureFaceMirrorEdit({ dataRef }) {
                     <input 
                         type="color" 
                         value={strokeColor}
-                        onChange={(e) => setStrokeColor(e.target.value)}
-                        className={`w-8 h-8 ${isEraser ? 'opacity-50' : ''}`}
-                        disabled={isEraser}
+                        onChange={(e) => {
+                            setStrokeColor(e.target.value);
+                            setIsEraser(false)
+                            canvasRef.current?.eraseMode(false);
+                        }}
+                        className={`w-8 h-8`}
+                        
                     />
                     <input 
                         type="range" 
@@ -140,7 +144,7 @@ export default function FutureFaceMirrorEdit({ dataRef }) {
                             isEraser ? 'bg-white' : 'bg-accent text-white'
                         }`}
                     >
-                        그리기 모드
+                        펜
                     </button>
                     <button
                         onClick={() => {
@@ -151,7 +155,7 @@ export default function FutureFaceMirrorEdit({ dataRef }) {
                             isEraser ? 'bg-accent text-white' : 'bg-white'
                         }`}
                     >
-                        지우개 모드
+                        지우개
                     </button>
                 </div>
 
@@ -184,9 +188,9 @@ export default function FutureFaceMirrorEdit({ dataRef }) {
                             canvasRef.current?.clearCanvas();
                             handleCanvasChange();
                         }}
-                        className="px-3 py-1 border rounded"
+                        className="p-1 w-[38.60px] text-xs h-[37.82px] text-white bg-[#d9d9d9]/50 rounded-[9px]"
                     >
-                        전체 지우기
+                        전체<br></br>지우기
                     </button>
                 </div>
             </div>
