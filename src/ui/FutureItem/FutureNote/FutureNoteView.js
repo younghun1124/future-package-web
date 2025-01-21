@@ -7,7 +7,7 @@ export default function FutureNoteView({dataRef,data, isInbox,setModalState,onDe
             <h2 className="text-3xl text-center font-bold text-white mt-3 mb-2">쪽지</h2>
             <div className="relative">
                 <Image 
-                    src="/futurenote_detail.svg" 
+                    src="https://storage.googleapis.com/future-box-cdn-public/futureitem/note/FutureNote_2x.webp" 
                     alt="Future Note Detail" 
                     width={330} 
                     height={330} 
@@ -19,7 +19,7 @@ export default function FutureNoteView({dataRef,data, isInbox,setModalState,onDe
                         {text || ''}
                     </p>
                 </div>
-                <div className="flex flex-col">
+                <div className="flex flex-col mt-2">
                 {isInbox ? 
                 <div className="flex justify-between">
                     <DoodleButton variant='white' className='self-center' onClick={()=>onDelete()}>뺄래요</DoodleButton>

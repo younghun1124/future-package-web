@@ -25,7 +25,7 @@ export default function FutureNoteEdit({dataRef,setIsOpen, setModalState}) {
             <DoodleButton className='self-center' onClick={()=>{setModalState('view')}}>
             완료</DoodleButton>
             <Image 
-                    src="/futurenote_detail.svg" 
+                    src="https://storage.googleapis.com/future-box-cdn-public/futureitem/note/FutureNote_2x.webp" 
                     alt="Future Note Detail" 
                     width={330} 
                     height={330} 
