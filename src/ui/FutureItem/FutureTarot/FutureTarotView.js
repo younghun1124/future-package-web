@@ -29,7 +29,7 @@ const TEMP_DATA = {
     description: '당신의 미래에는 큰 변화가 찾아올 것입니다. 하지만 두려워하지 마세요. 그 변화는 당신을 더 나은 곳으로 이끌어줄 것입니다.'
 };
 
-export default function FutureTarotView({ data = TEMP_DATA }) {
+export default function FutureTarotView({ data = TEMP_DATA, isReceiverView=false }) {
     const [flippedCards, setFlippedCards] = useState([]);
     const [showInterpretation, setShowInterpretation] = useState(false);
     const [showButton, setShowButton] = useState(false);
@@ -146,19 +146,22 @@ export default function FutureTarotView({ data = TEMP_DATA }) {
                     </DoodleButton>
                 )}
 
-                {showInterpretation && (
+                {showInterpretation &&  (
                     <>
                         <div className="text-white text-center p-4 bg-[#666666] rounded-lg w-full">
                             {data.description}
                         </div>
-                        <DoodleButton 
+                        
+                    </>
+                )}
+                {
+                    isReceiverView &&<DoodleButton 
                             onClick={handleSaveImage}
                             className="my-4 mb-3"
                         >
                             이미지 저장
                         </DoodleButton>
-                    </>
-                )}
+                }
             </div>
         </div>
     );

@@ -32,7 +32,7 @@ export default function FutureTarot({
                             width={130}
                             onClick={onDelete}
                         >
-                            빼주세요
+                            뺄래요
                         </DoodleButton>
                         <DoodleButton
                             width={130}
