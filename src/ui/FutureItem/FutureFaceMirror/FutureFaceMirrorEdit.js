@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ReactSketchCanvas } from 'react-sketch-canvas';
 import DoodleButton from '@ui/buttons/DoodleButton';
+import { Center } from '@chakra-ui/react';
 export default function FutureFaceMirrorEdit({ dataRef }) {    
     const [strokeWidth, setStrokeWidth] = useState(4);
     const [strokeColor, setStrokeColor] = useState("#000000");
@@ -101,7 +102,17 @@ export default function FutureFaceMirrorEdit({ dataRef }) {
                     미래의 모습을 그려봐. 친구 얼굴, 풍경, 뭐든 좋아
                 </p>
             
-
+                <Center>
+                    <ReactSketchCanvas
+                    ref={canvasRef}
+                    width="235px"
+                    height="360px"
+                    onChange={handleCanvasChange}
+                    strokeWidth={strokeWidth}
+                    strokeColor={isEraser ? "#ffffff" : strokeColor}                
+                    exportWithBackgroundImage={false}
+                />
+                </Center>
             {/* 도구 섹션 */}
             <div className="flex justify-between items-center">
                 <div className="flex gap-2 items-center">
@@ -181,16 +192,7 @@ export default function FutureFaceMirrorEdit({ dataRef }) {
             </div>
 
             {/* 캔버스 */}
-            <ReactSketchCanvas
-                ref={canvasRef}
-                width="100%"
-                height="100%"
-                style={{ aspectRatio: '255/170' }}
-                onChange={handleCanvasChange}
-                strokeWidth={strokeWidth}
-                strokeColor={isEraser ? "#ffffff" : strokeColor}                
-                exportWithBackgroundImage={false}
-            />
+            
         </div>
     );
 }

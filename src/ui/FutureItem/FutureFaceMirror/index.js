@@ -60,12 +60,14 @@ export default function FutureFaceMirror({
                         setModalState('preview');
                     }}
                     receiver={receiver}
+                    dataRef={dataRef}
                 />
             )}
             
             {(modalState === 'preview' || modalState === 'view') && (
                 <FutureFaceMirrorView 
                     data={dataRef?.current}
+                    dataRef={dataRef}
                     receiver={receiver}
                 />
             )}
