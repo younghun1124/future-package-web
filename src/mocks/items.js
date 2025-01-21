@@ -23,9 +23,9 @@ export const dummyItems = [
   },  
   {
     id: 'tarot',
-    icon: '/futurelotto_icon.svg',
+    icon: 'https://storage.googleapis.com/future-box-cdn-public/static/assets/itemicons/icon_card_2x.webp',
     type: 'FutureTarot',
-    name: '타로또',
+    name: '카드',
     content: '',
   },
   

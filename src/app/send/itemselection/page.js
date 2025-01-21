@@ -117,7 +117,7 @@ function ItemSelectionContent() {
                         FutureNote: 'top-[20%] left-[30%]',
                         FutureFaceMirror: 'top-[15%] left-[50%]',
                         FutureHologram: 'top-[15%] right-[5%]',
-                        FutureLotto: 'top-[45%] left-[20%]',
+                        FutureTarot: 'top-[45%] left-[20%]',
                         FutureMovieTicket: 'top-[45%] rotate-[78.76deg] left-[40%]',
                         FutureGifticon: 'top-[45%] right-[12%]',
                         FutureInvention: 'top-[45%] left-[80%]',

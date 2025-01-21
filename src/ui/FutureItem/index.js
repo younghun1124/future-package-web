@@ -89,15 +89,17 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                 <Button 
                     className={`flex-col w-[83px] h-[105px] ${isSelected && !isInBox ? 'cursor-not-allowed' : ''}`}
                 >
-                    <Image 
-                        src={item.icon}
-                        alt="File Icon" 
-                        width={74} 
-                        height={74}   
-                        disabled={isSelected}
-                        priority={true}
-                    />
-                    {!isInBox ? <div className='text-white text-sm'>{item.name}</div>:<></>}
+                    <div className="relative w-[74px] h-[74px]">
+                        <Image 
+                            src={item.icon}
+                            alt="File Icon" 
+                            fill
+                            className="object-contain"
+                            disabled={isSelected}
+                            priority={true}
+                        />
+                    </div>
+                    {!isInBox && <div className='text-white text-sm'>{item.name}</div>}
                 </Button>
             </DialogTrigger>
             
