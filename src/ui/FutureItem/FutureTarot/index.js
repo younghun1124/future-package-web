@@ -2,7 +2,7 @@
 import FutureTarotView from "./FutureTarotView";
 import FutureTarotEdit from "./FutureTarotEdit";
 import DoodleButton from "@/ui/buttons/DoodleButton";
-
+import FutureTarotPreview from "./FutureTarotPreview";
 export default function FutureTarot({ 
     modalState, 
     receiver, 
@@ -64,12 +64,13 @@ export default function FutureTarot({
                 />
             )}
             
-            {(modalState === 'preview' || modalState === 'view') && (
-                <FutureTarotView 
+            {modalState === 'view'  && (
+                <FutureTarotPreview 
                     data={dataRef?.current}
                     receiver={receiver}
                 />
             )}
+            
 
             {renderButtons()}
         </div>
