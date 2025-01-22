@@ -2,6 +2,7 @@
 import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 import { FUTURE_GIFTICON_TYPES } from '@/constants/futureItems';
 import { useState } from 'react';
+import DoodleButton from '@/ui/buttons/DoodleButton';
 
 export default function FutureGifticonEdit({ dataRef }) {    
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -32,14 +33,24 @@ export default function FutureGifticonEdit({ dataRef }) {
         });
     };
 
+    const handleComplete = () => {
+        // 현재 선택된 기프티콘 데이터 저장
+        dataRef.current = {
+            id: gifticons[currentIndex].id,
+            name: gifticons[currentIndex].name,
+            description: gifticons[currentIndex].description,
+            imageUrl: gifticons[currentIndex].imageUrl
+        };
+    };
+
     return (
-        <div className="flex flex-col gap-4">
-            <DialogHeader>
-                <DialogTitle className="text-2xl text-center py-4 text-white">
-                    미래 기프티콘
+        <div className="flex flex-col items-center gap-6">
+            <DialogHeader className="text-center">
+                <DialogTitle className="text-2xl py-4 text-white">
+                    미래의 기프티콘
                 </DialogTitle>
                 <p className="text-white">
-                    2047년에 사용할 수 있는 기프티콘을 선택해주세요!
+                    친구에게 보낼 기프티콘을 선택해주세요!
                 </p>
             </DialogHeader>
 
