@@ -149,7 +149,7 @@ function ItemSelectionContent() {
             onClick={handleSubmit}
             disabled={selectedItems.length === 0}
         >
-            포장하기
+            다 담았어요
         </DoodleButton>
       </div>
     </div>

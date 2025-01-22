@@ -1,11 +1,12 @@
 'use client'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CardList from './CardList';
 import { Center } from '@chakra-ui/react';
 import DoodleButton from '@/ui/buttons/DoodleButton';
 import Image from 'next/image';
+import { TAROT_MESSAGES } from '@/constants/TAROT_MESSAGE';
 
-export default function FutureTarotEdit({ onSave ,receiver, handleInsertWithData}) {
+export default function FutureTarotEdit({ onSave, receiver, handleInsertWithData }) {
     const [selectedCards, setSelectedCards] = useState([]);
     const [phase, setPhase] = useState('cardSelect');
     const [description, setDescription] = useState('');
@@ -21,6 +22,23 @@ export default function FutureTarotEdit({ onSave ,receiver, handleInsertWithData
             }
             return prev;
         });
+    };
+
+    const handlePhaseChange = () => {
+        console.log("ghi");
+        if (selectedCards.length === 3) {
+            // 카드의 numid를 오름차순으로 정렬하여 키 생성
+            const messageKey = selectedCards
+                .map(card => card.numid)
+                .sort((a, b) => a - b)
+                .join('-');
+            
+            // 해당하는 메시지가 있으면 설정
+            if (TAROT_MESSAGES[messageKey]) {
+                setDescription(TAROT_MESSAGES[messageKey]);
+            }
+            setPhase('description');
+        }
     };
 
     const handleSave = () => {
@@ -56,7 +74,7 @@ export default function FutureTarotEdit({ onSave ,receiver, handleInsertWithData
 
                         <div className="flex justify-center">
                             <DoodleButton
-                                onClick={() => setPhase('description')}
+                                onClick={handlePhaseChange}
                                 disabled={selectedCards.length !== 3}
                             >
                                 다 골랐어요
@@ -124,6 +142,8 @@ export default function FutureTarotEdit({ onSave ,receiver, handleInsertWithData
     };
 
     return (
-            renderPhaseContent()
+        <>
+            {renderPhaseContent()}
+        </>
     );
 }
