@@ -1,24 +1,36 @@
 'use client'
-import dynamic from 'next/dynamic'
 import Report from './Report';
-import DoodleButton from '@ui/buttons/DoodleButton';
-import ValueMeterMeasuring from './ValueMeterMeasuring';
-import ValueMeterOffline from './ValueMeterOffline';
 import ValueMeterDone from './ValueMeterDone';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
+import ValueMeterView from './ValueMeterView';
 export default function FutureValueMeter({modalState,isInbox, onDelete, setModalState, dataRef,handleInsertWithData}) {
-    const [isReportOpen, setisReportOpen]=useState(false)
+    
+    useEffect(() => {
+        const imgUrls = [
+            'https://storage.googleapis.com/future-box-cdn-public/futureitem/valuemeter/valuemeter_measuring_2x.webp',
+            'https://storage.googleapis.com/future-box-cdn-public/futureitem/valuemeter/valuemeter_done_2x.webp',
+            'https://storage.googleapis.com/future-box-cdn-public/futureitem/valuemeter/valuemeter_offline_2x.webp'
+        ];
+        
+        const fetchImages = async () => {
+            await Promise.all(imgUrls.map(url => {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.src = url;
+                    img.onload = resolve;
+                });
+            }));
+        };
+
+        fetchImages();
+    }, []);
     return (
         <div className='relative'>
-            <ValueMeterOffline/ >
-            <ValueMeterMeasuring message='측정 중...'/>
-            <button onClick={()=>setisReportOpen((prev)=>!prev)}><ValueMeterDone /></button>
-            {isReportOpen && <Report className='absolute top-0' />}
-            {/* {modalState === 'edit' ? (
-                <Report setModalState={setModalState} handleInsertWithData={handleInsertWithData} dataRef={dataRef}/>
+            {modalState === 'edit' ? (
+                <ValueMeterView setModalState={setModalState} handleInsertWithData={handleInsertWithData} dataRef={dataRef}/>
             ) : (
                 <Report handleInsertWithData={handleInsertWithData} onDelete={onDelete} setModalState={setModalState} isInbox={isInbox} dataRef={dataRef}/>
-            )} */}
+            )}
         </div>
     );
 }

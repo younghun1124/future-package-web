@@ -1,6 +1,7 @@
 import { Center } from "@chakra-ui/react";
-import RotatingImage from "./RotatingImage";
-export default function ValueMeter_Measuring({ message = "측정 중..." , imgUrl}) {
+// import RotatingImage from "./RotatingImage";
+import MeteredImg from "./MeteredImg"
+export default function ValueMeterMeasuring({ message = "측정 중..." , imgUrl}) {
     return (
         <div className="intermittent-vibration  relative w-[265px]">
             <style jsx>{`
@@ -21,7 +22,8 @@ export default function ValueMeter_Measuring({ message = "측정 중..." , imgUr
             
             
             
-            <RotatingImage className='absolute translate-x-1/2 top-[-40px]' imgUrl={imgUrl}/>
+            {/* <RotatingImage className='absolute translate-x-1/2 top-[-40px]' imgUrl={imgUrl}/> */}
+            <MeteredImg className='absolute translate-x-1/2 top-[-40px]' imgUrl={imgUrl}/>
            
             <img
                 src="https://storage.googleapis.com/future-box-cdn-public/futureitem/valuemeter/valuemeter_measuring_2x.webp"
