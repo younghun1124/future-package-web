@@ -12,6 +12,7 @@
     "@chakra-ui/react": "^3.2.3",
     "@emotion/react": "^11.14.0",
     "@google-cloud/storage": "^7.14.0",
+    "@google/generative-ai": "^0.21.0",
     "@neondatabase/serverless": "^0.10.4",
     "formidable": "^3.5.2",
     "html2canvas": "^1.4.1",
