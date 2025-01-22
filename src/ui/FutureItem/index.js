@@ -110,8 +110,8 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
             >
             
                 <DialogBody className="flex flex-col gap-6 mt-11 px-6">
-                <DialogCloseTrigger ref={closeButtonRef}>
-                    <Image src="/x_icon.svg" alt="X" width={18} height={18} />
+                <DialogCloseTrigger className='text-white text-2xl' ref={closeButtonRef}>
+                    X
                 </DialogCloseTrigger>
                     <Component 
                         item={item}
