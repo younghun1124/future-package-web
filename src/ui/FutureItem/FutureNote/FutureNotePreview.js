@@ -7,11 +7,7 @@ export default function FutureNoteView({dataRef,data, isInbox,setModalState,onDe
     const [isConverting, setIsConverting] = useState(false);
 
     const handleEmojiConvert = async () => {
-        if (!text) return;
-        
-        // 텍스트가 8자를 초과하는 경우 처리
-        
-        
+        if (!text) return;      
         setIsConverting(true);
         try {
             const response = await fetch('/api/emoji', {
@@ -19,7 +15,7 @@ export default function FutureNoteView({dataRef,data, isInbox,setModalState,onDe
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ text: text.slice(0, 8) }) // 8자로 제한
+                body: JSON.stringify({ text }) // 8자로 제한
             });
 
             if (!response.ok) {
@@ -47,7 +43,7 @@ export default function FutureNoteView({dataRef,data, isInbox,setModalState,onDe
 
     return (
         <div className="relative">
-            <h2 className="text-3xl text-center text-white mt-3 mb-2">쪽지</h2>
+            <h2 className="text-3xl text-center font-bold text-white mt-3 mb-2">쪽지</h2>
             <div className="relative">
                 <Image 
                     src="https://storage.googleapis.com/future-box-cdn-public/futureitem/note/FutureNote_2x.webp" 
@@ -63,12 +59,7 @@ export default function FutureNoteView({dataRef,data, isInbox,setModalState,onDe
                     </p>
                 </div>
                 <div className="flex flex-col mt-2">
-                {isInbox ? 
                 <div className="flex justify-between">
-                    <DoodleButton variant='white' className='self-center' onClick={()=>onDelete()}>뺄래요</DoodleButton>
-                    <DoodleButton className='self-center' onClick={()=>setModalState('edit')}>수정할래요</DoodleButton>
-                </div>
-                :<div className="flex justify-between">
                     <DoodleButton 
                         variant='white' 
                         className='self-center'
@@ -79,8 +70,6 @@ export default function FutureNoteView({dataRef,data, isInbox,setModalState,onDe
                     </DoodleButton>
                     <DoodleButton className='self-center' onClick={()=>handleInsertWithData()}>담을래요</DoodleButton>
                 </div>
-                }
-                
                 </div>
             </div>
         </div>
