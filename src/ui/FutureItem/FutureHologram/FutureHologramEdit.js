@@ -1,8 +1,8 @@
 'use client'
 import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 import { useState, useRef } from 'react';
-
-export default function FutureHologramEdit({ dataRef }) {    
+import DoodleButton from '@ui/buttons/DoodleButton';
+export default function FutureHologramEdit({ dataRef ,handleInsertWithData}) {    
     const [previewUrl, setPreviewUrl] = useState(null);
     const fileInputRef = useRef(null);
 
@@ -77,7 +77,7 @@ export default function FutureHologramEdit({ dataRef }) {
                     className="hidden"
                 />
             </div>
-            <DoodleButton onClick={handleComplete}>완료</DoodleButton>
+            <DoodleButton onClick={handleInsertWithData}>완료</DoodleButton>
         </div>
     );
 } 

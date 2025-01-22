@@ -41,28 +41,59 @@ export default function FutureHologramView({ data, dataRef }) {
 
             <style jsx>{`
                 .hologram-container {
-                    perspective: 1000px;
+                    perspective: 700px;
                     transform-style: preserve-3d;
                 }
 
                 .hologram-effect {
-                    animation: hologram 8s ease-in-out infinite;
-                    filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5))
-                           drop-shadow(0 0 20px rgba(0, 255, 255, 0.3));
+                    animation: hologram 8s ease-in-out infinite,
+                             flicker 6s linear infinite,
+                             stretch 5s ease-in-out infinite;
+                    filter: drop-shadow(0 0 10px rgba(18, 223, 146, 0.3))
+                           drop-shadow(0 0 20px rgba(18, 223, 146, 0.15));
                     opacity: 0.8;
+                    position: relative;
+                }
+
+                .hologram-effect::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(18, 223, 146, 0.15);
+                    mix-blend-mode: overlay;
+                    pointer-events: none;
                 }
 
                 @keyframes hologram {
                     0%, 100% {
-                        transform: translateZ(40px) rotateX(0deg);
-                        filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5))
-                               drop-shadow(0 0 20px rgba(0, 255, 255, 0.3));
+                        transform: translateZ(40px) rotateX(-10deg);
+                        filter: drop-shadow(0 0 10px rgba(18, 223, 146, 0.4))
+                               drop-shadow(0 0 20px rgba(18, 223, 146, 0.7));
                     }
                     50% {
-                        transform: translateZ(60px) rotateX(3deg);
-                        filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.6))
-                               drop-shadow(0 0 25px rgba(0, 255, 255, 0.4));
+                        transform: translateZ(60px) rotateX(10deg);
+                        filter: drop-shadow(0 0 15px rgba(18, 223, 146, 0.5))
+                               drop-shadow(0 0 25px rgba(18, 223, 146, 0.25));
                     }
+                }
+
+                @keyframes flicker {
+                    0%, 100% { opacity: 0.8; }
+                    3% { opacity: 0.6; }
+                    4% { opacity: 0.8; }
+                    7% { opacity: 0.6; }
+                    8% { opacity: 0.8; }
+                    92% { opacity: 0.8; }
+                    93% { opacity: 0.6; }
+                    94% { opacity: 0.8; }
+                }
+
+                @keyframes stretch {
+                    0%, 100% { transform: scaleX(1); }
+                    50% { transform: scaleX(0.985); }
                 }
             `}</style>
         </div>
