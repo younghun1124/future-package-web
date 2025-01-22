@@ -6,12 +6,15 @@ import Image from 'next/image';
 import ValueMeterOffline from './ValueMeterOffline';
 import ValueMeterMeasuring from './ValueMeterMeasuring';
 import ValueMeterDone from './ValueMeterDone';
+import ValueMeterReport from './ValueMeterReport';
 import Report from './Report';
-export default function ValueMeterView({ onSave ,receiver, handleInsertWithData}) {
+
+export default function ValueMeterView({ onSave, receiver, handleInsertWithData }) {
     const [selectedCards, setSelectedCards] = useState([]);
     const [phase, setPhase] = useState('uploadImg');
     const [description, setDescription] = useState('');
-    const [isReportOpen, setisReportOpen]=useState(false)
+    const [isReportOpen, setIsReportOpen] = useState(false);
+    const [measureData, setMeasureData] = useState(null);
 
     const handleCardSelect = (card) => {
         setSelectedCards(prev => {
@@ -33,15 +36,53 @@ export default function ValueMeterView({ onSave ,receiver, handleInsertWithData}
         });
     };
 
+    const handleImageUpload = async (file) => {
+        setPhase('measuring');
+        
+        const formData = new FormData();
+        formData.append('image', file);
+
+        try {
+            const response = await fetch('/api/valuemeter', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error('가치 측정 실패');
+            }
+
+            const data = await response.json();
+            setMeasureData(data.predictions);
+            setPhase('done');
+        } catch (error) {
+            console.error('가치 측정 중 오류:', error);
+            alert('가치 측정에 실패했습니다. 다시 시도해주세요.');
+            setPhase('uploadImg');
+        }
+    };
+
     const renderPhaseContent = () => {
         switch (phase) {
             case 'uploadImg':
                 return (
                     <>
-                        <ValueMeterOffline/>
+                        <ValueMeterOffline onImageSelect={handleImageUpload} />
                         <div className="flex justify-around">
+                            <input 
+                                type="file" 
+                                id="imageUpload"
+                                accept="image/*"
+                                capture="environment"
+                                className="hidden"
+                                onChange={(e) => {
+                                    if (e.target.files?.[0]) {
+                                        handleImageUpload(e.target.files[0]);
+                                    }
+                                }}
+                            />
                             <DoodleButton
-                                onClick={() => setPhase('measuring')}
+                                onClick={() => document.getElementById('imageUpload').click()}
                             >
                                 측정할래요
                             </DoodleButton>
@@ -50,28 +91,15 @@ export default function ValueMeterView({ onSave ,receiver, handleInsertWithData}
                 );
 
             case 'measuring':
-                setTimeout(() => {
-                    setPhase('done');
-                }, 2000);
-                return (
-                    
-                        <ValueMeterMeasuring/>
-                    
-                );
+                return <ValueMeterMeasuring />;
+
             case 'done':
-                return(
-                    <>
-                        <button onClick={()=>setisReportOpen((prev)=>!prev)}><ValueMeterDone /></button>
-                        {isReportOpen && <Report className='absolute top-0' />}
-                    </>
-                    
-                )
+                return <ValueMeterReport data={measureData} />;
+
             default:
                 return null;
         }
     };
 
-    return (
-            renderPhaseContent()
-    );
+    return renderPhaseContent();
 }

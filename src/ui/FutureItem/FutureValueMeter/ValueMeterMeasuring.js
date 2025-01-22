@@ -24,7 +24,6 @@ export default function ValueMeterMeasuring({ message = "측정 중..." , imgUrl
             
             {/* <RotatingImage className='absolute translate-x-1/2 top-[-40px]' imgUrl={imgUrl}/> */}
             <MeteredImg className='absolute translate-x-1/2 top-[-40px]' imgUrl={imgUrl}/>
-           
             <img
                 src="https://storage.googleapis.com/future-box-cdn-public/futureitem/valuemeter/valuemeter_measuring_2x.webp"
                 alt="Measuring Machine"

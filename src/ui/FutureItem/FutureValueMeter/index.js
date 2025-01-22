@@ -25,7 +25,7 @@ export default function FutureValueMeter({modalState,isInbox, onDelete, setModal
         fetchImages();
     }, []);
     return (
-        <div className='relative'>
+        <div className=''>
             {modalState === 'edit' ? (
                 <ValueMeterView setModalState={setModalState} handleInsertWithData={handleInsertWithData} dataRef={dataRef}/>
             ) : (
