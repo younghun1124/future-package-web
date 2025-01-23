@@ -16,9 +16,9 @@ export async function POST(request) {
       );
     }
 
-    if (text.length > 8 || text.length < 1) {
+    if (text.length > 50 || text.length < 1) {
       return NextResponse.json(
-        { error: '텍스트는 1-8자 사이여야 합니다.' },
+        { error: '텍스트는 1-50자 사이여야 합니다.' },
         { status: 400 }
       );
     }
