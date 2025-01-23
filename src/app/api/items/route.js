@@ -10,7 +10,7 @@ let cachedGifticonTypes = [];
 
 const cacheGifticonTypes = async (sql) => {
   if (cachedGifticonTypes.length === 0) {
-    const gifticonTypes = await sql`SELECT * FROM future_gifticon_type`;
+    const gifticonTypes = await sql`SELECT * FROM future_gifticon_types`;
     cachedGifticonTypes = gifticonTypes;
   }
   return cachedGifticonTypes;

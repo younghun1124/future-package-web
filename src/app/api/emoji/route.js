@@ -9,7 +9,14 @@ export async function POST(request) {
   try {
     const { text } = await request.json();
 
-    if (!text || text.length > 8) {
+    if (!text) {
+      return NextResponse.json(
+        { error: '변환할 텍스트가 필요합니다.' },
+        { status: 400 }
+      );
+    }
+
+    if (text.length > 8 || text.length < 1) {
       return NextResponse.json(
         { error: '텍스트는 1-8자 사이여야 합니다.' },
         { status: 400 }
@@ -35,6 +42,10 @@ export async function POST(request) {
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const emojiResult = response.text().trim();
+
+    if (!emojiResult) {
+      throw new Error('이모지 생성 실패');
+    }
 
     return NextResponse.json({ 
       success: true,
