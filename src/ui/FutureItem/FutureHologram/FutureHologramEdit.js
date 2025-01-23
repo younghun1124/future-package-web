@@ -5,7 +5,8 @@ import DoodleButton from '@ui/buttons/DoodleButton';
 export default function FutureHologramEdit({ dataRef ,handleInsertWithData}) {    
     const [previewUrl, setPreviewUrl] = useState(null);
     const fileInputRef = useRef(null);
-
+    const [phase, setPhase] = useState('uploadImg');
+    
     const handleFileChange = async (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -37,17 +38,16 @@ export default function FutureHologramEdit({ dataRef ,handleInsertWithData}) {
 
     return (
         <div className="flex flex-col items-center gap-6 w-full">
-            <DialogHeader className="w-full text-center">
-                <DialogTitle className="text-2xl py-4 text-white">
+           
+                <DialogTitle className="text-2xl  text-white">
                     홀로그램
                 </DialogTitle>
                 <p className="text-white">
-                    홀로그램으로 만들 사진을 선택해주세요!
+                    과거로 보내고 싶은 사진. 하나쯤은 있을걸?
                 </p>
-            </DialogHeader>
 
             {/* 미리보기 영역 */}
-            <div className="relative w-[280px] aspect-[255/170] bg-gray-100 rounded-lg overflow-hidden mx-auto">
+            <div className="relative w-[280px] aspect-[255/170] rounded-lg overflow-hidden mx-auto">
                 {previewUrl ? (
                     <img 
                         src={previewUrl} 
@@ -56,7 +56,7 @@ export default function FutureHologramEdit({ dataRef ,handleInsertWithData}) {
                     />
                 ) : (
                     <div className="flex items-center justify-center h-full text-gray-400">
-                        이미지를 선택해주세요
+                        <img src="https://storage.googleapis.com/future-box-cdn-public/futureitem/hologram/skeleton_image_2x.webp" alt="미리보기" className="w-full h-full object-contain"/>
                     </div>
                 )}
             </div>
@@ -77,7 +77,7 @@ export default function FutureHologramEdit({ dataRef ,handleInsertWithData}) {
                     className="hidden"
                 />
             </div>
-            <DoodleButton onClick={handleInsertWithData}>완료</DoodleButton>
+            <DoodleButton onClick={handleInsertWithData}>골랐어요</DoodleButton>
         </div>
     );
 } 

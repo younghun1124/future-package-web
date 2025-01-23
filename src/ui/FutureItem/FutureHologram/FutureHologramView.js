@@ -9,12 +9,11 @@ export default function FutureHologramView({ data, dataRef }) {
 
     return (
         <div className="flex flex-col items-center gap-4">
-            <DialogHeader>
-                <DialogTitle className="text-2xl text-center py-4 text-white">
+
+                <DialogTitle className="text-2xl text-center text-white">
                     홀로그램 액자
                 </DialogTitle>
-            </DialogHeader>
-            
+        
             <div className="relative w-[300px] mx-auto">
                 {/* 홀로그램 프레임 이미지 */}
                 <img 
