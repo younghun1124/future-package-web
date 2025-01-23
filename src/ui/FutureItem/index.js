@@ -106,7 +106,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
             
             <DialogContent                 
                 backgroundColor="#585858"
-                borderRadius="22px" style={{ maxHeight: '90vh', maxWidth:'90vw' }}           
+                borderRadius="22px" style={{ maxHeight: '680px', maxWidth:'340px' }}
             >
             
                 <DialogBody className="flex flex-col gap-6 mt-11 px-6">
