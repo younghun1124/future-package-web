@@ -21,6 +21,7 @@ function DeliveryContent() {
 
     const handleShare = () => {
         if (!window.Kakao) {
+            console.log("Kakao SDK 초기화 실패");
             return;
         }
 
