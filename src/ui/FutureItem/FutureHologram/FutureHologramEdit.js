@@ -1,7 +1,6 @@
 'use client'
 import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 import { useState, useRef } from 'react';
-import DoodleButton from '@/ui/buttons/DoodleButton';
 
 export default function FutureHologramEdit({ dataRef }) {    
     const [previewUrl, setPreviewUrl] = useState(null);
@@ -34,14 +33,6 @@ export default function FutureHologramEdit({ dataRef }) {
                 alert('이미지 업로드 중 오류가 발생했습니다.');
             }
         }
-    };
-
-    const handleComplete = () => {
-        if (!dataRef.current?.imageUrl) {
-            alert('이미지를 선택해주세요.');
-            return;
-        }
-        // 완료 처리 로직
     };
 
     return (
