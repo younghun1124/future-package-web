@@ -1,3 +1,4 @@
+
 import { Button } from "@/components/ui/button"
 import {
   DialogActionTrigger,
@@ -13,27 +14,27 @@ import {
 import ValueMeterDone from "./ValueMeterDone"
 import Report from "./Report"
 import Image from "next/image"
-
-export default function ValueMeterReport({ data }) {
-  // data는 predictions 배열을 포함
-  // [{ year, story, value }, ...]
-  
-  const latestPrediction = data?.[data.length - 1] || {
-    year: 2047,
-    value: 0,
-    story: '측정 실패'
-  };
-
+export default function ValueMeterReport({measureData,imgfile}) {
   return (
-    <div className="flex flex-col items-center gap-4">
-      <ValueMeterDone />
-      <Report 
-        className="mt-4"
-        data={data}
-        finalValue={latestPrediction.value}
-        finalYear={latestPrediction.year}
-        finalStory={latestPrediction.story}
-      />
-    </div>
+            <DialogRoot>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="h-auto" >
+                    <ValueMeterDone imgfile={imgfile}/>
+                  </Button>
+                </DialogTrigger>
+                <DialogContent  className="w-auto" backgroundColor='#ffffff/0'>
+                    <Report measureData={measureData} />
+                  {/* <DialogFooter>
+                    <DialogActionTrigger asChild>
+                      <Button variant="outline">Cancel</Button>
+                    </DialogActionTrigger>
+                    <Button>Save</Button>
+                  </DialogFooter> */}
+                  <DialogCloseTrigger className='text-accent'>
+                    X
+                </DialogCloseTrigger>
+                </DialogContent>
+              </DialogRoot>       
+       
   )
 }

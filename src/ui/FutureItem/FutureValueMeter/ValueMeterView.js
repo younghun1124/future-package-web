@@ -9,43 +9,23 @@ import ValueMeterDone from './ValueMeterDone';
 import ValueMeterReport from './ValueMeterReport';
 import Report from './Report';
 
-export default function ValueMeterView({ onSave, receiver, handleInsertWithData }) {
-    const [selectedCards, setSelectedCards] = useState([]);
+export default function ValueMeterView({ onSave, receiver, handleInsertWithData, setModalState, dataRef }) {
     const [phase, setPhase] = useState('uploadImg');
-    const [description, setDescription] = useState('');
-    const [isReportOpen, setIsReportOpen] = useState(false);
     const [measureData, setMeasureData] = useState(null);
-
-    const handleCardSelect = (card) => {
-        setSelectedCards(prev => {
-            if (prev.some(c => c.id === card.id)) {
-                return prev.filter(c => c.id !== card.id);
-            }
-            if (prev.length < 3) {
-                return [...prev, card];
-            }
-            return prev;
-        });
-    };
-
-    const handleSave = () => {
-        if (selectedCards.length !== 3 || !description) return;
-        onSave({
-            cards: selectedCards,
-            description: description
-        });
-    };
+    const [formData, setFormData] = useState(new FormData());
+    const [isMeasuring, setIsMeasuring] = useState(false);
 
     const handleImageUpload = async (file) => {
         setPhase('measuring');
         
-        const formData = new FormData();
-        formData.append('image', file);
+        const newFormData = new FormData();
+        newFormData.append('image', file);
+        setFormData(newFormData);
 
         try {
             const response = await fetch('/api/valuemeter', {
                 method: 'POST',
-                body: formData
+                body: newFormData
             });
 
             if (!response.ok) {
@@ -54,6 +34,7 @@ export default function ValueMeterView({ onSave, receiver, handleInsertWithData 
 
             const data = await response.json();
             setMeasureData(data.predictions);
+            console.log(data.predictions);
             setPhase('done');
         } catch (error) {
             console.error('가치 측정 중 오류:', error);
@@ -62,12 +43,25 @@ export default function ValueMeterView({ onSave, receiver, handleInsertWithData 
         }
     };
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setIsMeasuring(true);
+        // ... 기존의 submit 로직 ...
+    };
+
     const renderPhaseContent = () => {
         switch (phase) {
             case 'uploadImg':
                 return (
                     <>
                         <ValueMeterOffline onImageSelect={handleImageUpload} />
+                        <Center>
+                            <DoodleButton className=''
+                                    onClick={() => document.getElementById('imageUpload').click()}
+                                >
+                             측정할래요
+                             </DoodleButton>
+                        </Center>
                         <div className="flex justify-around">
                             <input 
                                 type="file" 
@@ -81,25 +75,35 @@ export default function ValueMeterView({ onSave, receiver, handleInsertWithData 
                                     }
                                 }}
                             />
-                            <DoodleButton
-                                onClick={() => document.getElementById('imageUpload').click()}
-                            >
-                                측정할래요
-                            </DoodleButton>
+                            
+                               
                         </div>
                     </>
                 );
 
             case 'measuring':
-                return <ValueMeterMeasuring />;
+                return <ValueMeterMeasuring imgfile={formData.get('image')} />;
 
             case 'done':
-                return <ValueMeterReport data={measureData} />;
+                return <>
+                <ValueMeterReport measureData={measureData} imgfile={formData.get('image')} />;
+                        <Center>
+                             <DoodleButton   
+                                    onClick={handleInsertWithData}
+                                >
+                             담을래요
+                             </DoodleButton>
+                        </Center>
+                </>
 
             default:
                 return null;
         }
     };
 
-    return renderPhaseContent();
+    return (
+        <form onSubmit={handleSubmit}>
+            {renderPhaseContent()}
+        </form>
+    );
 }

@@ -3,6 +3,9 @@ import Report from './Report';
 import ValueMeterDone from './ValueMeterDone';
 import { useState,useEffect } from 'react';
 import ValueMeterView from './ValueMeterView';
+import ValueMeterMeasuring from './ValueMeterMeasuring';
+import { DialogTitle } from '@chakra-ui/react';
+
 export default function FutureValueMeter({modalState,isInbox, onDelete, setModalState, dataRef,handleInsertWithData}) {
     
     useEffect(() => {
@@ -24,12 +27,21 @@ export default function FutureValueMeter({modalState,isInbox, onDelete, setModal
 
         fetchImages();
     }, []);
+
     return (
-        <div className=''>
+        <div className='flex flex-col items-center min-h-[450px]'>
+                <div className=' '>
+                    <DialogTitle className="text-2xl text-center text-white">
+                        미래 가치 측정기
+                    </DialogTitle>
+                    <p className="text-white text-center mb-[100px]">
+                        너 앞에 있는 그거.. 2047년에는 얼마일지 궁금하지 않아?
+                    </p>
+                </div>
             {modalState === 'edit' ? (
                 <ValueMeterView setModalState={setModalState} handleInsertWithData={handleInsertWithData} dataRef={dataRef}/>
             ) : (
-                <Report handleInsertWithData={handleInsertWithData} onDelete={onDelete} setModalState={setModalState} isInbox={isInbox} dataRef={dataRef}/>
+                null
             )}
         </div>
     );
