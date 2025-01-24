@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { Mistral } from "@mistralai/mistralai";
 
-// Gemini AI 초기화
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
-const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
+// Mistral AI 초기화
+const mistral = new Mistral({
+  apiKey: process.env.MISTRAL_API_KEY ?? "",
+});
 
 export async function POST(request) {
   try {
@@ -36,16 +37,6 @@ export async function POST(request) {
     4. 최대 20개 이모지까지만 사용
     5. 숫자, 문자, 특수문자 등 이모지가 아닌 것은 절대 포함하면 안 됨
     6. 예시를 참고하여 변환 결과를 생성
-
-    잘못된 응답 예시:
-    ❌ "안녕하세요" -> 👋 Hello
-    ❌ "좋아요" -> 👍 OK!
-    ❌ "내일 보자" -> 明日 👋
-
-    올바른 응답 예시:
-    ✅ "안녕하세요" -> 👋
-    ✅ "좋아요" -> 👍
-    ✅ "내일 보자" -> 🌅 👋
     
     참고 예시1:
     사용자 입력: 새해 복 많이 받으세요
@@ -64,13 +55,18 @@ export async function POST(request) {
     변환 결과: 🎄🎅️!! 😊🙏 💪🏼🎉 👏😊 🎊🔥💥
     `;
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const emojiResult = response.text().trim();
+    const result = await mistral.chat.complete({
+      model: "mistral-large-latest",
+      stream: false,
+      messages: [
+        {
+          role: "user",
+          content: prompt
+        }
+      ]
+    });
 
-    if (!emojiResult) {
-      throw new Error('이모지 생성 실패');
-    }
+    const emojiResult = result.choices[0].message.content.trim();
 
     return NextResponse.json({ 
       success: true,

@@ -9,8 +9,8 @@ describe('Emoji API 테스트', () => {
 
   beforeAll(() => {
     // API 키 확인
-    if (!process.env.GOOGLE_API_KEY) {
-      throw new Error('GOOGLE_API_KEY가 필요합니다.');
+    if (!process.env.MISTRAL_API_KEY) {
+      throw new Error('MISTRAL_API_KEY가 필요합니다.');
     }
   });
 
@@ -20,7 +20,7 @@ describe('Emoji API 테스트', () => {
   });
 
   it('텍스트를 이모지로 정상적으로 변환해야 함', async () => {
-    const testText = "행복했던 것만 기억에 남아 나를 천천히 잊어주기를";
+    const testText = "내가 그린 기린 그림은, 너가 그린 기린 그림보다 더 좋아";
     
     const response = await fetch('http://localhost:3000/api/emoji', {
       method: 'POST',
@@ -41,6 +41,7 @@ describe('Emoji API 테스트', () => {
     console.log('\n=== 응답 데이터 ===');
     console.log(JSON.stringify(data, null, 2));
 
+    // Mistral 응답 검증
     expect(response.ok).toBe(true);
     expect(data.success).toBe(true);
     expect(data.text).toBe(testText);

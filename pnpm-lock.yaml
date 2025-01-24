@@ -20,6 +20,9 @@ importers:
       '@google/generative-ai':
         specifier: ^0.21.0
         version: 0.21.0
+      '@mistralai/mistralai':
+        specifier: ^1.4.0
+        version: 1.4.0(zod@3.24.1)
       '@neondatabase/serverless':
         specifier: ^0.10.4
         version: 0.10.4
@@ -633,6 +636,11 @@ packages:
 
   '@kurkle/color@0.3.4':
     resolution: {integrity: sha512-M5UknZPHRu3DEDWoipU6sE8PdkZ6Z/S+v4dD+Ke8IaNlpdSQah50lz1KtcFBa2vsdOnwbbnxJwVM4wty6udA5w==}
+
+  '@mistralai/mistralai@1.4.0':
+    resolution: {integrity: sha512-xA3DAtIDh4Qgr1EoSuiGVE+2ABNrxpcTeC0kSXYbkDNUGdthalLAH7DgbG0fkKZ7TN8xdWXQq2WiIghp/O96Eg==}
+    peerDependencies:
+      zod: '>= 3'
 
   '@neondatabase/serverless@0.10.4':
     resolution: {integrity: sha512-2nZuh3VUO9voBauuh+IGYRhGU/MskWHt1IuZvHcJw6GLjDgtqj/KViKo7SIrLdGLdot7vFbiRRw+BgEy3wT9HA==}
@@ -3473,6 +3481,9 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
+  zod@3.24.1:
+    resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
+
 snapshots:
 
   '@adobe/css-tools@4.4.1': {}
@@ -4198,6 +4209,10 @@ snapshots:
       '@jridgewell/sourcemap-codec': 1.5.0
 
   '@kurkle/color@0.3.4': {}
+
+  '@mistralai/mistralai@1.4.0(zod@3.24.1)':
+    dependencies:
+      zod: 3.24.1
 
   '@neondatabase/serverless@0.10.4':
     dependencies:
@@ -7845,3 +7860,5 @@ snapshots:
       yargs-parser: 21.1.1
 
   yocto-queue@0.1.0: {}
+
+  zod@3.24.1: {}
