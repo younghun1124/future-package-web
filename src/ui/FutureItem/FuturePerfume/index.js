@@ -3,7 +3,7 @@ import FuturePerfumePreview from "./FuturePerfumePreview";
 
 import Perfume from "./Perfume";
 import FuturePerfumeEdit from "./FuturePerfumeEdit";
-// import FuturePerfumePreview from "./FuturePerfumePreview";
+import FuturePerfumeInsertPreview from "./FuturePerfumeInsertPreview";
 export default function FuturePerfume({modalState, isInbox, onDelete, setModalState, dataRef, handleInsertWithData}) {
     return (
         <>
@@ -11,6 +11,8 @@ export default function FuturePerfume({modalState, isInbox, onDelete, setModalSt
                 switch (modalState) {
                     case 'edit':
                         return <FuturePerfumeEdit setModalState={setModalState} handleInsertWithData={handleInsertWithData} dataRef={dataRef} />;
+                    case 'insertPreview':
+                        return <FuturePerfumeInsertPreview setModalState={setModalState} handleInsertWithData={handleInsertWithData} dataRef={dataRef} />;
                     case 'preview':
                         return <FuturePerfumePreview setModalState={setModalState} handleInsertWithData={handleInsertWithData} onDelete={onDelete} isInbox={isInbox} dataRef={dataRef} />;
                     case 'view':

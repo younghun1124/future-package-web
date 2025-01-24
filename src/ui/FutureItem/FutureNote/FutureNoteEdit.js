@@ -22,8 +22,8 @@ export default function FutureNoteEdit({dataRef,setIsOpen, setModalState}) {
                 defaultValue={dataRef.current?.text || ''}
                 
             />
-            <DoodleButton className='self-center' onClick={()=>{setModalState('preview')}}>
-            완료</DoodleButton>
+            <DoodleButton className='self-center' onClick={()=>{setModalState('insertPreview')}}>
+            다 썼어요</DoodleButton>
             <Image 
                     src="https://storage.googleapis.com/future-box-cdn-public/futureitem/note/FutureNote_2x.webp" 
                     alt="Future Note Detail" 

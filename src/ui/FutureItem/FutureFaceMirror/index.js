@@ -20,11 +20,11 @@ export default function FutureFaceMirror({
         switch (modalState) {
             case 'edit':
                 return ( <div className="flex justify-center">
-                    <DoodleButton onClick={()=>setModalState('preview')}>
+                    <DoodleButton onClick={()=>setModalState('insertPreview')}>
                         다 그렸어요
                     </DoodleButton>
                 </div>); // 편집 모드의 버튼은 Edit 컴포넌트 내부에서 처리
-            case 'preview':
+            case 'insertPreview':
                 return (
                     <div className="flex justify-center">
                         <DoodleButton onClick={handleInsertWithData}>
@@ -32,7 +32,7 @@ export default function FutureFaceMirror({
                         </DoodleButton>
                     </div>
                 );
-            case 'view':
+            case 'preview':
                 return (
                     <div className="flex justify-center gap-4">
                         <DoodleButton
@@ -46,7 +46,15 @@ export default function FutureFaceMirror({
                             width={130}
                             onClick={() => setModalState('edit')}
                         >
-                            바꿀래요
+                            다시 그릴래요
+                        </DoodleButton>
+                    </div>
+                );
+            case 'view':
+                return (
+                    <div className="flex justify-center">
+                        <DoodleButton variant='white' disabled>
+                            이미지 저장
                         </DoodleButton>
                     </div>
                 );
@@ -68,7 +76,7 @@ export default function FutureFaceMirror({
                 />
             )}
             
-            {(modalState === 'preview' || modalState === 'view') && (
+            {(modalState === 'insertPreview'|| modalState==='preview'|| modalState === 'view') && (
                 <FutureFaceMirrorView 
                     data={dataRef?.current}
                     dataRef={dataRef}

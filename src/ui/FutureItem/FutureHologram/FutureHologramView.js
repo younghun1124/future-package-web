@@ -95,11 +95,8 @@ export default function FutureHologramView({ data, dataRef,handleInsertWithData,
                     50% { transform: scaleX(0.985); }
                 }
             `}</style>
-            {isInbox && <div>
-                <DoodleButton variant="white" onClick={onDelete}>뺄래요</DoodleButton>
-                <DoodleButton  onClick={()=>setModalState('edit')}>바꿀래요</DoodleButton>
-                </div>}
-            {!isInbox && <DoodleButton onClick={handleInsertWithData}>담을래요</DoodleButton>}
+            
+            <DoodleButton disabled  onClick={handleInsertWithData}>이미지 저장</DoodleButton>
         </div>
     );
 } 

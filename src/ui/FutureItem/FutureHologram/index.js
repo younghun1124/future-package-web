@@ -1,6 +1,7 @@
 import FutureHologramEdit from "./FutureHologramEdit";
 import FutureHologramView from "./FutureHologramView";
-import FutureHologramPreview from "./FutureHologramPreview";
+import FutureHologramPreview from "./FutureHologramInsertPreview";
+import FutureHologramInsertPreview from "./FutureHologramInsertPreview";
 export default function FutureHologram({modalState,isInbox, onDelete, setModalState, dataRef,handleInsertWithData}) {
     return (
         <>
@@ -8,6 +9,8 @@ export default function FutureHologram({modalState,isInbox, onDelete, setModalSt
                 switch (modalState) {
                     case 'edit':
                         return <FutureHologramEdit setModalState={setModalState} handleInsertWithData={handleInsertWithData} dataRef={dataRef} />;
+                    case 'insertPreview':
+                        return <FutureHologramInsertPreview setModalState={setModalState} handleInsertWithData={handleInsertWithData}  onDelete={onDelete} isInbox={isInbox} dataRef={dataRef}  />;
                     case 'preview':
                         return <FutureHologramPreview setModalState={setModalState} handleInsertWithData={handleInsertWithData}  onDelete={onDelete} isInbox={isInbox} dataRef={dataRef}  />;
                     case 'view':

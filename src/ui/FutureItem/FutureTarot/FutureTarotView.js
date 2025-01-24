@@ -151,17 +151,14 @@ export default function FutureTarotView({ data = TEMP_DATA, isReceiverView=false
                         <div className="text-white text-center p-4 bg-[#666666] rounded-lg w-full">
                             {data.description}
                         </div>
-                        
-                    </>
-                )}
-                {
-                    isReceiverView &&<DoodleButton 
+                        <DoodleButton 
                             onClick={handleSaveImage}
                             className="my-4 mb-3"
                         >
                             이미지 저장
                         </DoodleButton>
-                }
+                    </>
+                )}
             </div>
         </div>
     );

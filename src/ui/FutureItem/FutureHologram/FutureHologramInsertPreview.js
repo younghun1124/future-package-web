@@ -1,6 +1,6 @@
 import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 import DoodleButton from '@ui/buttons/DoodleButton';
-export default function FutureHologramPreview({ data, dataRef,handleInsertWithData,isInbox ,setModalState,onDelete}) {    
+export default function FutureHologramView({ data, handleInsertWithData,dataRef }) {    
     const hologramData = dataRef?.current || data;
 
     if (!hologramData?.imageUrl) {
@@ -95,11 +95,7 @@ export default function FutureHologramPreview({ data, dataRef,handleInsertWithDa
                     50% { transform: scaleX(0.985); }
                 }
             `}</style>
-          <div>
-                <DoodleButton variant="white" onClick={onDelete}>뺄래요</DoodleButton>
-                <DoodleButton  onClick={()=>setModalState('edit')}>바꿀래요</DoodleButton>
-                </div>
-         
+            <DoodleButton onClick={handleInsertWithData}>담을래요</DoodleButton>
         </div>
     );
 } 

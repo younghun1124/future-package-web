@@ -2,7 +2,7 @@ import Image from "next/image";
 import DoodleButton from "@ui/buttons/DoodleButton"
 import { useState } from "react";
 
-export default function FutureNoteView({dataRef,data, isInbox,setModalState,onDelete, handleInsertWithData}) {
+export default function FutureNotPreview({dataRef,data, isInbox,setModalState,onDelete, handleInsertWithData}) {
     const text = dataRef?.current.text || data?.text;
     const [isConverting, setIsConverting] = useState(false);
 
@@ -43,10 +43,10 @@ export default function FutureNoteView({dataRef,data, isInbox,setModalState,onDe
 
     return (
         <div className="relative">
-            <h2 className="text-3xl text-center  text-white mb-2">쪽지</h2>
+            <h2 className="text-3xl text-center text-white mb-2">쪽지</h2>
             {!isInbox && <p className="text-white text-center mb-4">아 혹시 외계의 언어로 보내고싶다면 얘기해. 바꿔줄게</p>}
             <div className="relative">
-                <Image 
+                <Image
                     src="https://storage.googleapis.com/future-box-cdn-public/futureitem/note/FutureNote_2x.webp" 
                     alt="Future Note Detail" 
                     width={330} 
@@ -60,24 +60,10 @@ export default function FutureNoteView({dataRef,data, isInbox,setModalState,onDe
                     </p>
                 </div>
                 <div className="flex flex-col mt-2">
-                
-                {isInbox ? 
                 <div className="flex justify-between">
                     <DoodleButton variant='white' onClick={()=>onDelete()}>뺄래요</DoodleButton>
                     <DoodleButton className='self-center' onClick={()=>setModalState('edit')}>수정할래요</DoodleButton>
                 </div>
-                :<div className="flex justify-between">
-                    <DoodleButton 
-                        variant='white' 
-                        className='self-center'
-                        onClick={handleEmojiConvert}
-                        disabled={isConverting}
-                    >
-                        {isConverting ? '변환중...' : '변환할래요'}
-                    </DoodleButton>
-                    <DoodleButton className='self-center' onClick={()=>handleInsertWithData()}>담을래요</DoodleButton>
-                </div>
-                }
                 </div>
             </div>
         </div>

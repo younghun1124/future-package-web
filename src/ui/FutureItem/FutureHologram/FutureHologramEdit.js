@@ -77,7 +77,12 @@ export default function FutureHologramEdit({ dataRef ,handleInsertWithData,setMo
                     className="hidden"
                 />
             </div>
-            <DoodleButton onClick={()=>setModalState('preview')}>골랐어요</DoodleButton>
+            <DoodleButton 
+                onClick={() => setModalState('insertPreview')}
+                disabled={!previewUrl}
+            >
+                골랐어요
+            </DoodleButton>
         </div>
     );
 } 

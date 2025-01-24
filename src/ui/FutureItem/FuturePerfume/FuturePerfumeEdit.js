@@ -91,12 +91,12 @@ export default function FuturePerfumeEdit({ dataRef, setModalState }) {
                 }
 
                 const data = await response.json();
-                
+                // console.log(data);
                 if (data.success) {
                     // API 응답 데이터를 dataRef에 저장
                     dataRef.current = {
                         ...dataRef.current,
-                        // name: data.name,
+                        name: data.name,
                         description: data.description
                     };
                 } else {
@@ -111,7 +111,7 @@ export default function FuturePerfumeEdit({ dataRef, setModalState }) {
                 };
             } finally {
                 setIsLoading(false); // 로딩 종료
-                setModalState('preview');
+                setModalState('insertPreview');
             }
         }
     };

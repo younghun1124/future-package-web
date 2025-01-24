@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic'
 import FutureNoteView from "./FutureNoteView";
 import FutureNoteEdit from "./FutureNoteEdit";
 import FutureNotePreview from "./FutureNotePreview";
+import FutureNoteInsertPreview from "./FutureNoteInsertPreview";
 import DoodleButton from '@ui/buttons/DoodleButton';
 
 export default function FutureNote({modalState,isInbox, onDelete, setModalState, dataRef,handleInsertWithData}) {
@@ -17,6 +18,8 @@ export default function FutureNote({modalState,isInbox, onDelete, setModalState,
                         return <FutureNotePreview handleInsertWithData={handleInsertWithData} onDelete={onDelete} setModalState={setModalState} isInbox={isInbox} dataRef={dataRef} />;
                     case 'view':
                         return <FutureNoteView handleInsertWithData={handleInsertWithData} onDelete={onDelete} setModalState={setModalState} isInbox={isInbox} dataRef={dataRef} />;
+                    case 'insertPreview':
+                        return <FutureNoteInsertPreview handleInsertWithData={handleInsertWithData} onDelete={onDelete} setModalState={setModalState} isInbox={isInbox} dataRef={dataRef} />;
                     default:
                         return null;
                 }
