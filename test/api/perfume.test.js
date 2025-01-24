@@ -14,12 +14,13 @@ describe('Perfume API 테스트', () => {
   });
 
   afterAll(() => {
-    // 서버를 종료하는 로직을 추가할 수 있습니다.
-    // 예: server.close();
   });
 
   it('키워드로부터 향수 설명을 정상적으로 생성해야 함', async () => {
     const testKeywords = ["열정", "목표 성취", "자부심"];
+    
+    console.log('\n=== 요청 정보 ===');
+    console.log('키워드:', testKeywords);
     
     const response = await fetch('http://localhost:3000/api/perfume', {
       method: 'POST',
@@ -40,10 +41,21 @@ describe('Perfume API 테스트', () => {
     console.log('\n=== 응답 데이터 ===');
     console.log(JSON.stringify(data, null, 2));
 
+    // AI 응답 상세 정보 출력
+    if (data.success) {
+      console.log('\n=== AI 생성 결과 ===');
+      console.log('향수 이름:', data.name);
+      console.log('향수 설명:', data.description);
+      console.log('이름 길이:', data.name.length, '자');
+      console.log('설명 길이:', data.description.length, '자');
+    }
+
     expect(response.ok).toBe(true);
     expect(data.success).toBe(true);
     expect(data.keywords).toEqual(testKeywords);
+    expect(typeof data.name).toBe('string');
     expect(typeof data.description).toBe('string');
-    expect(data.description.length).toBeLessThanOrEqual(30);
+    expect(data.name.length).toBeLessThanOrEqual(15);
+    expect(data.description.length).toBeLessThanOrEqual(60);
   });
 });

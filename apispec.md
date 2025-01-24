@@ -250,6 +250,7 @@ Content-Type: application/json
 ```json
 {
   "success": true,
+  "name": "향수 이름",
   "keywords": ["키워드1", "키워드2", "키워드3"],
   "description": "생성된 향수 설명"
 }
@@ -284,6 +285,7 @@ Content-Type: application/json
 ```json
 {
   "success": true,
+  "name": "별을 향한 비상 향",
   "keywords": ["열정", "목표 성취", "자부심"],
   "description": "별을 향해 불타는 자부심의 향기"
 }
