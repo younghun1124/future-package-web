@@ -2,7 +2,7 @@
 import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 import { useState, useRef } from 'react';
 import DoodleButton from '@ui/buttons/DoodleButton';
-export default function FutureHologramEdit({ dataRef ,handleInsertWithData}) {    
+export default function FutureHologramEdit({ dataRef ,handleInsertWithData,setModalState}) {    
     const [previewUrl, setPreviewUrl] = useState(null);
     const fileInputRef = useRef(null);
     const [phase, setPhase] = useState('uploadImg');
@@ -56,7 +56,7 @@ export default function FutureHologramEdit({ dataRef ,handleInsertWithData}) {
                     />
                 ) : (
                     <div className="flex items-center justify-center h-full text-gray-400">
-                        <img src="https://storage.googleapis.com/future-box-cdn-public/futureitem/hologram/skeleton_image_2x.webp" alt="미리보기" className="w-full h-full object-contain"/>
+                        <img src="https://storage.googleapis.com/future-box-cdn-public/futureitem/hologram/hologram_skeleton_2x.webp" alt="미리보기" className="w-full h-full object-contain"/>
                     </div>
                 )}
             </div>
@@ -77,7 +77,7 @@ export default function FutureHologramEdit({ dataRef ,handleInsertWithData}) {
                     className="hidden"
                 />
             </div>
-            <DoodleButton onClick={handleInsertWithData}>골랐어요</DoodleButton>
+            <DoodleButton onClick={()=>setModalState('preview')}>골랐어요</DoodleButton>
         </div>
     );
 } 
