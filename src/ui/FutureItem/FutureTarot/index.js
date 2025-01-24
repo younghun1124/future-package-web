@@ -50,7 +50,7 @@ export default function FutureTarot({
     return (
         <div className="flex flex-col gap-6">
             <h2 className="text-[27.5px] text-white text-center">
-                {receiver || '익명의 친구'}의 미래를 보여주는 카드
+                {receiver || '친구'}의 미래를 보여주는 카드
             </h2>
             
             {modalState === 'edit' && (
