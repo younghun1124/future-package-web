@@ -20,8 +20,9 @@ import FutureHologram from './FutureHologram';
 import FutureGifticon from './FutureGifticon';
 import FutureTarot from './FutureTarot';
 import FutureValueMeter from './FutureValueMeter'
-// 임시로 다른 컴포넌트들도 기본 구현
-const DefaultComponent = () => <div>기본 컴포넌트</div>;
+import FuturePerfume from './FuturePerfume';
+
+
 
 const componentsMap = {
     FutureFaceMirror,
@@ -33,8 +34,9 @@ const componentsMap = {
     FutureGifticon, 
     FutureTarot,
     FutureValueMeter,
+    FuturePerfume,
 };
-
+const DefaultComponent = () => <div>기본 컴포넌트</div>;
  // Start of Selection
 const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteClick, isSelected, isInBox=false, isReceive=false, modalState: initialModalState='edit' }) => {
     // 모든 상태와 ref를 최상단에 선언
@@ -68,8 +70,11 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                 setModalState('edit');
             }
             // 박스에 들어있으면 view 모드로 초기화
-            else {
+            else if(isReceive) {
                 setModalState('view');
+            }
+            else {
+                setModalState('preview');
             }
         }
     }, [isOpen, isInBox]);

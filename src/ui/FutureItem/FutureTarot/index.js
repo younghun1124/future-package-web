@@ -12,17 +12,34 @@ export default function FutureTarot({
     onDelete, 
     isInbox 
 }) {
-    const renderButtons = () => {
+    const renderButtons = (isInbox) => {
         switch (modalState) {
             case 'edit':
                 return null;
             case 'preview':
                 return (
-                    <div className="flex justify-center">
+                    !isInbox?<div className="flex justify-center">
                         <DoodleButton onClick={handleInsertWithData}>
                             담을래요
                         </DoodleButton>
-                    </div>
+                    </div>:
+                   <>
+                        <div className="flex justify-center gap-4">
+                            <DoodleButton
+                                variant="white"
+                                width={130}
+                                onClick={onDelete}
+                            >
+                                뺄래요
+                            </DoodleButton>
+                            <DoodleButton
+                                width={130}
+                                onClick={() => setModalState('edit')}
+                            >
+                                바꿀래요
+                            </DoodleButton>
+                        </div>
+                   </>
                 );
             case 'view':
                 return (
@@ -64,15 +81,23 @@ export default function FutureTarot({
                 />
             )}
             
-            {modalState === 'view'  && (
+            {modalState === 'preview'  && (
                 <FutureTarotPreview 
+                    data={dataRef?.current}
+                    receiver={receiver}
+                    isInbox={isInbox}
+                />
+            )}
+            
+            {modalState === 'view'  && (
+                <FutureTarotView
                     data={dataRef?.current}
                     receiver={receiver}
                 />
             )}
             
 
-            {renderButtons()}
+            {renderButtons(isInbox)}
         </div>
     );
 }

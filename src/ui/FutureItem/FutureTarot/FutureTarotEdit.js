@@ -25,7 +25,6 @@ export default function FutureTarotEdit({ onSave, receiver, handleInsertWithData
     };
 
     const handlePhaseChange = () => {
-        console.log("ghi");
         if (selectedCards.length === 3) {
             // 카드의 numid를 오름차순으로 정렬하여 키 생성
             const messageKey = selectedCards
@@ -39,14 +38,6 @@ export default function FutureTarotEdit({ onSave, receiver, handleInsertWithData
             }
             setPhase('description');
         }
-    };
-
-    const handleSave = () => {
-        if (selectedCards.length !== 3 || !description) return;
-        onSave({
-            cards: selectedCards,
-            description: description
-        });
     };
 
     const renderPhaseContent = () => {
