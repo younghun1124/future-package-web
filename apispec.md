@@ -21,7 +21,7 @@ form-data:
 
 ## 아이템 등록
 ```http
-POST {{base_url}}/api/items
+POST {{base_url}}/api/boxes
 Content-Type: application/json
 
 {
@@ -61,8 +61,9 @@ Content-Type: application/json
                 "name": "나는 모르는 향",
                 "description": "잔잔한 비가 내리는 날의 쾌쾌한 향",
                 "keywords": ["열정", "목표 성취", "감동"],
-                "shape": 1
-                "color": "#FFFFFF"
+                "shape": 1,
+                "color": 180,
+                "outline_type": 1
             }
         }
     ],
@@ -81,7 +82,7 @@ Content-Type: application/json
 
 ## 아이템 조회
 ```http
-GET {{base_url}}/api/items/{{uuid}}
+GET {{base_url}}/api/boxes/{{uuid}}
 ```
 
 ### Response 200
@@ -101,14 +102,14 @@ GET {{base_url}}/api/items/{{uuid}}
         {
             "type": "FutureHologram",
             "content": {
-                "imageUrl": "https://storage.googleapis.com/bucket-name/uploads/1234567890-hologram.jpg"
+                "imageUrl": "uploads/1735842555359-vite.svg"
             }
         },
         {
             "type": "FutureFaceMirror",
             "content": {
                 "year": 2047,
-                "imageUrl": "https://storage.googleapis.com/bucket-name/mirrors/1234567890-face.svg"
+                "imageUrl": "mirrors/1735842555359-vite.svg"
             }
         },
         {
@@ -125,7 +126,8 @@ GET {{base_url}}/api/items/{{uuid}}
                 "description": "잔잔한 비가 내리는 날의 쾌쾌한 향",
                 "keywords": ["열정", "목표 성취", "감동"],
                 "shape": 1,
-                "color": "#FFFFFF"
+                "color": 180,
+                "outline_type": 1
             }
         }
     ],

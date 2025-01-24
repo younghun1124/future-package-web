@@ -21,25 +21,35 @@ export async function GET(request, { params }) {
   try {
     const sql = neon(process.env.DATABASE_URL);
     const uuid = params.uuid;
-
-    const [futureBox] = await sql`
-      SELECT * FROM future_box 
-      WHERE uuid = ${uuid}
+    
+    // 먼저 box가 존재하는지 확인
+    const [boxExists] = await sql`
+      SELECT EXISTS (
+        SELECT 1 FROM future_box WHERE uuid = ${uuid}
+      )
     `;
-    if (!futureBox) {
+
+    if (!boxExists.exists) {
       return NextResponse.json(
         { error: '존재하지 않는 FutureBox입니다.' },
         { status: 404 }
       );
     }
 
-    const [futureNotes, futureHolograms, futureFaceMirrors, futureTarots, futurePerfumes, futureGifticons] = await Promise.all([
+    // 기존의 is_opened 업데이트 로직
+    const [futureBox] = await sql`
+      UPDATE future_box 
+      SET is_opened = true 
+      WHERE uuid = ${uuid}
+      RETURNING *
+    `;
+
+    const [futureNotes, futureHolograms, futureFaceMirrors, futureTarots, futurePerfumes] = await Promise.all([
       sql`SELECT * FROM future_note WHERE box_id = ${futureBox.id}`,
       sql`SELECT * FROM future_hologram WHERE box_id = ${futureBox.id}`,
       sql`SELECT * FROM future_face_mirror WHERE box_id = ${futureBox.id}`,
       sql`SELECT * FROM future_tarot WHERE box_id = ${futureBox.id}`,
-      sql`SELECT * FROM future_perfume WHERE box_id = ${futureBox.id}`,
-      sql`SELECT * FROM future_gifticon WHERE box_id = ${futureBox.id}`
+      sql`SELECT * FROM future_perfume WHERE box_id = ${futureBox.id}`
     ]);
 
     // GCS filePath를 Signed URL로 변환
@@ -48,10 +58,7 @@ export async function GET(request, { params }) {
         if (!h.image_url) return h;
         try {
           const signedUrl = await getSignedUrlFromGCS(h.image_url);
-          return {
-            ...h,
-            image_url: signedUrl
-          };
+          return { ...h, image_url: signedUrl };
         } catch (error) {
           console.error('홀로그램 Signed URL 생성 실패:', error);
           return h;
@@ -64,10 +71,7 @@ export async function GET(request, { params }) {
         if (!m.image_url) return m;
         try {
           const signedUrl = await getSignedUrlFromGCS(m.image_url);
-          return {
-            ...m,
-            image_url: signedUrl
-          };
+          return { ...m, image_url: signedUrl };
         } catch (error) {
           console.error('미러 Signed URL 생성 실패:', error);
           return m;
@@ -75,85 +79,56 @@ export async function GET(request, { params }) {
       })
     );
 
-    // FutureGifticon 타입 캐싱
-    const gifticonTypes = await cacheGifticonTypes(sql);
-
-    // 기본 아이템 변환
+    // API 스펙에 맞게 응답 데이터 구성
     const futureItems = [
       ...futureNotes.map(note => ({
-        id: `note_${note.id}`,
         type: 'FutureNote',
-        name: '쪽지',
-        icon: '/futurenote_icon.svg',
-        content: { message: note.message }
+        content: {
+          message: note.message,
+          encryptedMessage: note.encrypted_message
+        }
       })),
       ...hologramsWithUrl.map(hologram => ({
-        id: `hologram_${hologram.id}`,
         type: 'FutureHologram',
-        name: '홀로그램',
-        icon: '/futurehologram_icon.svg',
-        content: { imageUrl: hologram.image_url }
+        content: {
+          imageUrl: hologram.image_url
+        }
       })),
       ...mirrorsWithUrl.map(mirror => ({
-        id: `mirror_${mirror.id}`,
         type: 'FutureFaceMirror',
-        name: '미래얼굴',
-        icon: '/futurefacemirror_icon.svg',
-        content: { 
+        content: {
           year: mirror.year,
-          imageUrl: mirror.image_url 
+          imageUrl: mirror.image_url
         }
       })),
       ...futureTarots.map(tarot => ({
-        id: `tarot_${tarot.id}`,
         type: 'FutureTarot',
-        name: '타로',
-        icon: '/futuretarot_icon.svg',
-        content: { 
-          cardIndexes: tarot.indexes, 
-          description: tarot.description 
+        content: {
+          cardIndexes: tarot.card_indexes,
+          description: tarot.description
         }
       })),
       ...futurePerfumes.map(perfume => ({
-        id: `perfume_${perfume.id}`,
         type: 'FuturePerfume',
-        name: '향수',
-        icon: '/futureperfume_icon.svg',
-        content: { 
+        content: {
           name: perfume.name,
           description: perfume.description,
           keywords: perfume.keywords,
-          shapeType: perfume.shape_type,
-          color: perfume.color
+          shape: perfume.shape_type,
+          color: perfume.color,
+          outline_type: perfume.outline_type
         }
-      })),
-      ...futureGifticons.map(gifticon => {
-        const type = gifticonTypes.find(gt => gt.id === gifticon.gifticon_type_id);
-        return {
-          id: `gifticon_${gifticon.id}`,
-          type: 'FutureGifticon',
-          name: type.name,
-          icon: type.image_url,
-          content: { 
-            id: type.id,
-            name: type.name,
-            description: type.description,
-            imageUrl: type.image_url,
-            detailImageUrl: type.detail_image_url 
-          }
-        };
-      })
+      }))
     ];
 
-    const response = {
+    return NextResponse.json({
       uuid: futureBox.uuid,
       receiver: futureBox.receiver,
       sender: futureBox.sender,
-      createdAt: futureBox.created_at,
-      futureItems
-    };
-
-    return NextResponse.json(response);
+      futureItems,
+      futureGifticonType: futureBox.future_gifticon_type,
+      futureValueMeterIncluded: futureBox.future_value_meter_included
+    });
     
   } catch (error) {
     console.error('Error fetching FutureBox:', error);

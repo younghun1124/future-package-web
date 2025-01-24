@@ -20,7 +20,7 @@ describe('Emoji API 테스트', () => {
   });
 
   it('텍스트를 이모지로 정상적으로 변환해야 함', async () => {
-    const testText = "사과나무";
+    const testText = "행복했던 것만 기억에 남아 나를 천천히 잊어주기를";
     
     const response = await fetch('http://localhost:3000/api/emoji', {
       method: 'POST',
