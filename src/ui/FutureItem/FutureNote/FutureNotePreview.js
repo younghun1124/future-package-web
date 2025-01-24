@@ -43,7 +43,8 @@ export default function FutureNoteView({dataRef,data, isInbox,setModalState,onDe
 
     return (
         <div className="relative">
-            <h2 className="text-3xl text-center font-bold text-white mt-3 mb-2">쪽지</h2>
+            <h2 className="text-3xl text-center  text-white mb-2">쪽지</h2>
+            <p className="text-white text-center mb-4">아 혹시 외계의 언어로 보내고싶다면 얘기해. 바꿔줄게</p>
             <div className="relative">
                 <Image 
                     src="https://storage.googleapis.com/future-box-cdn-public/futureitem/note/FutureNote_2x.webp" 

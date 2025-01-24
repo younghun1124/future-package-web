@@ -9,7 +9,7 @@ export default function FutureHologram({modalState,isInbox, onDelete, setModalSt
                     case 'edit':
                         return <FutureHologramEdit setModalState={setModalState} handleInsertWithData={handleInsertWithData} dataRef={dataRef} />;
                     case 'preview':
-                        return <FutureHologramPreview setModalState={setModalState} handleInsertWithData={handleInsertWithData} onDelete={onDelete} isInbox={isInbox} dataRef={dataRef}  />;
+                        return <FutureHologramPreview setModalState={setModalState} handleInsertWithData={handleInsertWithData}  onDelete={onDelete} isInbox={isInbox} dataRef={dataRef}  />;
                     case 'view':
                         return <FutureHologramView handleInsertWithData={handleInsertWithData} onDelete={onDelete} setModalState={setModalState} isInbox={isInbox} dataRef={dataRef} />;
                     default:
