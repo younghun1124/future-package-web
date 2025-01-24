@@ -6,9 +6,10 @@ import Perfume from './Perfume';
 
 export default function FuturePerfumeEdit({ dataRef, setModalState }) {
     const [phase, setPhase] = useState(0);
-    const [selectedCase, setSelectedCase] = useState(dataRef.current?.caseId || 1);
-    const [selectedColor, setSelectedColor] = useState(dataRef.current?.colorId || 1);
+    const [selectedCase, setSelectedCase] = useState(null);
+    const [selectedColor, setSelectedColor] = useState(null);
     const [selectedAnswer, setSelectedAnswer] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const questions = [
         {
@@ -49,7 +50,7 @@ export default function FuturePerfumeEdit({ dataRef, setModalState }) {
         }
     };
 
-    const handleNext = () => {
+    const handleNext = async () => {
         if (phase < questions.length - 1) {
             // 현재 답변 저장하고 다음 질문으로
             dataRef.current = {
@@ -59,14 +60,59 @@ export default function FuturePerfumeEdit({ dataRef, setModalState }) {
             setPhase(prev => prev + 1);
             setSelectedAnswer(null);
         } else {
-            // 마지막 답변 저장하고 preview로
+            setIsLoading(true); // 로딩 시작
+            
+            // 마지막 답변 저장
             dataRef.current = {
                 ...dataRef.current,
                 [`answer${phase + 1}`]: selectedAnswer,
                 caseId: selectedCase,
                 colorId: selectedColor
             };
-            setModalState('preview');
+
+            try {
+                // 향수 설명 생성 API 호출
+                const response = await fetch('/api/perfume', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        keywords: [
+                            dataRef.current.answer1,
+                            dataRef.current.answer2,
+                            dataRef.current.answer3
+                        ]
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('향수 설명 생성에 실패했습니다.');
+                }
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    // API 응답 데이터를 dataRef에 저장
+                    dataRef.current = {
+                        ...dataRef.current,
+                        // name: data.name,
+                        description: data.description
+                    };
+                } else {
+                    throw new Error(data.error || '향수 설명 생성에 실패했습니다.');
+                }
+            } catch (error) {
+                console.error('향수 설명 생성 중 오류:', error);
+                dataRef.current = {
+                    ...dataRef.current,
+                    name: "미래의 향수",
+                    description: "미래에서 온 신비로운 향기"
+                };
+            } finally {
+                setIsLoading(false); // 로딩 종료
+                setModalState('preview');
+            }
         }
     };
 
@@ -74,15 +120,14 @@ export default function FuturePerfumeEdit({ dataRef, setModalState }) {
 
     return (
         <div className="flex flex-col items-center gap-4 p-4">
-            <DialogHeader>
+          
                 <DialogTitle className="text-2xl text-center text-white">
                     향수
                 </DialogTitle>
                 <p className="text-white text-center text-sm mt-2">
-                    친구에게 향수 하나 만들어볼까?<br/>
-                    너가 알고있는 친구한테 어떤일이?
+                    과거로 보내고 싶은 미래의 기억, 향수로 만들어 줄게
                 </p>
-            </DialogHeader>
+           
 
             <div className="bg-[#A3A3A3] w-full text-lg p-4 rounded-lg text-center my-4">
                 Q. {currentQuestion.question}
@@ -95,7 +140,7 @@ export default function FuturePerfumeEdit({ dataRef, setModalState }) {
                         onClick={() => handleSelect(answer)}
                         className={`rounded-lg py-2 px-4 text-black transition-colors
                             ${selectedAnswer === answer 
-                                ? 'bg-[#1DECAC] text-white' 
+                                ? 'bg-[#1DECAC]' 
                                 : 'bg-white hover:bg-gray-100'}`}
                     >
                         {answer}
@@ -115,9 +160,9 @@ export default function FuturePerfumeEdit({ dataRef, setModalState }) {
             <DoodleButton 
                 className="mt-4" 
                 onClick={handleNext}
-                disabled={!selectedAnswer}
+                disabled={!selectedAnswer || isLoading}
             >
-                {phase < questions.length - 1 ? '다음' : '완료'}
+                {phase < questions.length - 1 ? '다음' : (isLoading ? '조향 중...' : '완료')}
             </DoodleButton>
         </div>
     );

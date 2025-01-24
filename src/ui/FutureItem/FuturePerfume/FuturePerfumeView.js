@@ -37,14 +37,9 @@ export default function FuturePerfumeView({ dataRef, setModalState, handleInsert
             </div>
 
             <div className="flex gap-2 mt-4">
-                {isInbox ? (
-                    <>
-                        <DoodleButton onClick={onDelete}>뺄래요</DoodleButton>
-                        <DoodleButton onClick={() => setModalState('edit')}>바꿀래요</DoodleButton>
-                    </>
-                ) : (
-                    <DoodleButton onClick={handleInsertWithData}>담을래요</DoodleButton>
-                )}
+               
+                <DoodleButton variant='white' onClick={handleInsertWithData}>이미지 저장</DoodleButton>
+               
             </div>
         </div>
     );

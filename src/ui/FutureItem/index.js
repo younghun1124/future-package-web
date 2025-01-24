@@ -70,8 +70,11 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                 setModalState('edit');
             }
             // 박스에 들어있으면 view 모드로 초기화
-            else {
+            else if(isReceive) {
                 setModalState('view');
+            }
+            else {
+                setModalState('preview');
             }
         }
     }, [isOpen, isInBox]);

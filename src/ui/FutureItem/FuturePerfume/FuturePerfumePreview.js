@@ -2,6 +2,7 @@
 import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 import DoodleButton from '@ui/buttons/DoodleButton';
 import Perfume from './Perfume';
+import DoodleLine from '@ui/DoodleLine';
 
 export default function FuturePerfumePreview({ dataRef, setModalState, handleInsertWithData, isInbox, onDelete }) {
     const getDescription = () => {
@@ -15,33 +16,34 @@ export default function FuturePerfumePreview({ dataRef, setModalState, handleIns
     };
 
     return (
-        <div className="flex flex-col items-center gap-4 p-4">
-                <DialogTitle className="text-2xl text-center text-white">
-                    향수
-                </DialogTitle>
+        <div className="flex flex-col items-center gap-2">
+            <DialogTitle className="text-2xl text-center text-white">
+                향수
+            </DialogTitle>
             <div className="relative">
-                <div className="flex justify-center mb-4">
+                <div className="flex justify-center mt-[-20px]">
                     <Perfume 
-                        size={200} 
+                        size={250} 
                         caseId={dataRef.current?.caseId} 
                         colorId={dataRef.current?.colorId}
                     />
                 </div>
 
                 <div className="text-center text-white">
-                    <h3 className="text-xl mb-4">한밤의 포만감 향</h3>
-                    <p className="text-sm leading-relaxed">
-                        {getDescription()}
+                    <h3 className="text-xl">{dataRef.current?.name || "한밤의 포만감 향"}</h3>
+                    <DoodleLine />
+                    <p className="mt-5 leading-relaxed">
+                        {dataRef.current?.description || "따뜻한 친밀감이 입안 가득 번지고, 가볍고 자유로운 즐거움이 공기 중에 떠돌다, 끝내 고요한 무한함 속으로 스며드는 향."}
                     </p>
                 </div>
             </div>
 
             <div className="flex gap-2 mt-4">
                 {isInbox ? (
-                    <>
-                        <DoodleButton onClick={onDelete}>뺄래요</DoodleButton>
-                        <DoodleButton onClick={() => setModalState('edit')}>바꿀래요</DoodleButton>
-                    </>
+                   <>
+                        <DoodleButton variant='white' onClick={()=>onDelete()}>뺄래요</DoodleButton>
+                        <DoodleButton className='self-center' onClick={()=>setModalState('edit')}>수정할래요</DoodleButton>
+                   </>
                 ) : (
                     <DoodleButton onClick={handleInsertWithData}>담을래요</DoodleButton>
                 )}
