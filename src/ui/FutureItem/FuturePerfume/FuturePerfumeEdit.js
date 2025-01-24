@@ -31,9 +31,21 @@ export default function FuturePerfumeEdit({ dataRef, setModalState }) {
     const handleSelect = (answer) => {
         setSelectedAnswer(answer);
         if (questions[phase].type === 'case') {
-            setSelectedCase(Number(answer.charAt(0)));
+            const caseMapping = {
+                '열정': 1,
+                '신뢰': 2,
+                '재미': 3,
+                '다 아니야!': Math.floor(Math.random() * 3) + 1
+            };
+            setSelectedCase(caseMapping[answer]);
         } else if (questions[phase].type === 'color') {
-            setSelectedColor(Number(answer.charAt(0)));
+            const colorMapping = {
+                '감동': 1,
+                '설렘': 3,
+                '평온': 5,
+                '다 아니야!': Math.floor(Math.random() * 6) + 1
+            };
+            setSelectedColor(colorMapping[answer]);
         }
     };
 

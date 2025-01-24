@@ -1,16 +1,28 @@
 //들어오는 향수 병 모양 id에 따라 향수 병 이미지를 반환하는 컴포넌트
 export function PerfumeCase({caseId, size}){
     if (!caseId) return null;
-    return <div className="absolute" style={{width: size, height: size}}><img className="w-full h-full object-contain" src={`https://storage.googleapis.com/future-box-cdn-public/futureitem/perfume/bottle_${caseId}_2x.webp`} alt="향수 병" /></div>
+    return <div className="absolute" style={{width: size, height: size}}>
+        <img 
+            className="w-full h-full object-contain" 
+            src={`https://storage.googleapis.com/future-box-cdn-public/futureitem/perfume/bottle_${caseId}_2x.webp`} 
+            alt="향수 병" 
+        />
+    </div>
 }
 
-export function PerfumeLiquid({caseId, hasLiquid, size}){
-    if (!hasLiquid) return null;
-    return <div className="absolute" style={{width: size, height: size}}><img className="w-full h-full object-contain" src={`https://storage.googleapis.com/future-box-cdn-public/futureitem/perfume/bottle_${caseId}_liquid_2x.webp`} alt="향수 액체" /></div>
+export function PerfumeLiquid({caseId, size}){
+    if (!caseId) return null;
+    return <div className="absolute" style={{width: size, height: size}}>
+        <img 
+            className="w-full h-full object-contain" 
+            src={`https://storage.googleapis.com/future-box-cdn-public/futureitem/perfume/bottle_${caseId}_liquid_2x.webp`} 
+            alt="향수 액체" 
+        />
+    </div>
 }
 
 export function PerfumeColor({caseId, colorId, size}){
-    if (!colorId) return null;
+    if (!caseId || !colorId) return null;
 
     // colorId를 0-360도 범위의 hue 값으로 변환 (6개 색상)
     const hueRotate = ((colorId - 1) * 60) % 360;
@@ -30,12 +42,12 @@ export function PerfumeColor({caseId, colorId, size}){
     );
 }
 
-export default function Perfume({caseId, colorId, phase=0, size=200}){
+export default function Perfume({caseId, colorId, size=200}){
     return (
         <div className='relative mx-auto' style={{width: size, height: size}}>
-            <PerfumeCase caseId={phase >= 0 ? caseId : null} size={size} />
-            <PerfumeLiquid caseId={caseId} hasLiquid={phase >= 1} size={size}/>
-            <PerfumeColor caseId={caseId} colorId={phase >= 2 ? colorId : null} size={size} />
+            <PerfumeCase caseId={caseId} size={size} />
+            <PerfumeLiquid caseId={caseId} size={size}/>
+            <PerfumeColor caseId={caseId} colorId={colorId} size={size} />
         </div>
     )
 }
