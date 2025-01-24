@@ -4,11 +4,13 @@ import { useEffect, useState, Suspense } from 'react';
 import FutureItem from '@ui/FutureItem';
 import { dummyItems } from '@/mocks/items';
 import DoodleButton from '@/ui/buttons/DoodleButton';
+import LoadingPage from '@ui/LoadingPage';
 
 function ItemSelectionContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [selectedItems, setSelectedItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   
   // 쿼리파라미터 값 받아오기
@@ -48,29 +50,32 @@ function ItemSelectionContent() {
   };
 
   const handleSubmit = async () => {
+    setIsLoading(true);
     try {
-      const response = await fetch('/api/items', {
+      const response = await fetch('/api/boxes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          items: selectedItems,
           receiver,
           sender,
-          futureItems: selectedItems
         }),
       });
       
+      if (!response.ok) {
+        throw new Error('박스 생성에 실패했습니다.');
+      }
+
       const data = await response.json();
       
-      if (response.ok) {
-        router.push(`/send/delivery?uuid=${data.uuid}&receiver=${receiver}&sender=${sender}`);
-      } else {
-        alert('아이템 포장에 실패했습니다. 다시 시도해주세요.');
-      }
+      router.push(`/send/delivery?uuid=${data.uuid}&receiver=${receiver}&sender=${sender}`);
     } catch (error) {
-      console.error('Error saving items:', error);
-      alert('아이템 포장 중 오류가 발생했습니다.');
+      console.error('박스 생성 오류:', error);
+      alert('박스 생성 중 오류가 발생했습니다.');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -82,6 +87,11 @@ function ItemSelectionContent() {
   console.log("선택된 아이템")
   console.log(selectedItems)
   console.log("===========")
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+
   return (
     <div className="flex flex-col items-center">
       <h2 className="text-2xl font-normal text-white text-center py-4">{receiver}에게 무슨 선물을 보낼까?</h2>
@@ -161,7 +171,7 @@ export default function ItemSelectionPage() {
         <main>
             <Suspense fallback={
                 <div className="flex items-center justify-center">
-                    <div className="text-white text-xl">Loading...</div>
+                    <div className="text-white text-xl">외계인 기다리는 중...</div>
                 </div>
             }>
                 <ItemSelectionContent />
