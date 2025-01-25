@@ -52,15 +52,54 @@ function ItemSelectionContent() {
   const handleSubmit = async () => {
     setIsLoading(true);
     try {
+      // 이미지 업로드가 필요한 아이템들 처리
+      const processedItems = await Promise.all(selectedItems.map(async (item) => {
+        if (item.type === 'FutureFaceMirror' && item.content.svgImage) {
+          try {
+            const formData = new FormData();
+            const file = new File([item.content.svgImage], 'face.svg', { type: 'image/svg+xml' });
+            formData.append('image', file);
+
+            const response = await fetch('/api/upload', {
+              method: 'POST',
+              body: formData,
+            });
+
+            if (!response.ok) {
+              throw new Error('이미지 업로드에 실패했습니다.');
+            }
+
+            const data = await response.json();
+            
+            return {
+              type: item.type,
+              content: {
+                imageUrl: data.filePath,
+                year: 2047
+              }
+            };
+          } catch (error) {
+            console.error('이미지 업로드 오류:', error);
+            throw new Error('이미지 업로드 중 오류가 발생했습니다.');
+          }
+        }
+        
+        // 다른 타입의 아이템은 그대로 반환
+        return {
+          type: item.type,
+          content: item.content
+        };
+      }));
+
       const response = await fetch('/api/boxes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          futureItems: selectedItems,
-          receiver,
-          sender,
+          "receiver": receiver,
+          "sender": sender,
+          "futureItems": processedItems,
         }),
       });
       
@@ -69,7 +108,6 @@ function ItemSelectionContent() {
       }
 
       const data = await response.json();
-      
       router.push(`/send/delivery?uuid=${data.uuid}&receiver=${receiver}&sender=${sender}`);
     } catch (error) {
       console.error('박스 생성 오류:', error);
