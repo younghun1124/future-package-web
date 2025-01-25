@@ -27,7 +27,7 @@ export default function FutureNoteEdit({ dataRef, setModalState }) {
                 쪽지
             </DialogTitle>
             <p className="text-white text-center">
-                미래의 친구에게 하고 싶은 말을 적어봐
+                과거의 친구에게 하고 싶은 말을 적어봐
             </p>
 
             <div className="w-full">

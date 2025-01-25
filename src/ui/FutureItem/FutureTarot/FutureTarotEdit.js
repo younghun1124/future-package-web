@@ -76,7 +76,7 @@ export default function FutureTarotEdit({ onSave, receiver, handleInsertWithData
 
             case 'description':
                 return (
-                    <>
+                    <>  <p className='text-white text-center'>이 카드들이 보여주는 미래의 해석.. 절대 마음대로 바꾸지 마!</p>
                         <div className="grid grid-cols-3 gap-4 items-center">
                             {selectedCards.map(card => (
                                 <div
@@ -92,6 +92,7 @@ export default function FutureTarotEdit({ onSave, receiver, handleInsertWithData
                                 </div>
                             ))}
                         </div>
+                        
                         <Center>
                             <textarea 
                                 className='rounded-md bg-[#666666] text-white text-center p-4 w-full h-[90px] flex items-center justify-center' 

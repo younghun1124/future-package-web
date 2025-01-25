@@ -9,15 +9,6 @@ const gaegu = Gaegu({
   variable: '--font-gaegu',
 });
 
-// 배경 이미지 URL을 가져오는 함수
-// const getBackgroundImageUrl = () => {
-//   const cdnUrl = process.env.NEXT_PUBLIC_CDN_URL;
-//   const bgImage = process.env.NEXT_PUBLIC_BG_IMAGE;
-  
-//   // CDN URL이 설정되어 있으면 CDN에서, 아니면 로컬에서 로드
-//   return cdnUrl ? `${cdnUrl}${bgImage}` : bgImage;
-// };
-
 export const metadata = {
   title: "2047년에서 온 택배",
   description: "미래에서 보내는 특별한 선물",
@@ -47,7 +38,7 @@ export default function RootLayout({ children }) {
         }}
       >
         <Provider>
-            <div className="w-full max-w-[393px] mx-auto px-5">
+            <div className="w-full max-w-[393px] mx-auto">
               {children}
             </div>
         </Provider>
