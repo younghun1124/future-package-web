@@ -10,6 +10,7 @@ export default function FuturePerfumeEdit({ dataRef, setModalState }) {
     const [color, setColor] = useState(null);
     const [keywords, setKeywords] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [selectedAnswer, setSelectedAnswer] = useState(null);
 
     const questions = [
         {
@@ -30,6 +31,8 @@ export default function FuturePerfumeEdit({ dataRef, setModalState }) {
     ];
 
     const handleSelect = (answer) => {
+        setSelectedAnswer(answer);
+
         if (questions[phase].type === 'shape') {
             const shapeMapping = {
                 '열정': 1,
@@ -38,7 +41,6 @@ export default function FuturePerfumeEdit({ dataRef, setModalState }) {
                 '다 아니야!': Math.floor(Math.random() * 3) + 1
             };
             setShape(shapeMapping[answer]);
-            setKeywords(prev => [...prev, answer]);
         } else if (questions[phase].type === 'color') {
             const colorMapping = {
                 '감동': 1,
@@ -47,21 +49,21 @@ export default function FuturePerfumeEdit({ dataRef, setModalState }) {
                 '다 아니야!': Math.floor(Math.random() * 6) + 1
             };
             setColor(colorMapping[answer]);
-            setKeywords(prev => [...prev, answer]);
-        } else {
-            setKeywords(prev => [...prev, answer]);
         }
     };
 
     const handleNext = async () => {
         if (phase < questions.length - 1) {
+            setKeywords(prev => [...prev, selectedAnswer]);
             setPhase(prev => prev + 1);
+            setSelectedAnswer(null);
         } else {
             setIsLoading(true);
+            const finalKeywords = [...keywords, selectedAnswer];
             
             dataRef.current = {
                 ...dataRef.current,
-                keywords,
+                keywords: finalKeywords,
                 shape,
                 color,
                 outline_type: 1
@@ -74,7 +76,7 @@ export default function FuturePerfumeEdit({ dataRef, setModalState }) {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        keywords
+                        keywords: finalKeywords
                     })
                 });
 
@@ -123,7 +125,7 @@ export default function FuturePerfumeEdit({ dataRef, setModalState }) {
                         key={answer}
                         onClick={() => handleSelect(answer)}
                         className={`rounded-lg py-2 px-4 text-black transition-colors
-                            ${keywords[phase] === answer 
+                            ${selectedAnswer === answer 
                                 ? 'bg-[#1DECAC]' 
                                 : 'bg-white hover:bg-gray-100'}`}
                     >
@@ -144,7 +146,7 @@ export default function FuturePerfumeEdit({ dataRef, setModalState }) {
             <DoodleButton 
                 className="mt-4" 
                 onClick={handleNext}
-                disabled={!keywords[phase] || isLoading}
+                disabled={!selectedAnswer || isLoading}
             >
                 {phase < questions.length - 1 ? '다음' : (isLoading ? '조향 중...' : '완료')}
             </DoodleButton>
