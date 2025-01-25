@@ -112,6 +112,7 @@ function ItemSelectionContent() {
               />
             </div>
           ))}
+          <span className="text-white/70 text-sm">입고 예정</span>
         </div>
       </div>
 
