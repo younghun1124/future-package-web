@@ -69,7 +69,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
             if (!isInBox) {
                 setModalState('edit');
             }
-            // 박스에 들어있으면 view 모드로 초기화
+            // 수진자 박스에 들어있으면 view 모드로 초기화
             else if(isReceive) {
                 setModalState('view');
             }
