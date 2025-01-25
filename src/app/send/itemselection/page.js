@@ -58,7 +58,7 @@ function ItemSelectionContent() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          items: selectedItems,
+          futureItems: selectedItems,
           receiver,
           sender,
         }),
@@ -127,10 +127,10 @@ function ItemSelectionContent() {
                         FutureNote: 'top-[20%] left-[30%]',
                         FutureFaceMirror: 'top-[15%] left-[50%]',
                         FutureHologram: 'top-[15%] right-[5%]',
-                        FutureTarot: 'top-[45%] left-[20%]',
-                        FutureMovieTicket: 'top-[45%] rotate-[78.76deg] left-[40%]',
+                        FutureTarot: 'top-[45%]  rotate-[-4deg] left-[20%]',
+                        FuturePerfume: 'top-[45%] rotate-[3deg] left-[40%]',
                         FutureGifticon: 'top-[45%] right-[12%]',
-                        FutureInvention: 'top-[45%] left-[80%]',
+                        FutureValueMeter: 'top-[45%] left-[80%]',
                     };
 
                     return (

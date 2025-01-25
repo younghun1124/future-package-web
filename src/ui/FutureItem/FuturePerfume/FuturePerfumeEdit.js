@@ -119,7 +119,7 @@ export default function FuturePerfumeEdit({ dataRef, setModalState }) {
     const currentQuestion = questions[phase];
 
     return (
-        <div className="flex flex-col items-center gap-4 p-4">
+        <div className="flex flex-col items-center gap-4 ">
           
                 <DialogTitle className="text-2xl text-center text-white">
                     향수

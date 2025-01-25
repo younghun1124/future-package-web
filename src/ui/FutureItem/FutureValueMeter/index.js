@@ -35,7 +35,7 @@ export default function FutureValueMeter({modalState,isInbox, onDelete, setModal
                         미래 가치 측정기
                     </DialogTitle>
                     <p className="text-white text-center mb-[100px]">
-                        너 앞에 있는 그거.. 2047년에는 얼마일지 궁금하지 않아?
+                        네가 지금 가지고 있는 것들.. 미래에는 얼마일지 궁금하지 않아?
                     </p>
                 </div>
             {modalState === 'edit' ? (

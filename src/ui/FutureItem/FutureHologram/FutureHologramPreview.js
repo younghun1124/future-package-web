@@ -23,7 +23,7 @@ export default function FutureHologramPreview({ data, dataRef,handleInsertWithDa
                 />
 
                 {/* 업로드된 이미지 + 홀로그램 효과 */}
-                <div className="absolute bottom-[55%] left-1/2 -translate-x-1/2 w-[60%] aspect-square">
+                <div className="absolute bottom-[10%] left-1/2 -translate-x-1/2 w-[60%] aspect-square">
                     <div className="relative w-full h-full hologram-container">
                         {hologramData.imageUrl && (
                             <img 

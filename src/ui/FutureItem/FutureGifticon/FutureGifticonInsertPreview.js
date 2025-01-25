@@ -1,6 +1,6 @@
 import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 import DoodleButton from '@ui/buttons/DoodleButton';
-export default function FutureGifticonView({ dataRef ,data}) {    
+export default function FutureGifticonView({ dataRef ,data, handleInsertWithData}) {    
     const selectedGifticon = dataRef?.current||data;
 
     if (!selectedGifticon) {
@@ -20,7 +20,7 @@ export default function FutureGifticonView({ dataRef ,data}) {
                     className="w-full h-auto"
                 />
             </div>
-                  <DoodleButton variant="white" disabled >이미지 저장</DoodleButton>
+            <DoodleButton onClick={handleInsertWithData}>담을래요</DoodleButton>
         </div>
     );
 } 

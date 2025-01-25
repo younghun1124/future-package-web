@@ -2,8 +2,8 @@
 import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 import { FUTURE_GIFTICON_TYPES } from '@/constants/futureItems';
 import { useState } from 'react';
-
-export default function FutureGifticonEdit({ dataRef }) {    
+import DoodleButton from '@ui/buttons/DoodleButton';
+export default function FutureGifticonEdit({ dataRef ,setModalState}) {    
     const [currentIndex, setCurrentIndex] = useState(0);
     const gifticons = Object.values(FUTURE_GIFTICON_TYPES);
 
@@ -33,15 +33,15 @@ export default function FutureGifticonEdit({ dataRef }) {
     };
 
     return (
-        <div className="flex flex-col gap-4">
-            <DialogHeader>
-                <DialogTitle className="text-2xl text-center py-4 text-white">
-                    미래 기프티콘
+        <div className="flex flex-col items-center gap-4">
+          
+                <DialogTitle className="text-2xl text-center text-white">
+                    미래 기프트카드
                 </DialogTitle>
                 <p className="text-white">
-                    2047년에 사용할 수 있는 기프티콘을 선택해주세요!
+                    보내봤자 2047년은 돼야 쓸 수 있을거야. 장난치고 싶은거지?
                 </p>
-            </DialogHeader>
+       
 
             <div className="relative w-full px-12">
                 {/* 이전 버튼 */}
@@ -79,7 +79,7 @@ export default function FutureGifticonEdit({ dataRef }) {
                     </svg>
                 </button>
             </div>
-            <DoodleButton onClick={handleComplete}>완료</DoodleButton>
+            <DoodleButton onClick={()=>setModalState('insertPreview')}>완료</DoodleButton>
         </div>
     );
 } 
