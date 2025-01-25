@@ -1,12 +1,12 @@
 'use client'
-import Report from './Report';
-import ValueMeterDone from './ValueMeterDone';
 import { useState,useEffect } from 'react';
 import ValueMeterView from './ValueMeterView';
-import ValueMeterMeasuring from './ValueMeterMeasuring';
-import { DialogTitle } from '@chakra-ui/react';
+import DoodleButton from '@/ui/buttons/DoodleButton';
 
-export default function FutureValueMeter({modalState,isInbox, onDelete, setModalState, dataRef,handleInsertWithData}) {
+import ValueMeterPreview from './ValueMeterPreview';
+import { DialogTitle } from '@chakra-ui/react';
+import ValueMeterEdit from './ValueMeterEdit';
+export default function FutureValueMeter({modalState,isInbox, onDelete,isReceive, setModalState, dataRef,handleInsertWithData}) {
     
     useEffect(() => {
         const imgUrls = [
@@ -38,11 +38,38 @@ export default function FutureValueMeter({modalState,isInbox, onDelete, setModal
                         네가 지금 가지고 있는 것들.. 미래에는 얼마일지 궁금하지 않아?
                     </p>
                 </div>
-            {modalState === 'edit' ? (
-                <ValueMeterView setModalState={setModalState} handleInsertWithData={handleInsertWithData} dataRef={dataRef}/>
-            ) : (
-                null
-            )}
+            {(() => {
+                switch(modalState) {
+                    case 'edit':
+                        return <ValueMeterEdit 
+                            setModalState={setModalState} 
+                            handleInsertWithData={handleInsertWithData} 
+                            dataRef={dataRef}
+                        />;
+                    case 'preview':
+                        return <ValueMeterPreview 
+                            setModalState={setModalState} 
+                            handleInsertWithData={handleInsertWithData} 
+                            dataRef={dataRef}
+                            onDelete={onDelete}
+                        />;
+                    default:
+                        return <ValueMeterView 
+                            setModalState={setModalState} 
+                            handleInsertWithData={handleInsertWithData} 
+                            dataRef={dataRef}
+                        >
+                            {!isInbox && 
+                                <DoodleButton   
+                                    onClick={handleInsertWithData} 
+                                >
+                                    담을래요
+                                </DoodleButton>
+                            }
+                            {isReceive&&<DoodleButton variant='white' >이미지 저장</DoodleButton>}
+                        </ValueMeterView>;
+                }
+            })()}
         </div>
     );
 }

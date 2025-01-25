@@ -9,7 +9,7 @@ import ValueMeterDone from './ValueMeterDone';
 import ValueMeterReport from './ValueMeterReport';
 import Report from './Report';
 
-export default function ValueMeterView({ onSave, receiver, handleInsertWithData, setModalState, dataRef }) {
+export default function ValueMeterView({ onSave, receiver, handleInsertWithData, setModalState, dataRef,children }) {
     const [phase, setPhase] = useState('uploadImg');
     const [measureData, setMeasureData] = useState(null);
     const [formData, setFormData] = useState(new FormData());
@@ -88,11 +88,7 @@ export default function ValueMeterView({ onSave, receiver, handleInsertWithData,
                 return <>
                 <ValueMeterReport measureData={measureData} imgfile={formData.get('image')} />;
                         <Center>
-                             <DoodleButton   
-                                    onClick={handleInsertWithData}
-                                >
-                             담을래요
-                             </DoodleButton>
+                             {children}
                         </Center>
                 </>
 
