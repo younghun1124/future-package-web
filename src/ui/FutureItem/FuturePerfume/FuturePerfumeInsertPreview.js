@@ -24,8 +24,8 @@ export default function FuturePerfumePreview({ dataRef, setModalState, handleIns
                 <div className="flex justify-center mt-[-20px]">
                     <Perfume 
                         size={250} 
-                        caseId={dataRef.current?.caseId} 
-                        colorId={dataRef.current?.colorId}
+                        caseId={dataRef.current?.shape} 
+                        colorId={dataRef.current?.color}
                     />
                 </div>
 

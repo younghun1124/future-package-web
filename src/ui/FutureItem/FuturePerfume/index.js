@@ -16,7 +16,10 @@ export default function FuturePerfume({modalState, isInbox, onDelete, setModalSt
                     case 'preview':
                         return <FuturePerfumePreview setModalState={setModalState} handleInsertWithData={handleInsertWithData} onDelete={onDelete} isInbox={isInbox} dataRef={dataRef} />;
                     case 'view':
-                        return <Perfume caseId={dataRef.current?.caseId} colorId={dataRef.current?.colorId} />;
+                        return <Perfume 
+                            caseId={dataRef.current?.shape} 
+                            colorId={dataRef.current?.color} 
+                        />;
                     default:
                         return "해당 모달이 없습니다.";
                 }

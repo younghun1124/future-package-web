@@ -24,16 +24,16 @@ export default function FuturePerfumePreview({ dataRef, setModalState, handleIns
                 <div className="flex justify-center mt-[-20px]">
                     <Perfume 
                         size={250} 
-                        caseId={dataRef.current?.caseId} 
-                        colorId={dataRef.current?.colorId}
+                        caseId={dataRef.current?.shape} 
+                        colorId={dataRef.current?.color}
                     />
                 </div>
 
                 <div className="text-center text-white">
-                    <h3 className="text-xl">{dataRef.current?.name || "한밤의 포만감 향"}</h3>
+                    <h3 className="text-xl">{dataRef.current?.name || "미래의 향수"}</h3>
                     <DoodleLine />
                     <p className="mt-5 leading-relaxed">
-                        {dataRef.current?.description || "따뜻한 친밀감이 입안 가득 번지고, 가볍고 자유로운 즐거움이 공기 중에 떠돌다, 끝내 고요한 무한함 속으로 스며드는 향."}
+                        {dataRef.current?.description || "미래에서 온 신비로운 향기"}
                     </p>
                 </div>
             </div>
