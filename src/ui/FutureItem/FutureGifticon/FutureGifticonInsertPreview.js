@@ -6,7 +6,7 @@ import { FUTURE_GIFTICON_TYPES } from '@/constants/futureItems';
 export default function FutureGifticonInsertPreview({ dataRef, setModalState, handleInsertWithData }) {
     // id로 기프티콘 찾기
     const selectedGifticon = Object.values(FUTURE_GIFTICON_TYPES).find(
-        gifticon => gifticon.id === dataRef?.current.gifticonType
+        gifticon => gifticon.id === dataRef?.current.futureGifticonType
     );
     if (!selectedGifticon) {
         return null;

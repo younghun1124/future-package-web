@@ -4,7 +4,7 @@ import DoodleButton from '@ui/buttons/DoodleButton';
 import { FUTURE_GIFTICON_TYPES } from '@/constants/futureItems';
 export default function FutureGifticonView({ dataRef ,onDelete, setModalState}) {    
     const selectedGifticon = Object.values(FUTURE_GIFTICON_TYPES).find(
-        gifticon => gifticon.id === dataRef?.current.gifticonType
+        gifticon => gifticon.id === dataRef?.current.futureGifticonType
     );
     if (!selectedGifticon) {
         return null;

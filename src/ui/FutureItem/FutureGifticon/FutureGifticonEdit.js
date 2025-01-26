@@ -8,20 +8,20 @@ export default function FutureGifticonEdit({ dataRef, setModalState }) {
     const gifticons = Object.values(FUTURE_GIFTICON_TYPES);
     // 현재 선택된 기프티콘의 인덱스 찾기
     const initialIndex = gifticons.findIndex(
-        gifticon => gifticon.id === dataRef?.current?.gifticonType
+        gifticon => gifticon.id === dataRef?.current?.futureGifticonType
     );
     const [currentIndex, setCurrentIndex] = useState(initialIndex >= 0 ? initialIndex : 0);
 
     // 초기 선택
     useEffect(() => {
-        if (!dataRef.current?.gifticonType) {
+        if (!dataRef.current?.futureGifticonType) {
             handleSelect(currentIndex);
         }
     }, []);
     
     const handleSelect = (idx) => {
         dataRef.current = {
-            gifticonType: gifticons[idx].id
+            futureGifticonType: gifticons[idx].id
         };
     };
 

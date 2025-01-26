@@ -4,7 +4,7 @@ import DoodleButton from '@ui/buttons/DoodleButton';
 import { FUTURE_GIFTICON_TYPES } from '@/constants/futureItems';
 export default function FutureGifticonView({ dataRef}) {    
     const selectedGifticon = Object.values(FUTURE_GIFTICON_TYPES).find(
-        gifticon => gifticon.id === dataRef?.current.gifticonType
+        gifticon => gifticon.id === dataRef?.current.futureGifticonType
     );
     if (!selectedGifticon) {
         return null;
@@ -21,7 +21,7 @@ export default function FutureGifticonView({ dataRef}) {
                     className="w-full h-auto"
                 />
             </div>
-                  <DoodleButton variant="white" disabled >이미지 저장</DoodleButton>
+                  {/* <DoodleButton variant="white" disabled >이미지 저장(준비중)</DoodleButton> */}
         </div>
     );
 } 
