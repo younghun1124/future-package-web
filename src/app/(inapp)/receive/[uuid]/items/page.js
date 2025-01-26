@@ -50,15 +50,15 @@ export default function ItemsPage() {
         const icons = Object.fromEntries(
             dummyItems.map(item => [item.type, item.icon])
         );
-
+        const scale = ' scale-[0.8]'
         // 각 아이템 타입별 위치 매핑
         const positions = {
-            FutureNote: 'top-[80px] left-[130px] rotate-[0deg]',
-            FutureFaceMirror: 'top-[130px] left-[170px] rotate-[10deg]',
-            FutureHologram: 'top-[160px] z-10 left-[200px]  rotate-[-40deg]',
-            FutureGifticon: 'top-[45%] left-[65%]',
-            FutureTarot: 'top-[130px] left-[90px] rotate-[-20deg]',
-            FuturePerfume: 'top-[120px] left-[240px] rotate-[10deg]',
+            FutureNote: 'top-0 left-0 rotate-[0deg] transform translate-x-[40px] translate-y-[60px]'+scale ,
+            FutureFaceMirror: 'top-0 left-0 rotate-[5deg] transform translate-x-[100px] translate-y-[110px]'+scale ,
+            FutureHologram: 'top-0 left-0 rotate-[-30deg] z-10 transform translate-x-[110px] translate-y-[150px]'+scale ,
+            FutureGifticon: 'top-0 left-0 rotate-[0deg] transform translate-x-[100px] translate-y-[100px]'+scale ,
+            FutureTarot: 'top-0 left-0 rotate-[-20deg] transform translate-x-[55px] translate-y-[130px]'+scale ,
+            FuturePerfume: 'top-0 left-0 rotate-[10deg] transform translate-x-[200px] translate-y-[100px]'+scale ,
             // FutureMovieTicket: 'top-[35%] left-[35%] rotate-[78.76deg]',
             // FutureInvention: 'top-[35%] left-[75%]',
             // FutureLotto: 'top-[10%] left-[70%] rotate-[-20deg]',
@@ -153,7 +153,7 @@ export default function ItemsPage() {
                             />
                         </div>
                     ))}
-                    <div className="absolute pointer-events-none inset-0 bg-[url('/futurebox_outside.svg')] bg-cover bg-center bg-no-repeat" />
+                    <div className="absolute pointer-events-none inset-0 z-50 bg-[url('/futurebox_outside.svg')] bg-cover bg-center bg-no-repeat" />
                 </div>
             </div>
             <NavigateButton className='w-[300px]' href='/send/form'>

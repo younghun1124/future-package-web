@@ -101,10 +101,9 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
     return (
         <DialogRoot closeOnInteractOutside={true} scrollBehavior="inside" motionPreset='none' onOpenChange={setIsOpen}>
             <DialogTrigger asChild disabled={isSelected && !isInBox}>
-                <Button 
-                    className={`flex-col w-[83px] h-[105px] ${isSelected && !isInBox ? 'cursor-not-allowed' : ''}`}
-                >
-                    <div className={`relative ${isReceive ? 'w-[120px] h-[120px]' : 'w-[74px] h-[74px] '}`}>
+                {!isReceive ? <Button 
+                    className={`flex-col w-[83px] h-[105px] ${isSelected && !isInBox ? 'cursor-not-allowed' : ''}`}>
+                    <div className={`relative w-[74px] h-[74px]`}>
                         <Image 
                             src={item.icon}
                             alt="File Icon" 
@@ -116,6 +115,18 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                     </div>
                     {!isInBox && <div className='text-white text-sm'>{item.name}</div>}
                 </Button>
+                :<Button 
+                    className={`flex-col ${isSelected && !isInBox ? 'cursor-not-allowed' : ''}`}
+                >
+                    <div>
+                        <img 
+                            src={item.icon}
+                            alt="File Icon" 
+                            disabled={isSelected}
+                            
+                        />
+                    </div>
+                </Button>}
             </DialogTrigger>
             
             <DialogContent                 
@@ -127,7 +138,6 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                 <DialogCloseTrigger className='text-white text-2xl' ref={closeButtonRef}>
                     X
                 </DialogCloseTrigger>
-                {modalState}
                     <Component 
                         item={item}
                         dataRef={currentData}

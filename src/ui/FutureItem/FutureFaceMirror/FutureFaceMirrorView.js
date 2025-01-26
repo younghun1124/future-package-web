@@ -29,7 +29,7 @@ export default function FutureFaceMirrorView({ data, dataRef }) {
                         src={mirrorUrl.startsWith('http') 
                             ? mirrorUrl 
                             : `/api/image?path=${encodeURIComponent(mirrorUrl)}`}
-                        className="absolute top-[5%] left-[51%] transform -translate-x-1/2 w-[65%] h-[50%] z-10"
+                        className="absolute top-[13%] left-[51%] transform -translate-x-1/2 w-[100%] h-[71%] z-10"
                         alt="미래 얼굴"
                     />
                 )}

@@ -2,7 +2,7 @@ export const dummyItems = [
   
   {
     id: 'note',
-    icon: '/futurenote_icon.svg',
+    icon: 'https://storage.googleapis.com/future-box-cdn-public/static/assets/itemicons/note_icon_2x.webp',
     type: 'FutureNote', 
     name: '쪽지',
     content:''
@@ -16,14 +16,14 @@ export const dummyItems = [
   },
   {
     id: 'hologram',
-    icon: '/futurehologram_icon.svg', 
+    icon: 'https://storage.googleapis.com/future-box-cdn-public/static/assets/itemicons/futurehologram_icon_2x.webp', 
     type: 'FutureHologram',
     name: '홀로그램 장치',
     content: ''   
   },  
   {
     id: 'tarot',
-    icon: 'https://storage.googleapis.com/future-box-cdn-public/static/assets/itemicons/icon_card_2x.webp',
+    icon: 'https://storage.googleapis.com/future-box-cdn-public/static/assets/itemicons/card_icon_2x.webp',
     type: 'FutureTarot',
     name: '카드',
     content: '',
@@ -44,7 +44,7 @@ export const dummyItems = [
   // },
   {
     id: 'perfume',
-    icon: 'https://storage.googleapis.com/future-box-cdn-public/static/assets/itemicons/icon_perfume_2x.webp',
+    icon: 'https://storage.googleapis.com/future-box-cdn-public/static/assets/itemicons/perfumeicon_2x.webp',
     type: 'FuturePerfume',
     name: '기억의 향수',
     content: '',
