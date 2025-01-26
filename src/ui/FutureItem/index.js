@@ -104,7 +104,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                 <Button 
                     className={`flex-col w-[83px] h-[105px] ${isSelected && !isInBox ? 'cursor-not-allowed' : ''}`}
                 >
-                    <div className="relative w-[74px] h-[74px]">
+                    <div className={`relative ${isReceive ? 'w-[120px] h-[120px]' : 'w-[74px] h-[74px] '}`}>
                         <Image 
                             src={item.icon}
                             alt="File Icon" 

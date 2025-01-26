@@ -53,21 +53,21 @@ export default function ItemsPage() {
 
         // 각 아이템 타입별 위치 매핑
         const positions = {
-            FutureNote: 'top-[20%] left-[40%] rotate-[0deg]',
-            FutureFaceMirror: 'top-[35%] left-[50%] rotate-[30deg]',
-            FutureHologram: 'top-[0%] left-[40%] rotate-[-50deg]',
-            FutureLotto: 'top-[10%] left-[70%] rotate-[-20deg]',
-            FutureMovieTicket: 'top-[35%] left-[35%] rotate-[78.76deg]',
+            FutureNote: 'top-[80px] left-[130px] rotate-[0deg]',
+            FutureFaceMirror: 'top-[130px] left-[170px] rotate-[10deg]',
+            FutureHologram: 'top-[160px] z-10 left-[200px]  rotate-[-40deg]',
             FutureGifticon: 'top-[45%] left-[65%]',
-            FutureInvention: 'top-[35%] left-[75%]',
-            FutureTarot: 'top-[25%] left-[55%] rotate-[15deg]',
-            FuturePerfume: 'top-[30%] left-[45%] rotate-[-10deg]'
+            FutureTarot: 'top-[130px] left-[90px] rotate-[-20deg]',
+            FuturePerfume: 'top-[120px] left-[240px] rotate-[10deg]',
+            // FutureMovieTicket: 'top-[35%] left-[35%] rotate-[78.76deg]',
+            // FutureInvention: 'top-[35%] left-[75%]',
+            // FutureLotto: 'top-[10%] left-[70%] rotate-[-20deg]',
         };
 
         // futureItems 배열 처리
         if (futureItems?.length) {
             items.push(...futureItems.map(item => ({
-                id: `${item.type}_${Date.now()}`,
+                id: `${item.type}`,
                 type: item.type,
                 name: getItemName(item.type),
                 icon: icons[item.type],
@@ -109,22 +109,6 @@ export default function ItemsPage() {
             }
         }
 
-        if (futureInventionType) {
-            const inventionData = Object.values(FUTURE_INVENTION_TYPES).find(
-                invention => invention.id === futureInventionType
-            );
-            if (inventionData) {
-                items.push({
-                    id: `invention_${inventionData.id}`,
-                    type: 'FutureInvention',
-                    name: '미래 발명품',
-                    icon: icons.FutureInvention,
-                    position: positions.FutureInvention,
-                    content: inventionData
-                });
-            }
-        }
-
         return items;
     };
 
@@ -150,7 +134,7 @@ export default function ItemsPage() {
                 터치해서 선물을 열어보세요!
             </h1>
 
-            <div className="relative w-full max-w-md aspect-[4/5]">
+            <div className="relative w-[300px] max-w-md aspect-[4/5]">
                 <div className="relative h-full">
                     <div className="absolute inset-0 bg-[url('/futurebox_inside.svg')] bg-cover bg-center  bg-no-repeat" />
                     {renderItems().map((item) => (

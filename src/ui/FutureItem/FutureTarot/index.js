@@ -42,23 +42,7 @@ export default function FutureTarot({
                    </>
                 );
             case 'view':
-                return (
-                    <div className="flex justify-center gap-4">
-                        <DoodleButton
-                            variant="white"
-                            width={130}
-                            onClick={onDelete}
-                        >
-                            뺄래요
-                        </DoodleButton>
-                        <DoodleButton
-                            width={130}
-                            onClick={() => setModalState('edit')}
-                        >
-                            바꿀래요
-                        </DoodleButton>
-                    </div>
-                );
+                return null;
             default:
                 return null;
         }
