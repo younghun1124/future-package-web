@@ -44,10 +44,15 @@ describe('Boxes API 테스트', () => {
             color: 180,
             outline_type: 1
           }
+        },
+        {
+          type: "FutureGifticon",
+          futureGifticonType: 1
+        },
+        {
+          type: "FutureValueMeter"
         }
-      ],
-      futureGifticonType: 1,
-      futureValueMeterIncluded: false
+      ]
     };
 
     const response = await fetch('http://localhost:3000/api/boxes', {
@@ -117,10 +122,15 @@ describe('Boxes API 테스트', () => {
             color: 180,
             outline_type: 1
           }
+        },
+        {
+          type: "FutureGifticon",
+          futureGifticonType: 1
+        },
+        {
+          type: "FutureValueMeter"
         }
-      ],
-      futureGifticonType: 1,
-      futureValueMeterIncluded: false
+      ]
     };
 
     const createResponse = await fetch('http://localhost:3000/api/boxes', {
@@ -153,7 +163,7 @@ describe('Boxes API 테스트', () => {
     expect(getData.receiver).toBe("테스트 수신자");
     expect(getData.sender).toBe("테스트 발신자");
     expect(getData.futureItems).toBeInstanceOf(Array);
-    expect(getData.futureItems).toHaveLength(5);
+    expect(getData.futureItems).toHaveLength(7);
 
     // FutureNote 검증
     expect(getData.futureItems[0]).toMatchObject({
@@ -203,8 +213,16 @@ describe('Boxes API 테스트', () => {
       }
     });
 
-    expect(getData.futureGifticonType).toBe(1);
-    expect(getData.futureValueMeterIncluded).toBe(false);
+    // FutureGifticon 검증
+    expect(getData.futureItems[5]).toMatchObject({
+      type: "FutureGifticon",
+      futureGifticonType: 1
+    });
+
+    // FutureValueMeter 검증
+    expect(getData.futureItems[6]).toMatchObject({
+      type: "FutureValueMeter"
+    });
   });
 
   it('존재하지 않는 아이템 조회 시 404를 반환해야 함', async () => {

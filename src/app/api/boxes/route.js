@@ -11,7 +11,7 @@ export async function POST(request) {
     // 시간대 설정
     await sql`SET timezone = 'Asia/Seoul'`;
 
-    const { receiver, sender, futureItems, futureGifticonType, futureValueMeterIncluded } = await request.json();
+    const { receiver, sender, futureItems } = await request.json();
     
     // IP, UA 가져오기
     const forwardedFor = request.headers.get('x-forwarded-for');
@@ -20,7 +20,10 @@ export async function POST(request) {
 
     const boxUuid = uuidv4();
 
-    // future_box 생성
+    // future_box 생성 (기프티콘 타입과 가치 측정기 포함 여부는 futureItems에서 추출)
+    const futureGifticon = futureItems.find(item => item.type === 'FutureGifticon');
+    const futureValueMeter = futureItems.find(item => item.type === 'FutureValueMeter');
+
     const [futureBoxResult] = await sql`
       INSERT INTO future_box (
         uuid, receiver, sender, 
@@ -29,7 +32,7 @@ export async function POST(request) {
       )
       VALUES (
         ${boxUuid}, ${receiver}, ${sender},
-        ${futureGifticonType}, ${futureValueMeterIncluded},
+        ${futureGifticon?.futureGifticonType || null}, ${!!futureValueMeter},
         CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Seoul'
       )
       RETURNING id
@@ -46,8 +49,10 @@ export async function POST(request) {
       )
     `;
 
-    // 각각의 아이템 DB에 기록
+    // 각각의 아이템 DB에 기록 (FutureGifticon과 FutureValueMeter는 제외)
     for (const item of futureItems) {
+      if (item.type === 'FutureGifticon' || item.type === 'FutureValueMeter') continue;
+      
       switch (item.type) {
         case 'FutureNote':
           await sql`
@@ -89,11 +94,11 @@ export async function POST(request) {
       }
     }
 
-    return NextResponse.json({ 
-      success: true, 
-      uuid: boxUuid 
+    return NextResponse.json({
+      success: true,
+      uuid: boxUuid
     });
-    
+
   } catch (error) {
     console.error('Error saving FutureBox:', error);
     return NextResponse.json(

@@ -121,13 +121,26 @@ export async function GET(request, { params }) {
       }))
     ];
 
+    // 기프티콘이 있으면 추가
+    if (futureBox.future_gifticon_type) {
+      futureItems.push({
+        type: 'FutureGifticon',
+        futureGifticonType: futureBox.future_gifticon_type
+      });
+    }
+
+    // 가치 측정기가 있으면 추가
+    if (futureBox.future_value_meter_included) {
+      futureItems.push({
+        type: 'FutureValueMeter'
+      });
+    }
+
     return NextResponse.json({
       uuid: futureBox.uuid,
       receiver: futureBox.receiver,
       sender: futureBox.sender,
-      futureItems,
-      futureGifticonType: futureBox.future_gifticon_type,
-      futureValueMeterIncluded: futureBox.future_value_meter_included
+      futureItems
     });
     
   } catch (error) {
