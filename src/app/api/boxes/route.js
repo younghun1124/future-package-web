@@ -32,7 +32,7 @@ export async function POST(request) {
       )
       VALUES (
         ${boxUuid}, ${receiver}, ${sender},
-        ${futureGifticon?.futureGifticonType || null}, ${!!futureValueMeter},
+        ${futureGifticon?.content.futureGifticonType || null}, ${!!futureValueMeter},
         CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Seoul'
       )
       RETURNING id

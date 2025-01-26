@@ -125,7 +125,7 @@ export async function GET(request, { params }) {
     if (futureBox.future_gifticon_type) {
       futureItems.push({
         type: 'FutureGifticon',
-        futureGifticonType: futureBox.future_gifticon_type
+        content:{futureGifticonType: futureBox.future_gifticon_type}
       });
     }
 
