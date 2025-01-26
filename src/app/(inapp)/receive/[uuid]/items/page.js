@@ -59,8 +59,8 @@ export default function ItemsPage() {
             FutureGifticon: 'top-[45%] left-[65%]',
             FutureTarot: 'top-[130px] left-[90px] rotate-[-20deg]',
             FuturePerfume: 'top-[120px] left-[240px] rotate-[10deg]',
+            FutureValueMeter: 'top-[35%] left-[75%]',
             // FutureMovieTicket: 'top-[35%] left-[35%] rotate-[78.76deg]',
-            // FutureInvention: 'top-[35%] left-[75%]',
             // FutureLotto: 'top-[10%] left-[70%] rotate-[-20deg]',
         };
 
