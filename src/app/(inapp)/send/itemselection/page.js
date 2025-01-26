@@ -82,13 +82,18 @@ function ItemSelectionContent() {
             console.error('이미지 업로드 오류:', error);
             throw new Error('이미지 업로드 중 오류가 발생했습니다.');
           }
+        } else if (item.type === 'FutureTarot') {
+          // FutureTarot의 content를 API 스펙에 맞게 가공
+          return {
+            type: item.type,
+            content: {
+              cardIndexes: item.content.cards.map(card => card.numid),
+              description: item.content.description
+            }
+          };
         }
         
-        // 다른 타입의 아이템은 그대로 반환
-        return {
-          type: item.type,
-          content: item.content
-        };
+        return item;
       }));
 
       const response = await fetch('/api/boxes', {

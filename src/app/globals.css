@@ -65,3 +65,15 @@ body {
 .transform-style-3d {
     transform-style: preserve-3d;
 }
+
+:root {
+  --accent: #1DECAC;
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.bg-accent {
+  background-color: var(--accent);
+}

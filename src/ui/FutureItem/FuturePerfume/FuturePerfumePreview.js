@@ -26,6 +26,7 @@ export default function FuturePerfumePreview({ dataRef, setModalState, handleIns
                         size={250} 
                         caseId={dataRef.current?.shape} 
                         colorId={dataRef.current?.color}
+                        outline_type={dataRef.current?.outline_type}
                     />
                 </div>
 

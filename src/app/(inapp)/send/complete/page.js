@@ -3,10 +3,10 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import ShareButton from '@/ui/buttons/RequestButton';
 import SendButton from '@/ui/buttons/SendButton';
-import NavigateButton from '../../../ui/buttons/NavigateButton';
-import DoodleButton from '../../../ui/buttons/DoodleButton';
+import NavigateButton from '@/ui/buttons/NavigateButton';
+import DoodleButton from '@/ui/buttons/DoodleButton';
 import Image from 'next/image';
-import ChannelService from '../../../ChannelService';
+import ChannelService from '@/ChannelService.js';
 
 export default function CompletePage() {
     useEffect(() => {

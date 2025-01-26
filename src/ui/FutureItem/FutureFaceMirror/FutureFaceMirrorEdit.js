@@ -99,10 +99,11 @@ export default function FutureFaceMirrorEdit({ dataRef,receiver }) {
                 <DialogTitle className="text-2xl text-white text-center">
                     {receiver}님의 미래를 비추는 거울
                 </DialogTitle>
-                <p className="text-white">
-                    미래의 모습을 그려봐. 친구 얼굴, 풍경, 뭐든 좋아
-                </p>
-            
+                <div className="text-white text-center">
+                    <p className="text-white">
+                        2047년을 보여주자. 발전된 세상, 나이 든 친구 얼굴..
+                    </p>
+                </div>
                 <Center>
                     <ReactSketchCanvas
                     ref={canvasRef}
@@ -115,8 +116,8 @@ export default function FutureFaceMirrorEdit({ dataRef,receiver }) {
                 />
                 </Center>
             {/* 도구 섹션 */}
-            <div className="flex justify-between items-center">
-                <div className="flex gap-2 items-center">
+            <div className="flex flex-col justify-between items-center">
+                <div className="flex w-[235px] gap-2 justify-between">
                     <input 
                         type="color" 
                         value={strokeColor}
@@ -128,38 +129,38 @@ export default function FutureFaceMirrorEdit({ dataRef,receiver }) {
                         className={`w-8 h-8`}
                         
                     />
-                    <input 
-                        type="range" 
-                        min="1" 
-                        max="10" 
-                        value={strokeWidth}
-                        onChange={(e) => setStrokeWidth(Number(e.target.value))}
-                        className="w-32"
-                    />
+                    
                     <button
                         onClick={() => {
                             setIsEraser(false);
                             canvasRef.current?.eraseMode(false);
                         }}
-                        className={`px-3 py-1 border rounded ${
-                            isEraser ? 'bg-white' : 'bg-accent text-white'
-                        }`}
+                        className={` rounded`}
                     >
-                        펜
+                         <img src="https://storage.googleapis.com/future-box-cdn-public/futureitem/mirror/pen_white_2x.webp" alt="지우개" className={`w-8 h-8 ${!isEraser&& "hidden"}`} />
+                         <img src="https://storage.googleapis.com/future-box-cdn-public/futureitem/mirror/pen_active_2x.webp" alt="지우개" className={`w-8 h-8 ${isEraser&& "hidden"}`} />
                     </button>
                     <button
                         onClick={() => {
                             setIsEraser(true);
                             canvasRef.current?.eraseMode(true);
                         }}
-                        className={`px-3 py-1 border rounded ${
-                            isEraser ? 'bg-accent text-white' : 'bg-white'
-                        }`}
+                        className={` rounded `}
                     >
-                        지우개
+                        <img src="https://storage.googleapis.com/future-box-cdn-public/futureitem/mirror/eraser_white_2x.webp" alt="지우개" className={`w-8 h-8 ${isEraser&& "hidden"}`} />
+                        <img src="https://storage.googleapis.com/future-box-cdn-public/futureitem/mirror/eraser_active_2x.webp" alt="지우개" className={`w-8 h-8 ${!isEraser&& "hidden"}`} />
+                    </button>
+                    <button 
+                        onClick={() => {
+                            canvasRef.current?.clearCanvas();
+                            handleCanvasChange();
+                        }}
+                        className="p-1 w-[38.60px] text-xs h-[37.82px] text-white bg-[#d9d9d9]/50 rounded-[9px]"
+                    >
+                        전체<br></br>지우기
                     </button>
                 </div>
-
+                
                 {/* 작업 취소 및 다시 실행 */}
                 <div className="flex gap-2">
                         {/* <button
@@ -184,15 +185,15 @@ export default function FutureFaceMirrorEdit({ dataRef,receiver }) {
                     >
                         다시실행
                     </button> */}
-                    <button 
-                        onClick={() => {
-                            canvasRef.current?.clearCanvas();
-                            handleCanvasChange();
-                        }}
-                        className="p-1 w-[38.60px] text-xs h-[37.82px] text-white bg-[#d9d9d9]/50 rounded-[9px]"
-                    >
-                        전체<br></br>지우기
-                    </button>
+                    <input 
+                        type="range" 
+                        min="1" 
+                        max="40" 
+                        value={strokeWidth}
+                        onChange={(e) => setStrokeWidth(Number(e.target.value))}
+                        className={`w-32 accent-[#44e8af]`}
+                    />
+                   
                 </div>
             </div>
 

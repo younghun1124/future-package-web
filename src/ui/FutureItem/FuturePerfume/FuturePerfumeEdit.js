@@ -72,6 +72,8 @@ export default function FuturePerfumeEdit({ dataRef, setModalState }) {
                 setShape(Math.floor(Math.random() * 3) + 1);
             } else if (questions[phase].type === 'color') {
                 setColor(Math.floor(Math.random() * 6) + 1);
+            } else if (questions[phase].type === 'outline_type') {
+                set_outline_type(Math.floor(Math.random() * 6) + 1);
             }
             setShowCustomInput(false);
             setCustomAnswer('');
@@ -92,7 +94,7 @@ export default function FuturePerfumeEdit({ dataRef, setModalState }) {
                 keywords: finalKeywords,
                 shape,
                 color,
-                outline_type: 1
+                outline_type,
             };
 
             try {

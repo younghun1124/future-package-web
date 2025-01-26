@@ -39,7 +39,7 @@ export default function FutureGifticonEdit({ dataRef ,setModalState}) {
                     미래 기프트카드
                 </DialogTitle>
                 <p className="text-white">
-                    보내봤자 2047년은 돼야 쓸 수 있을거야. 장난치고 싶은거지?
+                    보내봤자 2047년은 되어야 쓸 수 있을거야. 약올리고 싶은거지?
                 </p>
        
 

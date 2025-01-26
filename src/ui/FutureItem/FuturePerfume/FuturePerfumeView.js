@@ -25,6 +25,7 @@ export default function FuturePerfumeView({ dataRef, setModalState, handleInsert
                         size={200} 
                         caseId={dataRef.current?.caseId} 
                         colorId={dataRef.current?.colorId}
+                        outline_type={dataRef.current?.outline_type}
                     />
                 </div>
 

@@ -76,7 +76,11 @@ export default function FutureTarotEdit({ onSave, receiver, handleInsertWithData
 
             case 'description':
                 return (
-                    <>  <p className='text-white text-center'>이 카드들이 보여주는 미래의 해석.. 절대 마음대로 바꾸지 마!</p>
+                    <>  <p className='text-white text-center'>
+                        {description === TAROT_MESSAGES[selectedCards.map(card => card.numid).sort((a, b) => a - b).join('-')] 
+                            ? '이 카드들이 보여주는 미래의 해석.. 절대! 마음대로! 바꾸지! 마!'
+                            : '흠.. 내가 알려준 해석을 바꿨네? 너의 해석이 더 맞을지도..'}
+                        </p>
                         <div className="grid grid-cols-3 gap-4 items-center">
                             {selectedCards.map(card => (
                                 <div

@@ -17,7 +17,7 @@ export default function ItemsPage() {
     useEffect(() => {
         const fetchBoxData = async () => {
             try {
-                const response = await fetch(`/api/items/${uuid}`);
+                const response = await fetch(`/api/boxes/${uuid}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch box data');
                 }
