@@ -1,13 +1,15 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import FutureItemView from '@/ui/FutureItem/FutureItemView';
+import FutureItem from '@/ui/FutureItem';
 import { 
     FUTURE_MOVIE_TYPES,
     FUTURE_GIFTICON_TYPES,
     FUTURE_INVENTION_TYPES 
 } from '@/constants/futureItems';
 import NavigateButton from '@/ui/buttons/NavigateButton';
+import { dummyItems } from '@/mocks/items';
+
 export default function ItemsPage() {
     const { uuid } = useParams();
     const [boxData, setBoxData] = useState(null);
@@ -42,77 +44,39 @@ export default function ItemsPage() {
     // 아이템 데이터 변환
     const renderItems = () => {
         const items = [];
-        const { futureNotes, futureLottos, futureHolograms, futureFaceMirrors } = boxData.items;
-        const { futureMovieType, futureGifticonType, futureInventionType } = boxData.box;
+        const { futureItems, futureGifticonType, futureMovieType, futureInventionType } = boxData;
 
-        // 아이템 타입별 아이콘 매핑 수정
-        const icons = {
-            FutureNote: '/futurenote_icon.svg',
-            FutureFaceMirror: '/futurefacemirror_icon.svg',
-            FutureHologram: '/futurehologram_icon.svg',
-            FutureLotto: '/futurelotto_icon.svg',
-            FutureMovieTicket: '/futuremovieticket_icon.svg',
-            FutureGifticon: '/futuregifticon_icon.svg',
-            FutureInvention: '/futureinvention_icon.svg',
-        };
+        // dummyItems에서 아이콘 매핑 생성
+        const icons = Object.fromEntries(
+            dummyItems.map(item => [item.type, item.icon])
+        );
 
         // 각 아이템 타입별 위치 매핑
         const positions = {
             FutureNote: 'top-[20%] left-[40%] rotate-[0deg]',
-            FutureFaceMirror: 'top-[35%] left-[50%]  rotate-[30deg]',
-            FutureHologram: 'top-[0%]  left-[40%] rotate-[-50deg]',
+            FutureFaceMirror: 'top-[35%] left-[50%] rotate-[30deg]',
+            FutureHologram: 'top-[0%] left-[40%] rotate-[-50deg]',
             FutureLotto: 'top-[10%] left-[70%] rotate-[-20deg]',
-            FutureMovieTicket: 'top-[35%] left-[35%] rotate-[78.76deg] ',
+            FutureMovieTicket: 'top-[35%] left-[35%] rotate-[78.76deg]',
             FutureGifticon: 'top-[45%] left-[65%]',
             FutureInvention: 'top-[35%] left-[75%]',
+            FutureTarot: 'top-[25%] left-[55%] rotate-[15deg]',
+            FuturePerfume: 'top-[30%] left-[45%] rotate-[-10deg]'
         };
 
-        // 각 아이템 타입별 처리
-        if (futureNotes?.length) {
-            items.push(...futureNotes.map(item => ({
-                id: item.id,
-                type: 'FutureNote',
-                name: '쪽지',
-                icon: icons.FutureNote,
-                position: positions.FutureNote,
-                content: { text: item.message }
-            })));
-        }
-        if (futureLottos) {
-            items.push(...futureLottos.map(item => ({
-                id: item.id,
-                type: 'FutureLotto',
-                name: '로또',
-                icon: icons.FutureLotto,
-                position: positions.FutureLotto,
-                content: { numbers: item.numbers }
-            })));
-        }
-        if (futureHolograms) {
-            items.push(...futureHolograms.map(item => ({
-                id: item.id,
-                type: 'FutureHologram',
-                name: '홀로그램',
-                icon: icons.FutureHologram,
-                position: positions.FutureHologram,
-                content: { imageUrl: item.imageUrl }
-            })));
-        }
-        if (futureFaceMirrors) {
-            items.push(...futureFaceMirrors.map(item => ({
-                id: item.id,
-                type: 'FutureFaceMirror',
-                name: '미래얼굴',
-                icon: icons.FutureFaceMirror,
-                position: positions.FutureFaceMirror,
-                content: { 
-                    year: item.year,
-                    imageUrl: item.imageUrl 
-                }
+        // futureItems 배열 처리
+        if (futureItems?.length) {
+            items.push(...futureItems.map(item => ({
+                id: `${item.type}_${Date.now()}`,
+                type: item.type,
+                name: getItemName(item.type),
+                icon: icons[item.type],
+                position: positions[item.type],
+                content: item.content
             })));
         }
 
-        // 영화 티켓 처리
+        // 고정 아이템 타입 처리 (영화, 기프티콘, 발명품)
         if (futureMovieType) {
             const movieData = Object.values(FUTURE_MOVIE_TYPES).find(
                 movie => movie.id === futureMovieType
@@ -129,7 +93,6 @@ export default function ItemsPage() {
             }
         }
 
-        // 기프티콘 처리
         if (futureGifticonType) {
             const gifticonData = Object.values(FUTURE_GIFTICON_TYPES).find(
                 gifticon => gifticon.id === futureGifticonType
@@ -146,7 +109,6 @@ export default function ItemsPage() {
             }
         }
 
-        // 발명품 처리
         if (futureInventionType) {
             const inventionData = Object.values(FUTURE_INVENTION_TYPES).find(
                 invention => invention.id === futureInventionType
@@ -166,6 +128,22 @@ export default function ItemsPage() {
         return items;
     };
 
+    // 아이템 이름 반환 함수
+    const getItemName = (type) => {
+        const names = {
+            FutureNote: '쪽지',
+            FutureFaceMirror: '미래를 비추는 거울',
+            FutureHologram: '홀로그램 장치',
+            FutureLotto: '로또',
+            FutureMovieTicket: '영화 티켓',
+            FutureGifticon: '기프티콘',
+            FutureInvention: '미래 발명품',
+            FutureTarot: '타로 카드',
+            FuturePerfume: '기억의 향수'
+        };
+        return names[type] || type;
+    };
+
     return (
         <main className=" flex flex-col items-center p-4 pt-0">
             <h1 className="text-xl text-white text-center mb-8">
@@ -180,7 +158,10 @@ export default function ItemsPage() {
                             key={item.type}
                             className={`absolute ${item.position} transform -translate-x-1/2 -translate-y-1/2`}
                         >
-                            <FutureItemView 
+                            <FutureItem
+                                isReceive={true} 
+                                isInBox={true}
+                                initialModalState={'view'}
                                 item={{
                                     ...item,
                                     data: item.content

@@ -38,7 +38,7 @@ const componentsMap = {
 };
 const DefaultComponent = () => <div>기본 컴포넌트</div>;
  // Start of Selection
-const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteClick, isSelected, isInBox=false, isReceive=false, modalState: initialModalState='edit' }) => {
+const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteClick, isSelected, isInBox=false, isReceive=false, initialModalState='edit' }) => {
     // 모든 상태와 ref를 최상단에 선언
     const Component = componentsMap[item.type] || DefaultComponent;
     const closeButtonRef = useRef(null);
@@ -62,6 +62,8 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
         }
     }, [modalState]);
 
+    
+
     // isOpen이 변경될 때 modalState 초기화
     useEffect(() => {
         if (isOpen) {
@@ -69,15 +71,22 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
             if (!isInBox) {
                 setModalState('edit');
             }
-            // 수진자 박스에 들어있으면 view 모드로 초기화
-            else if(isReceive) {
+            // 수신자 박스에 들어있으면 view 모드로 초기화
+            else if (isReceive) {
                 setModalState('view');
             }
+            // 그 외의 경우 preview 모드로 초기화
             else {
                 setModalState('preview');
             }
         }
-    }, [isOpen, isInBox]);
+    }, [isOpen, isInBox, isReceive]);
+
+    useEffect(() => {
+        if (isReceive) {
+            setModalState('view');
+        }
+    }, []);
 
     const handleInsertWithData = () => {
         const data = currentData.current;
@@ -118,6 +127,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                 <DialogCloseTrigger className='text-white text-2xl' ref={closeButtonRef}>
                     X
                 </DialogCloseTrigger>
+                {modalState}
                     <Component 
                         item={item}
                         dataRef={currentData}
