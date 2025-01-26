@@ -32,14 +32,14 @@ export const FUTURE_GIFTICON_TYPES = {
     
   },
   CRIMECOUNTRY39: {
-    id: 1,
+    id: 3,
     name: '범죄시골39',
     description: '배추 밭에선 신발끈도 묶지 말라고!',
     imageUrl: '/crimecountry39_poster.svg',
     detailImageUrl: '/crimecountry39_ticket.svg',
   },
   OUTSIDEIN: {
-    id: 2,
+    id: 4,
     name: '아웃사이드 인 15',
     description: '기쁨이와 라일리의 환갑잔치 대소동!'  ,
     imageUrl: '/outsidein_poster.svg',

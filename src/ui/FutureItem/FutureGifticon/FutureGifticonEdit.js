@@ -1,47 +1,56 @@
 'use client'
 import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 import { FUTURE_GIFTICON_TYPES } from '@/constants/futureItems';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import DoodleButton from '@ui/buttons/DoodleButton';
-export default function FutureGifticonEdit({ dataRef ,setModalState}) {    
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const gifticons = Object.values(FUTURE_GIFTICON_TYPES);
 
-    const handleSelect = (type) => {
-        dataRef.current = 
-            type
-        ;
+export default function FutureGifticonEdit({ dataRef, setModalState }) {    
+    const gifticons = Object.values(FUTURE_GIFTICON_TYPES);
+    // 현재 선택된 기프티콘의 인덱스 찾기
+    const initialIndex = gifticons.findIndex(
+        gifticon => gifticon.id === dataRef?.current?.gifticonType
+    );
+    const [currentIndex, setCurrentIndex] = useState(initialIndex >= 0 ? initialIndex : 0);
+
+    // 초기 선택
+    useEffect(() => {
+        if (!dataRef.current?.gifticonType) {
+            handleSelect(currentIndex);
+        }
+    }, []);
+    
+    const handleSelect = (idx) => {
+        dataRef.current = {
+            gifticonType: gifticons[idx].id
+        };
     };
-   
 
     const handlePrev = () => {
         setCurrentIndex((prev) => {
             const newIndex = prev - 1;
-            const gifticon = gifticons[newIndex < 0 ? gifticons.length - 1 : newIndex];
-            handleSelect(gifticon);
-            return newIndex < 0 ? gifticons.length - 1 : newIndex;
+            const finalIndex = newIndex < 0 ? gifticons.length - 1 : newIndex;
+            handleSelect(finalIndex);
+            return finalIndex;
         });
     };
 
     const handleNext = () => {
         setCurrentIndex((prev) => {
             const newIndex = prev + 1;
-            const gifticon = gifticons[newIndex >= gifticons.length ? 0 : newIndex];
-            handleSelect(gifticon);
-            return newIndex >= gifticons.length ? 0 : newIndex;
+            const finalIndex = newIndex >= gifticons.length ? 0 : newIndex;
+            handleSelect(finalIndex);
+            return finalIndex;
         });
     };
 
     return (
         <div className="flex flex-col items-center gap-4">
-          
-                <DialogTitle className="text-2xl text-center text-white">
-                    미래 기프트카드
-                </DialogTitle>
-                <p className="text-white">
-                    보내봤자 2047년은 되어야 쓸 수 있을거야. 약올리고 싶은거지?
-                </p>
-       
+            <DialogTitle className="text-2xl text-center text-white">
+                미래 기프트카드
+            </DialogTitle>
+            <p className="text-white">
+                보내봤자 2047년은 되어야 쓸 수 있을거야. 약올리고 싶은거지?
+            </p>
 
             <div className="relative w-full px-12">
                 {/* 이전 버튼 */}

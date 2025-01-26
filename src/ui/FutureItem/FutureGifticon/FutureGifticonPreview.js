@@ -1,15 +1,16 @@
-import { DialogHeader, DialogTitle } from '@chakra-ui/react';
+'use client'
+import {  DialogTitle } from '@chakra-ui/react';
 import DoodleButton from '@ui/buttons/DoodleButton';
-export default function FutureGifticonView({ dataRef ,data, handleInsertWithData, onDelete, setModalState}) {    
-    const selectedGifticon = dataRef?.current||data;
-
+import { FUTURE_GIFTICON_TYPES } from '@/constants/futureItems';
+export default function FutureGifticonView({ dataRef ,onDelete, setModalState}) {    
+    const selectedGifticon = Object.values(FUTURE_GIFTICON_TYPES).find(
+        gifticon => gifticon.id === dataRef?.current.gifticonType
+    );
     if (!selectedGifticon) {
         return null;
     }
-
     return (
         <div className="flex flex-col items-center gap-4">
-          
                 <DialogTitle className="text-2xl text-white text-center ">
                     미래 기프트카드
                 </DialogTitle>

@@ -168,12 +168,12 @@ function ItemSelectionContent() {
                 {selectedItems.map((item) => {
                     // 아이템 타입별 위치 매핑
                     const positions = {
-                        FutureNote: 'top-[20%] left-[30%]',
-                        FutureFaceMirror: 'top-[15%] left-[50%]',
-                        FutureHologram: 'top-[15%] right-[5%]',
+                        FutureNote: 'top-0 left-0 translate-x-[20px] translate-y-[0px]',
+                        FutureFaceMirror: 'top-0 left-0 translate-x-[80px] translate-y-[-10px]',
+                        FutureHologram: 'top-0 left-0 translate-x-[140px] translate-y-[0px]',
                         FutureTarot: 'top-[45%]  rotate-[-4deg] left-[20%]',
                         FuturePerfume: 'top-[45%] rotate-[3deg] left-[40%]',
-                        FutureGifticon: 'top-[45%] right-[12%]',
+                        FutureGifticon: 'top-[45%] right-[7%]',
                         FutureValueMeter: 'top-[45%] left-[80%]',
                     };
 

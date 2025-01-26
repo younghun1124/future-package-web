@@ -92,7 +92,7 @@ export default function FutureTarotView({ data = TEMP_DATA, isReceiverView=false
 
     return (
         <>
-            <div ref={captureRef} className="flex flex-col items-center gap-6 min-h-[100px] justify-between">
+            <div ref={captureRef} className="flex flex-col items-center gap-6 min-h-[100px] justify-between p-3">
                 <div className="grid grid-cols-3 gap-4 items-center">
                     {data.cardIndexes.map((id, index) => {
                         const card = TAROT_CARDS[id];
@@ -137,9 +137,8 @@ export default function FutureTarotView({ data = TEMP_DATA, isReceiverView=false
                             </div>
                         );
                     })}
-                    
-            </div>
-            <div className=" flex flex-col items-center justify-center">
+                </div>
+                <div className="flex flex-col items-center justify-center w-full">
                     {showButton && !showInterpretation && (
                         <DoodleButton
                             variant="white"
@@ -147,17 +146,15 @@ export default function FutureTarotView({ data = TEMP_DATA, isReceiverView=false
                         >
                             해석 볼래요
                         </DoodleButton>
-                        )}
-                                
+                    )}
                 </div>
-                {showInterpretation &&  (
+                {showInterpretation && (
                     <div className="text-white text-center p-4 bg-[#666666] rounded-lg w-full">
                         {data.description}
                     </div>
-                
-            )}
+                )}
             </div>
-            {showInterpretation &&  (
+            {showInterpretation && (
                 <>
                     <DoodleButton 
                         variant="white"
