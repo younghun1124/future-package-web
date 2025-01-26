@@ -20,8 +20,8 @@ const ReceiverPage = () => {
   const isFormValid = receiver.trim() && sender.trim();
   
   return (
-    <main className="flex flex-col gap-8 items-center text-3xl justify-center min-h-[calc(100vh-80px)]">
-      <form onSubmit={handleSubmit} className="w-full flex flex-col gap-4">
+    <main className="flex flex-col gap-8 items-center text-3xl min-h-[calc(100vh-80px)]">
+      <form onSubmit={handleSubmit} className="w-full flex mt-[100px] flex-col gap-4">
         <div className="flex flex-col gap-2">
           <label htmlFor="receiver" className="text-center text-white">{new Date().getFullYear()}년의..</label>
           <div className={wrapperStyle}>
@@ -35,7 +35,7 @@ const ReceiverPage = () => {
             />
           </div>
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col mt-5 gap-2">
           <label htmlFor="sender" className="text-center text-white">2047년의..</label>
           <div className={wrapperStyle}>
             <input 

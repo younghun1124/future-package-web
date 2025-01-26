@@ -38,7 +38,7 @@ const componentsMap = {
 };
 const DefaultComponent = () => <div>기본 컴포넌트</div>;
  // Start of Selection
-const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteClick, isSelected, isInBox=false, isReceive=false, initialModalState='edit' }) => {
+const FutureItem = ({ item, handleInsertClick, handleUpdateClick, receivername, handleDeleteClick, isSelected, isInBox=false, isReceive=false, initialModalState='edit' }) => {
     // 모든 상태와 ref를 최상단에 선언
     const Component = componentsMap[item.type] || DefaultComponent;
     const closeButtonRef = useRef(null);
@@ -46,7 +46,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
     
     const [modalState, setModalState] = useState(initialModalState);
     const [isOpen, setIsOpen] = useState(false);
-    const [receiver, setReceiver] = useState('');
+    const [receiver, setReceiver] = useState(receivername||null);
 
     // useEffect를 순서대로 배치
     useEffect(() => {
@@ -101,10 +101,9 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
     return (
         <DialogRoot closeOnInteractOutside={true} scrollBehavior="inside" motionPreset='none' onOpenChange={setIsOpen}>
             <DialogTrigger asChild disabled={isSelected && !isInBox}>
-                <Button 
-                    className={`flex-col w-[83px] h-[105px] ${isSelected && !isInBox ? 'cursor-not-allowed' : ''}`}
-                >
-                    <div className={`relative ${isReceive ? 'w-[120px] h-[120px]' : 'w-[74px] h-[74px] '}`}>
+                {!isReceive ? <Button 
+                    className={`flex-col w-[83px] h-[105px] ${isSelected && !isInBox ? 'cursor-not-allowed' : ''}`}>
+                    <div className={`relative w-[74px] h-[74px]`}>
                         <Image 
                             src={item.icon}
                             alt="File Icon" 
@@ -116,6 +115,18 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, handleDeleteCl
                     </div>
                     {!isInBox && <div className='text-white text-sm'>{item.name}</div>}
                 </Button>
+                :<Button 
+                    className={`flex-col ${isSelected && !isInBox ? 'cursor-not-allowed' : ''}`}
+                >
+                    <div>
+                        <img 
+                            src={item.icon}
+                            alt="File Icon" 
+                            disabled={isSelected}
+                            
+                        />
+                    </div>
+                </Button>}
             </DialogTrigger>
             
             <DialogContent                 

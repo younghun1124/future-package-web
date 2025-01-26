@@ -29,7 +29,7 @@ const TEMP_DATA = {
     description: '당신의 미래에는 큰 변화가 찾아올 것입니다. 하지만 두려워하지 마세요. 그 변화는 당신을 더 나은 곳으로 이끌어줄 것입니다.'
 };
 
-export default function FutureTarotView({ data = TEMP_DATA, isReceiverView=false }) {
+export default function FutureTarotView({ data = TEMP_DATA, isReceiverView=false ,receiver}) {
     const [flippedCards, setFlippedCards] = useState([]);
     const [showInterpretation, setShowInterpretation] = useState(false);
     const [showButton, setShowButton] = useState(false);
@@ -92,7 +92,7 @@ export default function FutureTarotView({ data = TEMP_DATA, isReceiverView=false
 
     return (
         <>
-            <div ref={captureRef} className="flex flex-col items-center gap-6 min-h-[100px] justify-between p-3">
+            <div ref={captureRef} className="flex flex-col items-center gap-6 min-h-[100px] justify-between ">
                 <div className="grid grid-cols-3 gap-4 items-center">
                     {data.cardIndexes.map((id, index) => {
                         const card = TAROT_CARDS[id];

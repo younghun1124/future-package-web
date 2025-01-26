@@ -61,7 +61,7 @@ export default function FutureTarot({
                         dataRef.current = data;
                         handleInsertWithData();
                     }}
-                    receiver={receiver}
+                    receivername={receiver}
                 />
             )}
             

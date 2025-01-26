@@ -51,7 +51,7 @@ export const dummyItems = [
   },
   {
     id: 'gifticon',
-    icon: '/futuregifticon_icon.svg',
+    icon: 'https://storage.googleapis.com/future-box-cdn-public/static/assets/itemicons/icon_gifticon_2x.webp',
     type: 'FutureGifticon',
     name: '기프트카드',
     content: {
@@ -77,7 +77,7 @@ export const dummyItems = [
   // },
   {
     id: 'valueMeter',
-    icon: '/futureinvention_icon.svg',
+    icon: 'https://storage.googleapis.com/future-box-cdn-public/static/assets/itemicons/icon_invention_2x.webp',
     type: 'FutureValueMeter',
     name: '가치 측정기',
     content: '',
