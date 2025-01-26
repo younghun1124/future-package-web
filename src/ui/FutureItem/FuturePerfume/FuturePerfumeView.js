@@ -4,15 +4,6 @@ import DoodleButton from '@ui/buttons/DoodleButton';
 import Perfume from './Perfume';
 
 export default function FuturePerfumeView({ dataRef, setModalState, handleInsertWithData, isInbox, onDelete }) {
-    const getDescription = () => {
-        const answers = [
-            dataRef.current?.answer1,
-            dataRef.current?.answer2,
-            dataRef.current?.answer3
-        ];
-
-        return `따뜻한 친구같이 있어 가는 동안, 가끔고 자유롭게 움직이는 중기들이 공기 중에 떠다닥, 글내 고요한 무언가 속으로 스며드는 향.`;
-    };
 
     return (
         <div className="flex flex-col items-center gap-4 p-4">
@@ -30,9 +21,9 @@ export default function FuturePerfumeView({ dataRef, setModalState, handleInsert
                 </div>
 
                 <div className="text-center text-white">
-                    <h3 className="text-xl mb-4">한밤의 포만감 향</h3>
+                    <h3 className="text-xl mb-4">{dataRef.current?.name}</h3>
                     <p className="text-sm leading-relaxed">
-                        {getDescription()}
+                        {dataRef.current?.description}
                     </p>
                 </div>
             </div>
