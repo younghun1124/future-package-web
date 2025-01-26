@@ -35,7 +35,7 @@ CREATE TABLE future_face_mirror (
 );
 
 -- 기프티콘
-CREATE TABLE future_gifticon_type (
+CREATE TABLE future_gifticon_types (
   id SERIAL PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
   description VARCHAR(255) NOT NULL,
@@ -59,7 +59,8 @@ CREATE TABLE future_perfume (
   description TEXT NOT NULL,
   keywords VARCHAR(100)[] NOT NULL,
   shape_type INTEGER NOT NULL,
-  color INTEGER NOT NULL
+  color INTEGER NOT NULL,
+  outline_type INTEGER NOT NULL
 );
 
 -- 로깅
@@ -69,14 +70,6 @@ CREATE TABLE future_box_open_logs (
   ip_address VARCHAR(45) NOT NULL,
   user_agent TEXT,
   opened_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- deprecated
--- 미래의 로또 번호
-CREATE TABLE future_lotto (
-  id SERIAL PRIMARY KEY,
-  box_id INTEGER REFERENCES future_box(id), 
-  numbers INTEGER[] NOT NULL,
 );
 
 CREATE TABLE public.access_log (

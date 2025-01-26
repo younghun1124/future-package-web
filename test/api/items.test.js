@@ -83,8 +83,8 @@ describe('Boxes API 테스트', () => {
         {
           type: "FutureNote",
           content: {
-            message: "미래에서 보내는 편지입니다.",
-            encryptedMessage: "이모티콘 메시지"
+            message: "새해 복 많이 받으세요.",
+            encryptedMessage: "🎉🧧💯🤲"
           }
         },
         {
@@ -159,8 +159,8 @@ describe('Boxes API 테스트', () => {
     expect(getData.futureItems[0]).toMatchObject({
       type: "FutureNote",
       content: {
-        message: "미래에서 보내는 편지입니다.",
-        encryptedMessage: "이모티콘 메시지"
+        message: "새해 복 많이 받으세요.",
+        encryptedMessage: "🎉🧧💯🤲"
       }
     });
 

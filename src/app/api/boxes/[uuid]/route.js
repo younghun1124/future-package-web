@@ -20,7 +20,7 @@ const cacheGifticonTypes = async (sql) => {
 export async function GET(request, { params }) {
   try {
     const sql = neon(process.env.DATABASE_URL);
-    const uuid = params.uuid;
+    const { uuid } = await params;
     
     // 먼저 box가 존재하는지 확인
     const [boxExists] = await sql`
