@@ -38,7 +38,7 @@ const componentsMap = {
 };
 const DefaultComponent = () => <div>기본 컴포넌트</div>;
  // Start of Selection
-const FutureItem = ({ item, handleInsertClick, handleUpdateClick, receivername, handleDeleteClick, isSelected, isInBox=false, isReceive=false, initialModalState='edit' }) => {
+const FutureItem = ({ item, handleInsertClick, handleUpdateClick, receivername=null, handleDeleteClick, isSelected, isInBox=false, isReceive=false, initialModalState='edit' }) => {
     // 모든 상태와 ref를 최상단에 선언
     const Component = componentsMap[item.type] || DefaultComponent;
     const closeButtonRef = useRef(null);
@@ -51,7 +51,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, receivername, 
     // useEffect를 순서대로 배치
     useEffect(() => {
         // 클라이언트 사이드에서만 실행
-        if(receiver===null){const searchParams = new URLSearchParams(window.location.search);
+        if(receivername===null){const searchParams = new URLSearchParams(window.location.search);
         setReceiver(searchParams.get('receiver') || '');}
     }, []);
 
@@ -97,7 +97,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, receivername, 
     }
 
     return (
-        <DialogRoot closeOnInteractOutside={true} scrollBehavior="inside" motionPreset='none' onOpenChange={setIsOpen}>
+        <DialogRoot closeOnInteractOutside={true} scrollBehavior="outside" motionPreset='none' onOpenChange={setIsOpen}>
             <DialogTrigger asChild disabled={isSelected && !isInBox}>
                 {!isReceive ? <Button 
                     className={`flex-col w-[83px] h-[105px] ${isSelected && !isInBox ? 'cursor-not-allowed' : ''}`}>
