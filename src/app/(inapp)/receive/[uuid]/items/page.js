@@ -15,7 +15,9 @@ export default function ItemsPage() {
     const [boxData, setBoxData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
-        const [receiver, setReceiver] = useState(null);
+    const [openedItems, setOpenedItems] = useState(new Set());
+    const [receiver, setReceiver] = useState(null);
+    const [sender, setSender] = useState(null);
     useEffect(() => {
         const fetchBoxData = async () => {
             try {
@@ -27,6 +29,7 @@ export default function ItemsPage() {
                 console.log('Fetched data:', data);
                 setBoxData(data);
                 setReceiver(data.receiver);
+                setSender(data.sender);
             } catch (err) {
                 console.error('Fetch error:', err);
                 setError(err.message);
@@ -131,10 +134,16 @@ export default function ItemsPage() {
         return names[type] || type;
     };
 
+    const handleItemOpen = (itemType) => {
+        setOpenedItems(prev => new Set([...prev, itemType]));
+    };
+    const isOpened = (itemType) => {
+        return openedItems.has(itemType);
+    };
     return (
         <main className=" flex flex-col items-center p-4 pt-0">
             <h1 className="text-xl text-white text-center mb-8">
-                터치해서 선물을 열어보세요!
+                {sender}(이)가 보낸 {renderItems().length - openedItems.size}개의 선물을 터치해서 열어봐
             </h1>
 
             <div className="relative w-[300px] max-w-md aspect-[4/5]">
@@ -143,7 +152,8 @@ export default function ItemsPage() {
                     {renderItems().map((item) => (
                         <div 
                             key={item.type}
-                            className={`absolute ${item.position} transform -translate-x-1/2 -translate-y-1/2`}
+                            className={`absolute ${item.position} transform -translate-x-1/2 -translate-y-1/2 ${isOpened(item.type) ? 'opacity-60' : ''}`}
+                            onClick={() => handleItemOpen(item.type)}
                         >
                             <FutureItem
                                 isReceive={true} 
@@ -154,6 +164,7 @@ export default function ItemsPage() {
                                     ...item,
                                     data: item.content
                                 }}
+                                
                             />
                         </div>
                     ))}
@@ -161,7 +172,7 @@ export default function ItemsPage() {
                 </div>
             </div>
             <NavigateButton className='w-[300px]' href='/send/form'>
-                       나도 보내기
+                        나도 보내기
                     </NavigateButton>
         </main>
     );

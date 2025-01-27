@@ -62,8 +62,6 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, receivername, 
         }
     }, [modalState]);
 
-    
-
     // isOpen이 변경될 때 modalState 초기화
     useEffect(() => {
         if (isOpen) {
