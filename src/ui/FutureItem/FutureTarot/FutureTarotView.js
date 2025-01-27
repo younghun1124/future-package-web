@@ -5,39 +5,20 @@ import DoodleButton from '@/ui/buttons/DoodleButton';
 import html2canvas from 'html2canvas';
 import { TAROT_CARDS } from '@/constants/tarotCards';
 // 임시 데이터
-const TEMP_DATA = {
-    cards: [
-        {
-            id: 'sword',
-            name: '칼',
-            description: '운명의 칼이 당신의 미래를 가르키고 있습니다',
-            imageUrl: 'https://storage.googleapis.com/future-box-cdn-public/futureitem/tarot/card_angel_2x.webp'
-        },
-        {
-            id: 'storm',
-            name: '폭풍',
-            description: '격변의 폭풍이 당신의 미래를 휘감고 있습니다',
-            imageUrl: 'https://storage.googleapis.com/future-box-cdn-public/futureitem/tarot/card_storm_1x.webp'
-        },
-        {
-            id: 'key',
-            name: '열쇠',
-            description: '미래의 문을 여는 열쇠가 당신을 기다립니다',
-            imageUrl: 'https://storage.googleapis.com/future-box-cdn-public/futureitem/tarot/card_key_1x.webp'
-        }
-    ],
-    description: '당신의 미래에는 큰 변화가 찾아올 것입니다. 하지만 두려워하지 마세요. 그 변화는 당신을 더 나은 곳으로 이끌어줄 것입니다.'
-};
 
-export default function FutureTarotView({ data = TEMP_DATA, isReceiverView=false ,receiver}) {
+
+export default function FutureTarotView({ data, isReceiverView=false }) {
+    console.log('Received data:', data);
+    console.log('TAROT_CARDS:', TAROT_CARDS);
+    
     const [flippedCards, setFlippedCards] = useState([]);
     const [showInterpretation, setShowInterpretation] = useState(false);
     const [showButton, setShowButton] = useState(false);
     const captureRef = useRef(null);
 
-    const handleCardClick = (cardId) => {
-        if (!flippedCards.includes(cardId)) {
-            setFlippedCards(prev => [...prev, cardId]);
+    const handleCardClick = (cardIndex) => {
+        if (!flippedCards.includes(cardIndex)) {
+            setFlippedCards(prev => [...prev, cardIndex]);
         }
     };
 
@@ -92,14 +73,22 @@ export default function FutureTarotView({ data = TEMP_DATA, isReceiverView=false
 
     return (
         <>
-            <div ref={captureRef} className="flex flex-col items-center gap-6 min-h-[100px] justify-between ">
+            <div ref={captureRef} className="flex flex-col items-center gap-6 min-h-[100px] justify-between">
                 <div className="grid grid-cols-3 gap-4 items-center">
-                    {data.cardIndexes.map((id, index) => {
-                        const card = TAROT_CARDS[id];
+                    {data.cardIndexes.map((cardIndex, i) => {
+                        console.log(`Card index ${i}:`, cardIndex);
+                        const card = TAROT_CARDS[cardIndex-1];
+                        console.log(`Found card:`, card);
+                        
+                        if (!card) {
+                            console.error(`Card not found for index ${cardIndex}`);
+                            return null;
+                        }
+
                         return (
                             <div
-                                key={card.id}
-                                onClick={() => handleCardClick(card.id)}
+                                key={cardIndex}
+                                onClick={() => handleCardClick(cardIndex)}
                                 className="relative h-[140px] aspect-[2/3] cursor-pointer perspective-1000"
                             >
                                 <div
@@ -107,13 +96,11 @@ export default function FutureTarotView({ data = TEMP_DATA, isReceiverView=false
                                         relative w-full h-full
                                         transition-transform duration-1000
                                         transform-style-3d
-                                        ${flippedCards.includes(card.id) ? 'rotate-y-180' : ''}
+                                        ${flippedCards.includes(cardIndex) ? 'rotate-y-180' : ''}
                                     `}
                                 >
                                     {/* 카드 앞면 (뒷면 이미지) */}
-                                    <div
-                                        className="absolute w-full h-full backface-hidden"
-                                    >
+                                    <div className="absolute w-full h-full backface-hidden">
                                         <Image
                                             src="https://storage.googleapis.com/future-box-cdn-public/futureitem/tarot/card_back_2x.webp"
                                             alt="카드 뒷면"
@@ -123,22 +110,22 @@ export default function FutureTarotView({ data = TEMP_DATA, isReceiverView=false
                                     </div>
                                     
                                     {/* 카드 뒷면 (실제 카드 이미지) */}
-                                    <div
-                                        className="absolute w-full h-full backface-hidden rotate-y-180"
-                                    >
-                                        <Image
-                                            src={card.imageUrl}
-                                            alt={card.name}
-                                            fill
-                                            className="object-cover rounded-lg"
-                                        />
-                                    </div>
+                                    {card && (
+                                        <div className="absolute w-full h-full backface-hidden rotate-y-180">
+                                            <Image
+                                                src={card.imageUrl}
+                                                alt={card.name}
+                                                fill
+                                                className="object-cover rounded-lg"
+                                            />
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         );
                     })}
                 </div>
-                <div className="flex flex-col items-center justify-center w-full">
+                <div className=" flex flex-col items-center justify-center">
                     {showButton && !showInterpretation && (
                         <DoodleButton
                             variant="white"
@@ -148,13 +135,13 @@ export default function FutureTarotView({ data = TEMP_DATA, isReceiverView=false
                         </DoodleButton>
                     )}
                 </div>
-                {showInterpretation && (
+                {showInterpretation &&  (
                     <div className="text-white text-center p-4 bg-[#666666] rounded-lg w-full">
                         {data.description}
                     </div>
                 )}
             </div>
-            {showInterpretation && (
+            {showInterpretation &&  (
                 <>
                     <DoodleButton 
                         variant="white"

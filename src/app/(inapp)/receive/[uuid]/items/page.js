@@ -159,7 +159,7 @@ export default function ItemsPage() {
                                 isReceive={true} 
                                 isInBox={true}
                                 initialModalState={'view'}
-                                receiver={receiver}
+                                receivername={receiver}
                                 item={{
                                     ...item,
                                     data: item.content

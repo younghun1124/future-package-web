@@ -46,13 +46,13 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, receivername, 
     
     const [modalState, setModalState] = useState(initialModalState);
     const [isOpen, setIsOpen] = useState(false);
-    const [receiver, setReceiver] = useState(receivername||null);
+    const [receiver, setReceiver] = useState(receivername);
 
     // useEffect를 순서대로 배치
     useEffect(() => {
         // 클라이언트 사이드에서만 실행
-        const searchParams = new URLSearchParams(window.location.search);
-        setReceiver(searchParams.get('receiver') || '');
+        if(receiver===null){const searchParams = new URLSearchParams(window.location.search);
+        setReceiver(searchParams.get('receiver') || '');}
     }, []);
 
     useEffect(() => {
