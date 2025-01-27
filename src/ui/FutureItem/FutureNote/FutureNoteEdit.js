@@ -23,12 +23,14 @@ export default function FutureNoteEdit({ dataRef, setModalState }) {
 
     return (
         <div className="flex flex-col items-center gap-4">
-            <DialogTitle className="text-2xl text-center text-white">
-                쪽지
-            </DialogTitle>
-            <p className="text-white text-center">
-                과거의 친구에게 하고 싶은 말을 적어봐
-            </p>
+            <div>
+                <DialogTitle className="text-2xl text-center text-white">
+                    쪽지
+                </DialogTitle>
+                <p className="text-white text-center">
+                    과거의 친구에게 하고 싶은 말을 적어봐
+                </p>
+            </div>
 
             <div className="w-full">
                 <textarea

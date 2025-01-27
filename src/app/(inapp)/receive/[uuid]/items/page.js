@@ -143,7 +143,7 @@ export default function ItemsPage() {
     return (
         <main className=" flex flex-col items-center p-4 pt-0">
             <h1 className="text-xl text-white text-center mb-8">
-                {sender}(이)가 보낸 {renderItems().length - openedItems.size}개의 선물을 터치해서 열어봐
+                {sender}(이)가 보낸 {renderItems().length - openedItems.size}개의 선물이 있어
             </h1>
 
             <div className="relative w-[300px] max-w-md aspect-[4/5]">

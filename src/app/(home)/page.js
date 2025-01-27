@@ -10,7 +10,6 @@ export default function Home() {
         style={{
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          opacity: 0.8
         }}
       />
 
@@ -19,10 +18,10 @@ export default function Home() {
         {/* 상단 텍스트 */}
         <div className="text-center mt-16 relative">
           <h1 className="text-4xl font-bold mb-4 absolute inset-0" style={{ WebkitTextStroke: '8px white', color: 'transparent' }}>
-            2047에서 온 <span>택배</span>
+            2047에서 온 <span>선물</span>
           </h1>
           <h1 className="text-4xl font-bold mb-4 relative">
-            2047에서 온 <span className="text-accent">택배</span>
+            2047에서 온 <span className="text-accent">선물</span>
           </h1>
         </div>
 
@@ -32,7 +31,7 @@ export default function Home() {
             width="160px"
             className="px-8 py-3"
           >
-            <Link href="/send/form">시작하기</Link>
+            <Link href="/intro">시작하기</Link>
           </DoodleButton>
         </div>
       </div>

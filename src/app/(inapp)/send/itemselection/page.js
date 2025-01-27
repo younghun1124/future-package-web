@@ -91,6 +91,17 @@ function ItemSelectionContent() {
               description: item.content.description
             }
           };
+          
+        }else if (item.type === 'FutureNote') {
+          // FutureTarot의 content를 API 스펙에 맞게 가공
+          return {
+            type: item.type,
+            content: {
+              message: item.content.text,
+              encryptedMessage: ''
+            }
+          };
+          
         }
         
         return item;

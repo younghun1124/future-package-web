@@ -5,7 +5,10 @@ export const dummyItems = [
     icon: 'https://storage.googleapis.com/future-box-cdn-public/static/assets/itemicons/note_icon_2x.webp',
     type: 'FutureNote', 
     name: '쪽지',
-    content:''
+    content:{
+      message:"",
+      encryptedMessage:"",
+    }
   },
   {
     id: 'mirror',
