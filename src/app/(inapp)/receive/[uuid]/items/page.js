@@ -171,7 +171,7 @@ export default function ItemsPage() {
                     <div className="absolute pointer-events-none inset-0 z-50 bg-[url('/futurebox_outside.svg')] bg-cover bg-center bg-no-repeat" />
                 </div>
             </div>
-            <NavigateButton className='w-[300px]' href='/send/form'>
+            <NavigateButton className='w-[300px]' href='/intro'>
                         나도 보내기
                     </NavigateButton>
         </main>
