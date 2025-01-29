@@ -113,6 +113,7 @@ export default function FutureFaceMirrorEdit({ dataRef,receiver }) {
                     strokeWidth={strokeWidth}
                     strokeColor={strokeColor}
                     exportWithBackgroundImage={false}
+                    style={{ touchAction: 'none' }}
                 />
                 </Center>
             {/* 도구 섹션 */}
@@ -163,7 +164,7 @@ export default function FutureFaceMirrorEdit({ dataRef,receiver }) {
                 
                 {/* 작업 취소 및 다시 실행 */}
                 <div className="flex gap-2">
-                        {/* <button
+                    <button
                         onClick={() => {
                             if (!canvasRef.current) {
                                 console.warn("Canvas reference is null.");
@@ -174,7 +175,7 @@ export default function FutureFaceMirrorEdit({ dataRef,receiver }) {
                         }}
                         className="px-3 py-1 border rounded"
                     >
-                        실행취소
+                        이전
                     </button>
                     <button 
                         onClick={() => {
@@ -183,8 +184,8 @@ export default function FutureFaceMirrorEdit({ dataRef,receiver }) {
                         }}
                         className="px-3 py-1 border rounded"
                     >
-                        다시실행
-                    </button> */}
+                        다음
+                    </button>
                     <input 
                         type="range" 
                         min="1" 
@@ -193,7 +194,6 @@ export default function FutureFaceMirrorEdit({ dataRef,receiver }) {
                         onChange={(e) => setStrokeWidth(Number(e.target.value))}
                         className={`w-32 accent-[#44e8af]`}
                     />
-                   
                 </div>
             </div>
 
