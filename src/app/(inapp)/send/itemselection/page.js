@@ -208,7 +208,7 @@ function ItemSelectionContent() {
       </div>
 
       {/* 포장하기 버튼 */}
-      <div className="flex justify-center w-full">
+      <div className="flex justify-center mb-5 w-full">
         <DoodleButton 
             className='w-[85%]'
             onClick={handleSubmit}
