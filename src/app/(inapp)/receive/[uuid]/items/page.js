@@ -10,6 +10,7 @@ import {
 import NavigateButton from '@/ui/buttons/NavigateButton';
 import { dummyItems } from '@/mocks/items';
 
+
 export default function ItemsPage() {
     const { uuid } = useParams();
     const [boxData, setBoxData] = useState(null);
@@ -41,7 +42,7 @@ export default function ItemsPage() {
         fetchBoxData();
     }, [uuid]);
 
-    if (isLoading) return <div className="text-white text-xl text-center">로딩중...</div>;
+    if (isLoading) return <div className="text-white fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-xl text-center">선물 상자 여는 중...</div>;
     if (error) return <div className="text-white text-xl text-center">에러가 발생했습니다: {error}</div>;
     if (!boxData) return <div className="text-white text-xl text-center">박스를 찾을 수 없습니다.</div>;
 
@@ -56,16 +57,16 @@ export default function ItemsPage() {
         );
 
         // 각 아이템 타입별 위치 매핑
-        const scale = ' scale-[0.8]'
+        const scale = ' scale-[0.9]'
         // 각 아이템 타입별 위치 매핑
         const positions = {
-            FutureNote: 'top-0 left-0 rotate-[0deg] transform z-30 translate-x-[40px] translate-y-[60px]'+scale ,
-            FutureFaceMirror: 'top-0 left-0 rotate-[5deg] z-30 transform translate-x-[100px] translate-y-[110px]'+scale ,
-            FutureHologram: 'top-0 left-0 rotate-[-30deg] z-40 transform translate-x-[130px] translate-y-[150px]'+scale ,
-            FutureGifticon: 'top-0 left-0 rotate-[0deg] z-50 transform translate-x-[90px] translate-y-[160px]'+scale ,
-            FutureTarot: 'top-0 left-0 rotate-[-20deg] z-30 transform translate-x-[55px] translate-y-[130px]'+scale ,
-            FuturePerfume: 'top-0 left-0 rotate-[10deg] z-30 transform translate-x-[200px] translate-y-[100px]'+scale ,
-            FutureValueMeter: 'top-0 left-0 rotate-[0deg]  transform translate-x-[120px] translate-y-[40px]'+scale ,
+            FutureNote: 'top-0 left-0 rotate-[0deg] transform z-30 translate-x-[40px] translate-y-[50px]'+scale ,
+            FutureFaceMirror: 'top-0 left-0 rotate-[5deg] z-30 transform translate-x-[100px] translate-y-[100px]'+scale ,
+            FutureHologram: 'top-0 left-0 rotate-[-30deg] z-40 transform translate-x-[120px] translate-y-[125px]'+scale ,
+            FutureGifticon: 'top-0 left-0 rotate-[0deg] z-50 transform translate-x-[90px] translate-y-[140px]'+scale ,
+            FutureTarot: 'top-0 left-0 rotate-[-20deg] z-30 transform translate-x-[45px] translate-y-[110px]'+scale ,
+            FuturePerfume: 'top-0 left-0 rotate-[10deg] z-30 transform translate-x-[200px] translate-y-[70px]'+scale ,
+            FutureValueMeter: 'top-0 left-0 rotate-[4deg] z-20 transform translate-x-[120px] translate-y-[20px] scale-[0.8]',
             // FutureMovieTicket: 'top-[35%] left-[35%] rotate-[78.76deg]',
             // FutureLotto: 'top-[10%] left-[70%] rotate-[-20deg]',
         };
@@ -140,35 +141,46 @@ export default function ItemsPage() {
     const isOpened = (itemType) => {
         return openedItems.has(itemType);
     };
+    const leftItem=renderItems().length - openedItems.size
     return (
         <main className=" flex flex-col items-center p-4 pt-0">
-            <h1 className="text-xl text-white text-center mb-8">
-                {sender}(이)가 보낸 {renderItems().length - openedItems.size}개의 선물이 있어
+            <h1 className="text-xl text-white text-center mb-2">
+                {sender}의 선물이야. {receiver}
+            </h1>
+            <h1 className="text-ㅣㅎ text-white text-center mb-8">
+                {leftItem===0 ? `재밌었길 바래!`
+                : `아직 안 본 ${leftItem}개의 아이템이 있어`}
             </h1>
 
-            <div className="relative w-[300px] max-w-md aspect-[4/5]">
+            <div className="relative w-[300px] max-w-md aspect-square">
                 <div className="relative h-full">
-                    <div className="absolute inset-0 bg-[url('/futurebox_inside.svg')] bg-cover bg-center  bg-no-repeat" />
+                    <div className="absolute inset-0 bg-[url('https://storage.googleapis.com/future-box-cdn-public/static/assets/futurebox/futurebox_inside_2x.webp')] bg-cover bg-center  bg-no-repeat" />
+                <div className=' transform -translate-y-[10px] -translate-x-[5px]'>
                     {renderItems().map((item) => (
-                        <div 
-                            key={item.type}
-                            className={`absolute ${item.position} transform -translate-x-1/2 -translate-y-1/2 ${isOpened(item.type) ? 'opacity-60' : ''}`}
-                            onClick={() => handleItemOpen(item.type)}
-                        >
-                            <FutureItem
-                                isReceive={true} 
-                                isInBox={true}
-                                initialModalState={'view'}
-                                receivername={receiver}
-                                item={{
-                                    ...item,
-                                    data: item.content
-                                }}
+                        
+                            <div 
+                                key={item.type}
+                                className={`absolute ${item.position} transform -translate-x-1/2 -translate-y-1/2 ${isOpened(item.type) ? 'opacity-60' : ''}`}
+                                onClick={() => handleItemOpen(item.type)}
+                            >
+                                    <FutureItem
+                                        isReceive={true} 
+                                        isInBox={true}
+                                        initialModalState={'view'}
+                                        receivername={receiver}
+                                        item={{
+                                            ...item,
+                                            data: item.content
+                                        }}
+                                        sender={sender}
+                                        
+                                    />
                                 
-                            />
-                        </div>
+                            </div>
+                        
                     ))}
-                    <div className="absolute pointer-events-none inset-0 z-50 bg-[url('/futurebox_outside.svg')] bg-cover bg-center bg-no-repeat" />
+                    </div>
+                    <div className="absolute pointer-events-none inset-0 z-50 bg-[url('https://storage.googleapis.com/future-box-cdn-public/static/assets/futurebox/futurebox_outside_2x.webp')] bg-cover bg-center bg-no-repeat" />
                 </div>
             </div>
             <NavigateButton className='w-[300px]' href='/intro'>

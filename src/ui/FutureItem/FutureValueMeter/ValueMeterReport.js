@@ -19,7 +19,7 @@ export default function ValueMeterReport({measureData,imgfile}) {
             <DialogRoot>
                 <DialogTrigger asChild>
                   <Button variant="outline" className="h-auto" >
-                    <ValueMeterDone imgfile={imgfile}/>
+                    <ValueMeterDone value={measureData?.[measureData.length - 1].value} imgfile={imgfile}/>
                   </Button>
                 </DialogTrigger>
                 <DialogContent  className="w-auto" backgroundColor='#ffffff/0'>

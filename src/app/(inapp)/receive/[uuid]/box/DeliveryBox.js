@@ -1,47 +1,37 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import DoodleButton from '@/ui/buttons/DoodleButton';
 
 export default function DeliveryBox({ uuid }) {
-    const router = useRouter();
+    const [scaleClass, setScaleClass] = useState('scale-100');
 
-    const handleOpenBox = async () => {
-        try {
-            const response = await fetch(`/api/boxes/${uuid}/logs`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            });
+    useEffect(() => {
+        // 페이지 로드 후 0.1초 뒤에 크기를 작게 만듦
+        const timer = setTimeout(() => {
+            setScaleClass('scale-0');
+        }, 2000);
 
-            if (!response.ok) {
-                console.error('로그 기록 실패');
-            }
-
-            // 상자 내용물 페이지로 이동
-            router.push(`/receive/${uuid}/items`);
-        } catch (error) {
-            console.error('상자 열기 오류:', error);
-            router.push(`/receive/${uuid}/items`);
-        }
-    };
+        // 컴포넌트가 언마운트될 때 타이머 클리어
+        return () => clearTimeout(timer);
+    }, []);
 
     return (
         <div className="flex flex-col gap-8 items-center justify-between py-8">
             <div className="flex-1 w-full flex items-center justify-center">
                 <div>
                     <Image 
-                        src='/ufo.svg'
+                        src='https://storage.googleapis.com/future-box-cdn-public/static/assets/ufo/ufo_2x.webp' 
                         alt="배달 ufo" 
-                        width={150}
-                        height={130}
-                        className='ml-auto'
-                    />   
+                        width={90} 
+                        height={90} 
+                        className={`ml-auto transition-transform duration-500 ease-in-out ${scaleClass}`} 
+                    />
                     <Image 
-                        src='/future_package.svg'
+                        src='https://storage.googleapis.com/future-box-cdn-public/static/assets/futurebox/futurebox_packed_2x.webp'
                         alt="미래 택배 상자"
                         width={300}
                         height={300}
@@ -51,10 +41,12 @@ export default function DeliveryBox({ uuid }) {
             </div>
 
             <div className="w-full flex justify-center">
-                <DoodleButton color="black" onClick={handleOpenBox}>
-                    상자 열기
-                </DoodleButton>
+                <Link href={`/receive/${uuid}/items`}>
+                    <DoodleButton color="black">
+                        상자 열기
+                    </DoodleButton>
+                </Link>
             </div>
         </div>
     );
-} 
+}

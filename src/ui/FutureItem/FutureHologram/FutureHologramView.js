@@ -1,7 +1,8 @@
 import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 import DoodleButton from '@ui/buttons/DoodleButton';
 import Hologram from './Hologram';
-export default function FutureHologramView({ data, dataRef,handleInsertWithData,isInbox ,setModalState,onDelete}) {    
+import handleCapture from '../../../app/utils/capture';
+export default function FutureHologramView({ data, dataRef,handleInsertWithData,isInbox ,setModalState, captureRef, onDelete}) {    
     const hologramData = dataRef?.current || data;
 
     if (!hologramData?.imageUrl) {
@@ -17,7 +18,7 @@ export default function FutureHologramView({ data, dataRef,handleInsertWithData,
         
             <Hologram data={hologramData} dataRef={dataRef} />
             
-            <DoodleButton disabled  onClick={handleInsertWithData}>이미지 저장</DoodleButton>
+            <DoodleButton variant="white"  onClick={()=>handleCapture(captureRef,"미래에서 온 홀로그램 장치")}>이미지 저장</DoodleButton>
         </div>
     );
 } 

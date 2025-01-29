@@ -29,7 +29,7 @@ export default function IntroPage() {
         },
         {
             image: "https://storage.googleapis.com/future-box-cdn-public/static/assets/landing/ufo_dropbox_2x.webp",
-            text: "그래도 2025년으로 깜짝 선물을 보낼 생각을 하니까 기분은 좋네. 한번 보내볼까? 외계인한테 잘 부탁한다고 해야지."
+            text: "그래도 2025년으로 깜짝 선물을 보낼 생각을 하니까 신나네. 한번 보내볼까? 외계인한테 잘 부탁한다고 해야지."
         }
     ];
 
@@ -43,7 +43,7 @@ export default function IntroPage() {
 
     return (
         <main className="min-h-screen flex flex-col text-white items-center bg-black">
-            <div className="w-full max-w-[393px] mx-auto px-5 mb-10"><Navbar /></div>
+            <div className="w-full max-w-[393px] mx-auto px-5 mb-"><Navbar /></div>
             
             {/* 메인 콘텐츠 */}
             <div className="flex flex-col items-center justify-center w-full">
@@ -59,7 +59,7 @@ export default function IntroPage() {
                         className={`w-full absolute top-0 left-0 object-contain transition-opacity duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}
                     />}
                 </div>
-                <p className={`text-white text-xl text-center p-5 mb-8`}>
+                <p className={`text-white text-xl text-center p-5 mb-0`}>
                     {introContents[currentPage].text}
                 </p>
             </div>
@@ -72,7 +72,7 @@ export default function IntroPage() {
                 >
                     {currentPage < introContents.length - 1 ? '다음' : '선물 보내러 가기'}
                 </button>
-                {currentPage===introContents.length && <Link 
+                {!(currentPage===introContents.length-1) && <Link 
                     href="/send/form"
                     className="absolute top-1 right-4 text-white text-xl"
                 >

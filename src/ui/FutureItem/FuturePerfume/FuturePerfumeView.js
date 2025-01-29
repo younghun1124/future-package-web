@@ -3,12 +3,12 @@ import { DialogHeader, DialogTitle } from '@chakra-ui/react';
 import DoodleButton from '@ui/buttons/DoodleButton';
 import Perfume from './Perfume';
 
-export default function FuturePerfumeView({ dataRef, setModalState, handleInsertWithData, isInbox, onDelete }) {
+export default function FuturePerfumeView({ dataRef, setModalState, sender, handleInsertWithData, isInbox, onDelete }) {
 
     return (
         <div className="flex flex-col items-center gap-4 p-4">
                 <DialogTitle className="text-2xl text-center text-white">
-                    기억의 향수
+                    기억의 향수 (made by. {sender})
                 </DialogTitle>
             <div className="relative">
                 <div className="flex justify-center mb-4">

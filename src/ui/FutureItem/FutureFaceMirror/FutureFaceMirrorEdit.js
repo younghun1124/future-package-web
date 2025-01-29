@@ -163,7 +163,7 @@ export default function FutureFaceMirrorEdit({ dataRef,receiver }) {
                 </div>
                 
                 {/* 작업 취소 및 다시 실행 */}
-                <div className="flex gap-2">
+                <div className="flex text-white gap-2">
                     <button
                         onClick={() => {
                             if (!canvasRef.current) {

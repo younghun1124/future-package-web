@@ -2,7 +2,7 @@ import FutureHologramEdit from "./FutureHologramEdit";
 import FutureHologramView from "./FutureHologramView";
 import FutureHologramPreview from "./FutureHologramPreview";
 import FutureHologramInsertPreview from "./FutureHologramInsertPreview";
-export default function FutureHologram({modalState,isInbox, onDelete, setModalState, dataRef,handleInsertWithData}) {
+export default function FutureHologram({modalState,isInbox, onDelete, setModalState, captureRef, dataRef,handleInsertWithData}) {
     return (
         <>
             {(() => {
@@ -14,7 +14,7 @@ export default function FutureHologram({modalState,isInbox, onDelete, setModalSt
                     case 'preview':
                         return <FutureHologramPreview setModalState={setModalState} handleInsertWithData={handleInsertWithData}  onDelete={onDelete} isInbox={isInbox} dataRef={dataRef}  />;
                     case 'view':
-                        return <FutureHologramView handleInsertWithData={handleInsertWithData} onDelete={onDelete} setModalState={setModalState} isInbox={isInbox} dataRef={dataRef} />;
+                        return <FutureHologramView captureRef={captureRef} handleInsertWithData={handleInsertWithData} onDelete={onDelete} setModalState={setModalState} isInbox={isInbox} dataRef={dataRef} />;
                     default:
                         return "해당 모달이 없습니다.";
                 }

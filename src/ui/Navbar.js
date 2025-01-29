@@ -24,7 +24,7 @@ export default function Navbar() {
           </svg>
         </button>
         <h1 className="text-white text-lg font-light">
-          2047년에서 온 택배
+          2047년에서 온 선물
         </h1>
       </nav>
 

@@ -19,6 +19,7 @@
     "@neondatabase/serverless": "^0.10.4",
     "chart.js": "^4.4.7",
     "formidable": "^3.5.2",
+    "html-to-image": "^1.11.11",
     "html2canvas": "^1.4.1",
     "multer": "^1.4.5-lts.1",
     "next": "15.1.2",

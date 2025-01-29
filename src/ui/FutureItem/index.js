@@ -1,7 +1,8 @@
 'use client'
 import Image from 'next/image';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import DoodleButton from '@ui/buttons/DoodleButton'
+import { toPng } from 'html-to-image';
 import {
     DialogRoot,
     DialogTrigger,
@@ -38,12 +39,12 @@ const componentsMap = {
 };
 const DefaultComponent = () => <div>기본 컴포넌트</div>;
  // Start of Selection
-const FutureItem = ({ item, handleInsertClick, handleUpdateClick, receivername=null, handleDeleteClick, isSelected, isInBox=false, isReceive=false, initialModalState='edit' }) => {
+const FutureItem = ({ item, handleInsertClick, handleUpdateClick,sender='', receivername=null, handleDeleteClick, isSelected, isInBox=false, isReceive=false, initialModalState='edit' }) => {
     // 모든 상태와 ref를 최상단에 선언
     const Component = componentsMap[item.type] || DefaultComponent;
     const closeButtonRef = useRef(null);
     const currentData = useRef(item.content);
-    
+    const captureRef = useRef()
     const [modalState, setModalState] = useState(initialModalState);
     const [isOpen, setIsOpen] = useState(false);
     const [receiver, setReceiver] = useState(receivername);
@@ -85,6 +86,22 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, receivername=n
             setModalState('view');
         }
     }, []);
+    const onButtonClick = useCallback(() => {
+        if (captureRef.current === null) {
+          return
+        }
+        toPng(captureRef.current, {  cacheBust: true,
+           })
+          .then((dataUrl) => {
+            const link = document.createElement('a')
+            link.download = 'my-image-name.png'
+            link.href = dataUrl
+            link.click()
+          })
+          .catch((err) => {
+            console.log(err)
+          })
+      }, [captureRef])
 
     const handleInsertWithData = () => {
         const data = currentData.current;
@@ -127,17 +144,20 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, receivername=n
                 </Button>}
             </DialogTrigger>
             
-            <DialogContent                 
+            <DialogContent
+                ref={captureRef} 
                 backgroundColor="#585858"
                 borderRadius="22px" style={{ maxHeight: '680px', maxWidth:'340px' }}
             >
             
-                <DialogBody className="flex flex-col gap-6 mt-11 px-6">
+                <DialogBody   className="flex flex-col gap-6 mt-11 px-6">
+                {/* <button onClick={onButtonClick}>이미지 저장</button> */}
                 <DialogCloseTrigger className='text-white text-2xl' ref={closeButtonRef}>
                     X
                 </DialogCloseTrigger>
                     <Component 
                         item={item}
+                        captureRef={captureRef}
                         dataRef={currentData}
                         receiver={receiver}
                         isInbox={isInBox}
@@ -146,6 +166,7 @@ const FutureItem = ({ item, handleInsertClick, handleUpdateClick, receivername=n
                         isReceive={isReceive}
                         handleInsertWithData={handleInsertWithData}
                         setModalState={setModalState}
+                        sender={sender}
                         onDelete={handleDeleteClickWithData}
                     />
                 </DialogBody>
