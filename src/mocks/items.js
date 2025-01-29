@@ -61,8 +61,8 @@ export const dummyItems = [
       id: 1,
       name: '삐체씨 팝핑 아이스크림 치킨',
       description: '달콤한 아이스크림과 바삭한 치킨의 만남! 톡톡튀는 팝핑캔디까지!',
-      imageUrl: '/icecreamchicken_dish.svg',
-      detailImageUrl: '/icecreamchicken_coupon.svg'
+      imageUrl: 'https://storage.googleapis.com/future-box-cdn-public/futureitem/gifticon/icecream_chicken/icecreamchicken_2x.webp',
+      detailImageUrl: 'https://storage.googleapis.com/future-box-cdn-public/futureitem/gifticon/icecream_chicken/icecreamchicken_coupon_image_2x.webp'
     },
   },
   // {

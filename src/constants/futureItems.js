@@ -21,14 +21,14 @@ export const FUTURE_GIFTICON_TYPES = {
     name: '삐체씨 팝핑 아이스크림 치킨',
     description: '달콤한 아이스크림과 바삭한 치킨의 만남! 톡톡튀는 팝핑캔디까지!',
     imageUrl: 'https://storage.googleapis.com/future-box-cdn-public/futureitem/gifticon/icecream_chicken/icecreamchicken_2x.webp',
-    detailImageUrl: 'https://storage.googleapis.com/future-box-cdn-public/futureitem/gifticon/icecream_chicken/icreamchicken_coupon_2x.webp'
+    detailImageUrl: 'https://storage.googleapis.com/future-box-cdn-public/futureitem/gifticon/icecream_chicken/icecreamchicken_coupon_image_2x.webp'
   },
   DoorianCake: {
     id: 2,
     name: '숨쉰당 두리안 시루 케이크 ',
     description: '이 냄새 뭐지...? 매력적이야.. 천상의 맛 두리안이 한가득!',
     imageUrl: 'https://storage.googleapis.com/future-box-cdn-public/futureitem/gifticon/doorian_cake/doorian_cake_2x.webp',
-    detailImageUrl: 'https://storage.googleapis.com/future-box-cdn-public/futureitem/gifticon/doorian_cake/dooriancake_coupon_2x.webp',
+    detailImageUrl: 'https://storage.googleapis.com/future-box-cdn-public/futureitem/gifticon/doorian_cake/dooriancake_coupon_image_2x.webp',
     
   },
   CRIMECOUNTRY39: {
