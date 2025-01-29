@@ -29,7 +29,7 @@ export default function IntroPage() {
         },
         {
             image: "https://storage.googleapis.com/future-box-cdn-public/static/assets/landing/ufo_dropbox_2x.webp",
-            text: "그래도 2025으로 깜짝 선물을 보낼 생각을 하니까 기분은 좋네. 한번 보내볼까? 외계인한테 잘 부탁한다고 해야지."
+            text: "그래도 2025년으로 깜짝 선물을 보낼 생각을 하니까 기분은 좋네. 한번 보내볼까? 외계인한테 잘 부탁한다고 해야지."
         }
     ];
 
@@ -51,7 +51,7 @@ export default function IntroPage() {
                     <img
                         src={introContents[currentPage].image}
                         alt={`인트로 이미지 ${currentPage + 1}`}
-                        className="w-full h-[390px]  object-contain"
+                        className="w-full absolute h-full object-contain"
                     />
                     {!(currentPage===2) && <img
                         src={"https://storage.googleapis.com/future-box-cdn-public/static/assets/landing/alien_2x.webp"}
@@ -65,7 +65,7 @@ export default function IntroPage() {
             </div>
 
             {/* 하단 버튼 */}
-            <div className="relative flex items-center justify-center w-full">
+            <div className="relative flex items-center justify-center w-full mb-3">
                 <button 
                     onClick={handleNext}
                     className="h-[37px] px-4 min-w-[84px] bg-white/5 rounded-[9px] border-2 border-white"
