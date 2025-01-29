@@ -2,6 +2,7 @@
 import {  DialogTitle } from '@chakra-ui/react';
 import DoodleButton from '@ui/buttons/DoodleButton';
 import { FUTURE_GIFTICON_TYPES } from '@/constants/futureItems';
+import GifticonDetail from './GifticonDetail';
 export default function FutureGifticonView({ dataRef ,onDelete, setModalState}) {    
     const selectedGifticon = Object.values(FUTURE_GIFTICON_TYPES).find(
         gifticon => gifticon.id === dataRef?.current.futureGifticonType
@@ -14,13 +15,7 @@ export default function FutureGifticonView({ dataRef ,onDelete, setModalState}) 
                 <DialogTitle className="text-2xl text-white text-center ">
                     미래 기프트카드
                 </DialogTitle>
-            <div className="relative w-full">
-                <img 
-                    src={selectedGifticon.detailImageUrl} 
-                    alt={selectedGifticon.name}
-                    className="w-full h-auto"
-                />
-            </div>
+                <GifticonDetail imageUrl={selectedGifticon.detailImageUrl} />
             <div>
                 <DoodleButton variant="white" onClick={onDelete}>뺄래요</DoodleButton>
                 <DoodleButton  onClick={()=>setModalState('edit')}>바꿀래요</DoodleButton>
