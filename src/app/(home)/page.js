@@ -27,12 +27,14 @@ export default function Home() {
 
         {/* 하단 버튼 */}
         <div className="mt-auto mb-[100px]">
+        <Link href="/intro">
           <DoodleButton 
             width="160px"
             className="px-8 py-3"
           >
-            <Link href="/intro">시작하기</Link>
+            시작하기
           </DoodleButton>
+          </Link>
         </div>
       </div>
     </main>
