@@ -1,6 +1,6 @@
 import FutureHologramEdit from "./FutureHologramEdit";
 import FutureHologramView from "./FutureHologramView";
-import FutureHologramPreview from "./FutureHologramInsertPreview";
+import FutureHologramPreview from "./FutureHologramPreview";
 import FutureHologramInsertPreview from "./FutureHologramInsertPreview";
 export default function FutureHologram({modalState,isInbox, onDelete, setModalState, dataRef,handleInsertWithData}) {
     return (
