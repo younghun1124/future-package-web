@@ -53,9 +53,9 @@ export default function FutureFaceMirror({
             case 'view':
                 return (
                     <div className="flex justify-center">
-                        <DoodleButton variant='white' disabled>
+                        {/* <DoodleButton variant='white' disabled>
                             이미지 저장
-                        </DoodleButton>
+                        </DoodleButton> */}
                     </div>
                 );
             default:

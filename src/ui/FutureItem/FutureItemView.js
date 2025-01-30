@@ -98,7 +98,7 @@ export default function FutureItemView({ item }) {
                 
 
                 {/* 이미지 저장 버튼 */}
-                <DialogFooter className="flex justify-center mt-4 mb-6">
+                {/* <DialogFooter className="flex justify-center mt-4 mb-6">
                     <DoodleButton 
                         width={'200px'}
                         className='text-sm'
@@ -107,7 +107,7 @@ export default function FutureItemView({ item }) {
                     >
                         이미지 저장하기(개발중..)
                     </DoodleButton>
-                </DialogFooter>
+                </DialogFooter> */}
 
                 <DialogCloseTrigger>
                     <Image src="/x_icon.svg" alt="X" width={18} height={18} />

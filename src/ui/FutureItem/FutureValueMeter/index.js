@@ -66,7 +66,7 @@ export default function FutureValueMeter({modalState,isInbox, onDelete,isReceive
                                     담을래요
                                 </DoodleButton>
                             }
-                            {isReceive&&<DoodleButton variant='white' >이미지 저장</DoodleButton>}
+                            {/* {isReceive&&<DoodleButton variant='white' >이미지 저장</DoodleButton>} */}
                             </ValueMeterView>;
                 }
             })()}

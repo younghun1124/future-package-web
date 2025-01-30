@@ -1,7 +1,7 @@
-
 import { Gaegu } from "next/font/google";
 import "./globals.css";
 import { Provider } from "@/components/ui/provider"
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const gaegu = Gaegu({
   weight: ['300', '400', '700'],
@@ -26,7 +26,10 @@ export default function RootLayout({ children }) {
           as="image"
         /> */}
         <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js" async></script>
+        
       </head>
+
+      
       <body
         className={` antialiased text-base animate-fadeIn`}
         style={{
@@ -42,7 +45,8 @@ export default function RootLayout({ children }) {
               {children}
             </div>
         </Provider>
-      </body>        
+      </body>
+      <GoogleAnalytics gaId="G-GMKE6SG8RE" />        
     </html>
   );
 }

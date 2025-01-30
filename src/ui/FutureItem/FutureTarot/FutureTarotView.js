@@ -143,13 +143,13 @@ export default function FutureTarotView({ data, isReceiverView=false }) {
             </div>
             {showInterpretation &&  (
                 <>
-                    <DoodleButton 
+                    {/* <DoodleButton 
                         variant="white"
                         onClick={handleSaveImage}
                         className="my-4 mb-3 mx-auto"
                     >
                         이미지 저장
-                    </DoodleButton>
+                    </DoodleButton> */}
                 </>
             )}
         </>

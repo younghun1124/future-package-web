@@ -18,7 +18,7 @@ export default function FutureHologramView({ data, dataRef,handleInsertWithData,
         
             <Hologram data={hologramData} dataRef={dataRef} />
             
-            <DoodleButton variant="white"  onClick={()=>handleCapture(captureRef,"미래에서 온 홀로그램 장치")}>이미지 저장</DoodleButton>
+            {/* <DoodleButton variant="white"  onClick={()=>handleCapture(captureRef,"미래에서 온 홀로그램 장치")}>이미지 저장</DoodleButton> */}
         </div>
     );
 }

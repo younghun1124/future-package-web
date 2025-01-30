@@ -183,6 +183,7 @@ export default function ItemsPage() {
                     <div className="absolute pointer-events-none inset-0 z-50 bg-[url('https://storage.googleapis.com/future-box-cdn-public/static/assets/futurebox/futurebox_outside_2x.webp')] bg-cover bg-center bg-no-repeat" />
                 </div>
             </div>
+            {/* <DoodleButton>선물 저장하기</DoodleButton> */}
             <NavigateButton className='w-[300px]' href='/intro'>
                         나도 보내기
                     </NavigateButton>

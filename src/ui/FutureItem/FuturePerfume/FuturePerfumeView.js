@@ -30,7 +30,7 @@ export default function FuturePerfumeView({ dataRef, setModalState, sender, hand
 
             <div className="flex gap-2 mt-4">
                
-                <DoodleButton variant='white' >이미지 저장</DoodleButton>
+                {/* <DoodleButton variant='white' >이미지 저장</DoodleButton> */}
                
             </div>
         </div>
