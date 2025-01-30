@@ -6,15 +6,20 @@ const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
 const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
 
 export async function POST(request) {
+  console.log('\n=== 향수 생성 API 요청 시작 ===');
+  
   try {
     const { keywords } = await request.json();
 
     if (!keywords || !Array.isArray(keywords) || keywords.length !== 3) {
+      console.log('에러: 잘못된 키워드 입력');
       return NextResponse.json(
         { error: '정확히 3개의 키워드가 필요합니다.' },
         { status: 400 }
       );
     }
+
+    console.log('입력된 키워드:', keywords);
 
     const prompt = `
     당신은 2047년 외계인 향수 조향사로서, 과거에 있는 고객의 친구에게 향수를 만들어주는 역할을 합니다.
@@ -43,20 +48,21 @@ export async function POST(request) {
      설명: [열정과 목표 성취가 어우러져 자부심의 불꽃이 가슴을 채우는 향 향기]"
     `;
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const text = response.text().trim();
+    try {
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      const text = response.text().trim();
 
-    // AI 응답 텍스트 파싱
-    const nameMatch = text.match(/이름:\s*(.+)/);
-    const descriptionMatch = text.match(/설명:\s*(.+)/);
+      // AI 응답 텍스트 파싱
+      const nameMatch = text.match(/이름:\s*(.+)/);
+      const descriptionMatch = text.match(/설명:\s*(.+)/);
 
-    if (!nameMatch || !descriptionMatch) {
-      throw new Error('AI 응답 형식이 올바르지 않습니다.');
-    }
+      if (!nameMatch || !descriptionMatch) {
+        throw new Error('AI 응답 형식이 올바르지 않습니다.');
+      }
 
-    const name = nameMatch[1].trim();
-    const description = descriptionMatch[1].trim();
+      const name = nameMatch[1].trim();
+      const description = descriptionMatch[1].trim();
 
     return NextResponse.json({ 
       success: true,
@@ -65,11 +71,43 @@ export async function POST(request) {
       description: description
     });
 
+    } catch (error) {
+      console.error('AI 호출 중 에러:', error);
+      
+      // Gemini API 특정 에러 처리
+      if (error.message?.includes('503') || error.message?.includes('overloaded')) {
+        return NextResponse.json(
+          { 
+            success: false,
+            error: 'AI 서버가 과부하 상태입니다. 잠시 후 다시 시도해주세요.' 
+          },
+          { status: 503 }
+        );
+      }
+      
+      if (error.message?.includes('token') || error.message?.includes('limit')) {
+        return NextResponse.json(
+          { 
+            success: false,
+            error: '토큰 제한에 도달했습니다. 잠시 후 다시 시도해주세요.' 
+          },
+          { status: 429 }
+        );
+      }
+
+      throw error;
+    }
+
   } catch (error) {
     console.error('향수 설명 생성 중 오류 발생:', error);
     return NextResponse.json(
-      { error: '향수 설명 생성 중 오류가 발생했습니다.' },
+      { 
+        success: false,
+        error: '향수 설명 생성 중 오류가 발생했습니다.' 
+      },
       { status: 500 }
     );
+  } finally {
+    console.log('=== 향수 생성 API 요청 종료 ===\n');
   }
 }

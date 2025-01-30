@@ -11,6 +11,7 @@ export async function POST(request) {
     const imageFile = formData.get('image');
 
     if (!imageFile) {
+      console.log('에러: 이미지가 없음');
       return NextResponse.json(
         { error: '이미지가 필요합니다.' },
         { status: 400 }
@@ -47,42 +48,75 @@ export async function POST(request) {
     2047년: 미래 사회를 대표하는 레트로 아이템으로 자리잡았다. / 1200000
     `;
 
-    const result = await model.generateContent([prompt, ...imageParts]);
-    const response = await result.response;
-    const text = await response.text();
+    try {
+      const result = await model.generateContent([prompt, ...imageParts]);
+      const response = await result.response;
+      const text = await response.text();
 
-    // 텍스트 파싱
-    const predictions = text.split('\n')
-      .filter(line => line.trim())
-      .map(line => {
-        const [yearPart, rest] = line.split('년: ');
-        if (!rest) {
-          console.warn(`잘못된 형식의 라인: "${line}"`);
-          return null;
-        }
-        const [story, value] = rest.split(' / ');
-        if (!story || !value) {
-          console.warn(`스토리 또는 값이 누락된 라인: "${line}"`);
-          return null;
-        }
-        return {
-          year: parseInt(yearPart),
-          story: story.trim(),
-          value: parseInt(value)
-        };
-      })
-      .filter(prediction => prediction !== null);
+      // 텍스트 파싱
+      const predictions = text.split('\n')
+        .filter(line => line.trim())
+        .map(line => {
+          const [yearPart, rest] = line.split('년: ');
+          if (!rest) {
+            console.warn(`잘못된 형식의 라인: "${line}"`);
+            return null;
+          }
+          const [story, value] = rest.split(' / ');
+          if (!story || !value) {
+            console.warn(`스토리 또는 값이 누락된 라인: "${line}"`);
+            return null;
+          }
+          return {
+            year: parseInt(yearPart),
+            story: story.trim(),
+            value: parseInt(value)
+          };
+        })
+        .filter(prediction => prediction !== null);
 
-    return NextResponse.json({ 
-      success: true,
-      predictions
-    });
+      console.log('응답 생성에 성공했습니다.');
+
+      return NextResponse.json({ 
+        success: true,
+        predictions
+      });
+
+    } catch (error) {
+      // Gemini API 특정 에러 처리
+      if (error.message?.includes('503') || error.message?.includes('overloaded')) {
+        console.log('에러: AI 서버가 과부하 상태입니다.');
+        return NextResponse.json(
+          { 
+            success: false,
+            error: 'AI 서버가 과부하 상태입니다. 잠시 후 다시 시도해주세요.' 
+          },
+          { status: 503 }
+        );
+      }
+      
+      if (error.message?.includes('token') || error.message?.includes('limit')) {
+        console.log('에러: 토큰 제한에 도달했습니다.');
+        return NextResponse.json(
+          { 
+            success: false,
+            error: '토큰 제한에 도달했습니다. 잠시 후 다시 시도해주세요.' 
+          },
+          { status: 429 }
+        );
+      }
+
+      throw error; // 다른 에러는 기본 에러 핸들러로 전달
+    }
 
   } catch (error) {
     console.error('가치 측정 중 오류 발생:', error);
     return NextResponse.json(
-      { error: '가치 측정 중 오류가 발생했습니다.' },
+      { 
+        success: false,
+        error: '가치 측정 중 오류가 발생했습니다.' 
+      },
       { status: 500 }
     );
   }
-} 
+}
