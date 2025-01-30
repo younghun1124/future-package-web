@@ -25,4 +25,4 @@ export default function FuturePerfume({modalState, isInbox, onDelete, setModalSt
             })()}
         </>
     );
-} 
+}
