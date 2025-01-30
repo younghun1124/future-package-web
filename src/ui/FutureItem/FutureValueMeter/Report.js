@@ -79,7 +79,7 @@ export default function Report({ measureData, className, isOpen, setIsOpen }) {
     const latestPrediction = measureData?.[measureData.length - 1];
 
     return (
-        <div className={`w-[280px] flex flex-col self-center items-center p-4 text-accent h-[560px] bg-[#444F4A] rounded-[18px] border-2 border-[#1decac] ${className}`}>
+        <div className={`w-[280px] flex flex-col self-center items-center p-4 text-accent bg-[#444F4A] rounded-[18px] border-2 border-[#1decac] ${className}`}>
             <div className="text-center mb-4">
                 <h2 className="text-lg mb-2">분석 보고서</h2>
                 <div className="text-2xl mb-2">
