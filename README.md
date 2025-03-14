@@ -1,36 +1,214 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+### https://future-package-web.vercel.app/
 
-## Getting Started
+https://www.notion.so/2047-1b16033bf179809eb806d3cb17fb2439
 
-First, run the development server:
+## **1. 한 줄 소개**
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<2047에서 온 선물>은 사용자가 UFO를 이끄는 외계인 기사님의 도움을 받아 미래에서 현재의 친구에게 특별한 선물을 배달해준다는 상상력 가득한 컨셉의 웹 프로젝트입니다. 
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+이 프로젝트는 맞춤 제작한 선물이 들어있는 메신저 링크를 전송함으로써 간편하고 장난스럽게 지인들과 소통할 수 있는 기회를 제공합니다.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## 2**. 팀원 및 역할 분배**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| 이름 | 소속 | 구분 | 역할 |
+| --- | --- | --- | --- |
+| **정영훈** | 서울과학기술대학교 컴퓨터공학과 | 개발팀 | 프론트엔드 |
+| **배준서** | 서울과학기술대학교 컴퓨터공학과 | 개발팀 | 백엔드 |
+| **김희진** | 서울과학기술대학교 산업디자인학과 | 디자인팀 | 디자인 |
+| **강현수** | 서울과학기술대학교 산업디자인학과 | 디자인팀 | 디자인 |
 
-## Learn More
+## 3. 서비스 기획
 
-To learn more about Next.js, take a look at the following resources:
+### 서비스 기획 배경
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+디지털 시대에 맞춘 새로운 형태의 소통 방식을 고민하며, 기존 메시지 서비스의 한계점과 사용자들의 니즈를 심층적으로 분석했습니다. 
 
-## Deploy on Vercel
+가까운 관계에서 텍스트와 이모티콘 외에 새로운 메세지를 전달하고자 외계인을 전달자로 두고 선물을 배송하는 서비스를 기획했습니다.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### **프로젝트 주요기능**
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- 친구에게 커스텀 선물 담아 메신저로 전송
+- 서비스 세계관 설명 페이지
+- 친구에게 받은 선물 확인
+- 생성형 AI 기반 맞춤형 선물 생성
+
+### 타겟 유저 및 페르소나
+
+---
+
+가까운 사람들과의 관계를 특별한 방식으로 이어가고 싶은 MZ세대를 주요 타겟으로 설정했습니다.
+
+디지털 네이티브이면서도 정성이 담긴 아날로그적 감성을 좋아하는 니즈를 반영하여 아이템을 구성했습니다.
+
+### 핵심 기능 선정 과정
+
+---
+
+2차례에 걸친 상세한 프로토타입 검증 과정에서 실제 사용자들의 피드백을 수집하고 분석하여 이를 바탕으로 최종적인 핵심 기능들을 확정했습니다. 
+
+이 과정에서 사용자 경험을 최우선으로 고려하여 불필요한 기능은 과감히 제외하고 핵심 가치를 전달할 수 있는 기능들을 선별적으로 채택했습니다.
+
+### 배송 아이템
+
+<aside>
+[**✉️ 쪽지**](https://www.notion.so/1b16033bf179803c8228c7146c37e1ce?pvs=21)
+
+친구에게 전하고 싶은 메세지를 적어 보내거나, 이모지로 변환하여 보낼 수 있습니다.
+
+</aside>
+
+<aside>
+[**📱 홀로그램 장치**](https://www.notion.so/1b46033bf1798054b1cbc1db0f8b58ab?pvs=21)
+
+친구와 함께했던 순간을 홀로그램 장치와 함께 과거로 보낼 수 있습니다.
+
+</aside>
+
+<aside>
+[**🪞 미래를 비추는 거울**](https://www.notion.so/1b46033bf179804c8eb9cb95cd45d6be?pvs=21)
+
+미래 모습을 그려 보내면, 친구가 거울을 통해 자신의 미래 모습을 확인할 수 있습니다.
+
+</aside>
+
+<aside>
+[**🔮 타로 카드**](https://www.notion.so/1b46033bf179809ba1a2edaa26488b0e?pvs=21)
+
+친구의 미래 운명을 보여줄 카드를 골라 자신만의 해석을 적어 보낼 수 있습니다. 
+
+</aside>
+
+<aside>
+[**🌸 기억의 향수**](https://www.notion.so/1b4349fdbb858047b38bf769a5e23ad1?pvs=21)
+
+친구와 추억에 대한 질문에 답하면, 우리의 관계를 담은 향을 만들어 보낼 수 있습니다.
+
+</aside>
+
+<aside>
+[**🎁 기프트카드**](https://www.notion.so/1b46033bf17980f2a376ee8eb02aa4d3?pvs=21)
+
+미래에 개봉된 영화 티켓과 출시 전인 기프티콘, 발명품을 미리 보내줄 수 있습니다.
+
+</aside>
+
+<aside>
+[**📊 미래 가치**  **측정기**](https://www.notion.so/1b46033bf1798080b71ffbdc53175960?pvs=21)
+
+보유하고 있는 물건의 미래 값 어치를 확인할 수 있습니다.
+
+</aside>
+
+## 4**. 개발 과정**
+
+### 협업 툴
+
+- 작업 관리: Trello
+- 비대면 회의: Discord
+- 아이디어 회의: Figjam
+
+[디자인](https://www.notion.so/1b46033bf17980a6bf38d388d92b9bec?pvs=21)
+
+[Front-End](https://www.notion.so/Front-End-1b46033bf1798027973cf14a51414154?pvs=21)
+
+[Back-End](https://www.notion.so/Back-End-1b36033bf17980ef9591f730bb38b73c?pvs=21)
+
+### 개발 일정 및 진행 과정
+
+**12월**
+
+- 1주차 : 문제 정의, 린 캔버스, 해피 패스 설계, 1차 선배님 피드백
+- 2주차 : 데일리 스크럼 진행. 아이디어 브레인스토밍, 피그마 프로토타입 제작, API 스펙 정의
+- 3주차 : 디자인 에셋 제작, 프론트엔드/백엔드 개발, 카카오톡 메세지 보내기 기능 구현
+- 4주차 : 1차 테스트 배포. 1차 사용자 피드백 수집. 2차 선배님 피드백, 기능 회의
+
+**1월**
+
+- 1주차 : 관리자 페이지 제작, 유저 피드백 기반 기획 방향 설정, 추가 아이템 기획
+- 2주차 : 추가 디자인 에셋 제작, UI 개선, 세계관 설명 페이지 디자인, 관리자 페이지 개선
+- 3주차 : 생성형 AI 기반 아이템 구현
+- 4주차 : 이벤트 로깅 기능 구현, 실 배포 시작, 프로젝트 회고
+
+[프로젝트 진행 일정](https://www.notion.so/1b16033bf1798015bdc7fba801574822?pvs=21)
+
+## 5**. 결과물 및 배포 링크**
+
+### 서비스 화면 결과물
+
+![landing.png](attachment:784a7969-2722-406c-bde9-72870fd2a2e0:landing.png)
+
+![image.png](attachment:89095373-d98b-4771-ba1a-3bf04e4f6a48:image.png)
+
+![iPhone 13 & 14 - 100.png](attachment:bf5232f6-2c9b-49d4-9fc4-2f28019d1134:iPhone_13__14_-_100.png)
+
+![iPhone 13 & 14 - 23 (1).png](attachment:ed5250c7-51ed-42f5-89f9-d11c31a5f9bd:iPhone_13__14_-_23_(1).png)
+
+![iPhone 13 & 14 - 73.png](attachment:b7d37e3d-8fe2-41b4-81d4-ccd5abb65757:iPhone_13__14_-_73.png)
+
+![iPhone 13 & 14 - 17.png](attachment:6c112ecb-c248-4eef-ba20-6e58983135e2:iPhone_13__14_-_17.png)
+
+### https://future-package-web.vercel.app/
+
+## 6**. 성과 및 피드백**
+
+### 일별 선물 전송 그래프
+
+![image.png](attachment:ba845223-e0ea-4e5e-9445-d7389ece0fb1:image.png)
+
+![image.png](attachment:a4cb3755-d6b7-49b4-8e31-f490f13b7d3f:image.png)
+
+### 구글 애널리틱스 유저 지표
+
+![image.png](attachment:a2c47c73-a69f-4484-9aeb-6605ebb8a4e1:5cc2a3f3-7921-43df-a3f8-bd6423e4cb1a.png)
+
+### 결과
+
+대부분의 아이템들이 사용자에게 60퍼센트에 가까운 사용률을 얻었으며, 기획과 사용자 피드백이 적절히 잘 이루어졌다.
+
+반복적인 프로토타입 테스트로 초기 대비 사용성이 크게 개선된 모습을 확인할 수 있다.
+
+### 사용자 피드백
+
+👍 주제가 신박하고 재밌다.
+
+👍 화면 인터페이스가 컨셉과 잘 어울려서 몰입하기 좋다.
+
+👍 기능이 직관적이라 쉽게 사용할 수 있다.
+
+👍 사용자가 직접 아이템을 커스텀할 수 있다보니 정말 선물을 주고받는 느낌이 든다.
+
+👍 간편하고 장난스럽게 지인들과 소통할 수 있는 즐거운 경험이었다.
+
+👍 앞으로 더 업데이트하면 정말 재밌는 서비스가 될 것 같다.
+
+👍 1차 사용했을 때 보다 흐름이 자연스럽고 재밌는 기능이 많아졌다.
+
+---
+
+👎아이템이 겹쳐져 있어 개별적으로 여는 것 이라는 걸 잘 알아차리기 힘들다.
+
+👎 그리기 아이템을 사용할 때 화면이 움직여서 불편하다.
+
+👎 인스타 스토리 등 SNS 공유 기능이 없어서 아쉽다.
+
+### 향후 개선
+
+다양한 화면 크기를 지원하는 반응형 웹으로 개선
+
+일방적인 설명 아이템 (ex. 기프티콘)에는 관심이 떨어지므로, 사용자의 특성을 반영한 정성스러운 과정과 상호작용 요소가 강한 아이템 중심으로 강화
+
+재미있는 아이템이라도 다수의 친구에게 반복적으로 보내는 과정에서 흥미가 감소하는 모습을 보이므로 지속적인 서비스 이용의 동기부여 필요
+
+받는 입장 뿐만 아니라 보내는 입장에서도 재미있는 요소를 추가해 배포 활성화 필요
+
+오류가 발생했을 때 사용자가 인지할 수 있도록 원인 공지 필요
+
+## 7**. 깃허브 & 추가 자료**
+
+- https://github.com/younghun1124/future-package-web
+- https://github.com/bebeis/futurebox (Admin Server)
+- [유비쿼터스 언어](https://docs.google.com/document/d/1mWMqqNkqfXiwqg1ifdorEjU-J97-6xA4TsQYLiYGtXw/edit?tab=t.0)
+- Figma, API 문서, 데이터 설계 자료 등
+- [API 문서](https://github.com/younghun1124/future-package-web/blob/main/apispec.md)
